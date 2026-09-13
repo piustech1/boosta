@@ -21,12 +21,15 @@ export const HeroDuduPortal: React.FC<HeroDuduPortalProps> = ({ parallaxOffset =
 
   return (
     <div 
-      className="hero-asset-card irregular-dudu" 
-      id="heroAssetCard"
+      className="hero-portal-wrapper" 
       style={{
         transform: `translate(${parallaxOffset.x * 0.8}px, ${parallaxOffset.y * 0.8}px)`
       }}
     >
+      <div 
+        className="hero-asset-card irregular-dudu doodle-animated" 
+        id="heroAssetCard"
+      >
       {/* Ambient Liquid Backlight Halo & Specular Refraction */}
       <div className="character-halo" aria-hidden="true" />
       <div className="liquid-rim-glow" aria-hidden="true" />
@@ -78,5 +81,6 @@ export const HeroDuduPortal: React.FC<HeroDuduPortalProps> = ({ parallaxOffset =
         )}
       </div>
     </div>
+  </div>
   );
 };

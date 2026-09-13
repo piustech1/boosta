@@ -484,6 +484,17 @@ html, body {
    HERO CHARACTER — PREMIUM LIQUID GLASS AURA PORTAL
    The person is the STAR — everything designed around them
    ========================================================= */
+/* Hero portal parallax & entry wrapper */
+.hero-portal-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  animation: heroEnter 0.9s var(--ease-out) both;
+  z-index: 2;
+}
+
 .hero-asset-card.irregular-dudu {
   position: relative;
   display: flex;
@@ -510,29 +521,60 @@ html, body {
     0 8px 20px -4px rgba(26, 10, 46, 0.06),
     inset 0 3px 6px 0 rgba(255, 255, 255, 1),
     inset 0 -4px 14px 0 rgba(124, 58, 237, 0.08);
-  animation: morphIrregularDudu 14s ease-in-out infinite alternate;
   /* overflow: visible — person intentionally breaks out of aura */
   overflow: visible;
-  /* Entrance animation */
-  animation: morphIrregularDudu 14s ease-in-out infinite alternate, heroEnter 0.9s var(--ease-out) both;
+  /* Unlimited continuous doodling & wiggling */
+  animation: 
+    doodleMorph 8s ease-in-out infinite,
+    doodleWiggle 5.5s ease-in-out infinite alternate;
+  transform-origin: center 75%;
+  will-change: transform, border-radius;
 }
 
-@keyframes morphIrregularDudu {
+/* Unlimited Doodling — continuous fluid organic border-radius morphing */
+@keyframes doodleMorph {
   0% {
     border-radius: 58% 42% 64% 36% / 46% 58% 42% 54%;
-    transform: translateY(0) scale(1);
   }
-  33% {
-    border-radius: 46% 54% 42% 58% / 58% 44% 56% 42%;
-    transform: translateY(-8px) scale(1.01);
+  18% {
+    border-radius: 42% 58% 38% 62% / 56% 44% 56% 44%;
   }
-  66% {
-    border-radius: 64% 36% 56% 44% / 42% 62% 38% 58%;
-    transform: translateY(-4px) scale(0.995);
+  36% {
+    border-radius: 64% 36% 52% 48% / 38% 62% 38% 62%;
+  }
+  54% {
+    border-radius: 38% 62% 46% 54% / 58% 42% 62% 38%;
+  }
+  72% {
+    border-radius: 52% 48% 64% 36% / 44% 56% 44% 56%;
+  }
+  88% {
+    border-radius: 44% 56% 40% 60% / 60% 40% 58% 42%;
   }
   100% {
     border-radius: 58% 42% 64% 36% / 46% 58% 42% 54%;
-    transform: translateY(0) scale(1);
+  }
+}
+
+/* Unlimited Wiggling — lively organic wobble, float & subtle tilt */
+@keyframes doodleWiggle {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1, 1);
+  }
+  20% {
+    transform: translateY(-5px) rotate(1.5deg) scale(1.014, 0.988);
+  }
+  40% {
+    transform: translateY(-9px) rotate(-1.2deg) scale(0.99, 1.014);
+  }
+  65% {
+    transform: translateY(-4px) rotate(1.8deg) scale(1.01, 0.992);
+  }
+  85% {
+    transform: translateY(-8px) rotate(-0.8deg) scale(0.988, 1.01);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1, 1);
   }
 }
 
@@ -552,6 +594,18 @@ html, body {
   );
   filter: blur(32px);
   pointer-events: none;
+  animation: haloWiggle 6s ease-in-out infinite alternate;
+}
+
+@keyframes haloWiggle {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.08) translate(4px, -5px);
+    opacity: 1;
+  }
 }
 
 /* Second ambient layer — pink accent */
@@ -581,6 +635,24 @@ html, body {
     inset 0 2px 4px rgba(255, 255, 255, 0.95),
     inset 0 -4px 12px rgba(124, 58, 237, 0.06);
   pointer-events: none;
+  animation: rimShimmer 4s ease-in-out infinite alternate;
+}
+
+@keyframes rimShimmer {
+  0%, 100% {
+    opacity: 0.85;
+    box-shadow: 
+      inset 0 0 20px rgba(255, 255, 255, 0.8),
+      inset 0 2px 4px rgba(255, 255, 255, 0.95),
+      inset 0 -4px 12px rgba(124, 58, 237, 0.05);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 
+      inset 0 0 28px rgba(255, 255, 255, 0.95),
+      inset 0 3px 6px rgba(255, 255, 255, 1),
+      inset 0 -5px 16px rgba(236, 72, 153, 0.1);
+  }
 }
 
 .character-wrapper {
