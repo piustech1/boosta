@@ -146,15 +146,17 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             <div className="dudu-halo" />
           </div>
 
-          {/* Mickey Cutout Asset */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/assets/mickey.png"
-            alt="Mickey Waving"
-            className="auth-mickey-cutout"
-          />
+          {/* Mickey Cutout Asset inside positioning wrapper */}
+          <div className="auth-mickey-wrapper">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/mickey.png"
+              alt="Mickey Waving"
+              className="auth-mickey-cutout"
+            />
+          </div>
 
-          {/* Front Bottom Lip of Wiggling Container: Slightly covers bottom part of Mickey */}
+          {/* Front Frosted Liquid Glass Lip: Strongly covers the downer part even while wiggling */}
           <div className="auth-dudu-front-lip doodle-animated" aria-hidden="true" />
 
           {/* Speech Bubble fixed directly ON the Mickey asset */}
