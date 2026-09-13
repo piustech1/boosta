@@ -715,121 +715,207 @@ html, body {
   text-transform: uppercase;
 }
 
-.modern-platforms-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  width: 100%;
-}
-
-.platform-card {
-  position: relative;
+/* =========================================================
+   FREEPIK-STYLE LAYERED LIQUID ORGANIC BLOBS (TEXTLESS)
+   ========================================================= */
+.supported-services-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 12px 4px 10px 4px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1.2px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 
-    0 14px 30px -8px rgba(0, 49, 82, 0.1),
-    0 2px 6px 0 rgba(0, 49, 82, 0.04),
-    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
-  cursor: pointer;
-  outline: none;
-  overflow: hidden;
-  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease, background 0.25s ease;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 6px;
 }
 
-.platform-card:hover {
-  transform: translateY(-3px) scale(1.03);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 
-    0 18px 36px -8px rgba(0, 49, 82, 0.15),
-    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
-}
-
-.platform-card.platform-active {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 
-    0 20px 40px -10px rgba(0, 49, 82, 0.2),
-    0 0 0 1.5px #25F4EE,
-    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
-  transform: translateY(-2px) scale(1.04);
-}
-
-.card-energy-sheen {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(37, 244, 238, 0.18) 0%, rgba(254, 44, 85, 0.12) 100%);
-  pointer-events: none;
-}
-
-.platform-icon-bubble {
+.fluid-blobs-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 13px;
+  gap: 14px;
+  width: 100%;
+  padding: 8px 4px;
+}
+
+.liquid-blob-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.liquid-blob-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.liquid-blob-btn:active {
+  transform: scale(0.94);
+}
+
+.liquid-blob-btn.blob-active {
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* Outer Translucent Shadow Blob Layer */
+.blob-aura-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 60% 40% 65% 35% / 45% 55% 45% 55%;
+  opacity: 0.38;
+  filter: blur(2px);
+  transition: opacity 0.3s ease, transform 0.3s ease, border-radius 0.4s ease;
+  animation: blobSway 10s ease-in-out infinite alternate;
+}
+
+.liquid-blob-btn:hover .blob-aura-layer,
+.liquid-blob-btn.blob-active .blob-aura-layer {
+  opacity: 0.7;
+  transform: scale(1.12);
+  filter: blur(4px);
+}
+
+/* Satellite Fluid Droplet */
+.blob-droplet {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50% 40% 60% 50%;
+  z-index: 2;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+/* Main Vivid Organic Blob Center */
+.blob-core-layer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 52% 48% 60% 40% / 46% 54% 46% 54%;
+  box-shadow: 
+    0 12px 24px -4px rgba(0, 0, 0, 0.25),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.45);
+  z-index: 3;
+  transition: transform 0.3s var(--ease-spring), border-radius 0.3s ease, box-shadow 0.3s ease;
+  animation: blobMorphCore 8s ease-in-out infinite alternate;
+}
+
+.liquid-blob-btn:hover .blob-core-layer,
+.liquid-blob-btn.blob-active .blob-core-layer {
+  box-shadow: 
+    0 16px 30px -4px rgba(0, 0, 0, 0.35),
+    inset 0 2px 4px 0 rgba(255, 255, 255, 0.7);
+}
+
+.blob-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
   transition: transform 0.25s var(--ease-spring);
 }
 
-.platform-card:hover .platform-icon-bubble,
-.platform-card.platform-active .platform-icon-bubble {
-  transform: scale(1.08);
+.liquid-blob-btn:hover .blob-icon-wrap {
+  transform: scale(1.12);
 }
 
-.ig-glow-box {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(220, 39, 67, 0.4);
+/* --- 1. Instagram Blob Theme --- */
+.instagram-blob .blob-aura-layer {
+  background: radial-gradient(circle, #bc1888 0%, #dc2743 70%, transparent 100%);
+}
+.instagram-blob .blob-droplet {
+  top: 6px;
+  left: 5px;
+  background: #f09433;
+  box-shadow: 0 0 8px #f09433;
+}
+.instagram-blob .blob-core-layer {
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 22%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
 
-.tt-glow-box {
+/* --- 2. TikTok Blob Theme --- */
+.tiktok-blob .blob-aura-layer {
+  background: radial-gradient(circle, #25F4EE 0%, #FE2C55 70%, transparent 100%);
+}
+.tiktok-blob .blob-droplet {
+  top: 4px;
+  right: 6px;
+  background: #25F4EE;
+  box-shadow: 0 0 8px #25F4EE;
+}
+.tiktok-blob .blob-core-layer {
   background: #000000;
-  color: #FFFFFF;
-  box-shadow: -1.5px -1.5px 0 #25F4EE, 1.5px 1.5px 0 #FE2C55, 0 4px 14px rgba(37, 244, 238, 0.3);
+  border: 1.5px solid rgba(37, 244, 238, 0.6);
+  box-shadow: 
+    -2px -2px 10px rgba(37, 244, 238, 0.4),
+    2px 2px 10px rgba(254, 44, 85, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-.tg-glow-box {
-  background: #24A1DE;
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(36, 161, 222, 0.4);
+/* --- 3. Telegram Blob Theme --- */
+.telegram-blob .blob-aura-layer {
+  background: radial-gradient(circle, #0088cc 0%, #005599 70%, transparent 100%);
+}
+.telegram-blob .blob-droplet {
+  bottom: 5px;
+  right: 6px;
+  background: #25F4EE;
+  box-shadow: 0 0 8px #25F4EE;
+}
+.telegram-blob .blob-core-layer {
+  background: linear-gradient(135deg, #2AABEE 0%, #229ED9 50%, #0088cc 100%);
 }
 
-.yt-glow-box {
-  background: #FF0000;
-  color: #FFFFFF;
-  box-shadow: 0 4px 14px rgba(255, 0, 0, 0.4);
+/* --- 4. YouTube Blob Theme --- */
+.youtube-blob .blob-aura-layer {
+  background: radial-gradient(circle, #FF0000 0%, #880000 70%, transparent 100%);
+}
+.youtube-blob .blob-droplet {
+  bottom: 6px;
+  left: 6px;
+  background: #FF4444;
+  box-shadow: 0 0 8px #FF4444;
+}
+.youtube-blob .blob-core-layer {
+  background: linear-gradient(135deg, #FF1E1E 0%, #E60000 55%, #B30000 100%);
 }
 
-.platform-title {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--color-dark-azure);
-  letter-spacing: -0.01em;
+/* Smooth Liquid Organic Morphs */
+@keyframes blobSway {
+  0% {
+    border-radius: 60% 40% 65% 35% / 45% 55% 45% 55%;
+    transform: rotate(0deg);
+  }
+  50% {
+    border-radius: 45% 55% 40% 60% / 55% 45% 55% 45%;
+    transform: rotate(4deg);
+  }
+  100% {
+    border-radius: 65% 35% 55% 45% / 40% 60% 40% 60%;
+    transform: rotate(-3deg);
+  }
 }
 
-.platform-tag {
-  font-size: 0.58rem;
-  font-weight: 700;
-  color: rgba(0, 49, 82, 0.65);
-  background: rgba(0, 49, 82, 0.06);
-  padding: 2px 6px;
-  border-radius: var(--radius-pill);
-  letter-spacing: -0.01em;
-}
-
-.platform-card.platform-active .platform-tag {
-  background: rgba(0, 49, 82, 0.12);
-  color: var(--color-dark-azure);
+@keyframes blobMorphCore {
+  0% {
+    border-radius: 52% 48% 60% 40% / 46% 54% 46% 54%;
+  }
+  50% {
+    border-radius: 46% 54% 42% 58% / 54% 46% 56% 44%;
+  }
+  100% {
+    border-radius: 58% 42% 52% 48% / 44% 56% 42% 58%;
+  }
 }
 
 /* =========================================================
