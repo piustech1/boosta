@@ -209,12 +209,13 @@ html, body {
    FLOATING TOP APP BAR (DETACHED PILL)
    ========================================================= */
 .floating-appbar-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   padding-bottom: 4px;
-  z-index: 10;
+  z-index: 25;
 }
 
 .floating-appbar {
@@ -240,18 +241,310 @@ html, body {
   gap: 8px;
 }
 
+/* Larger Boosta Official Logo Image */
 .brand-logo-img {
-  height: 25px;
+  height: 34px;
   width: auto;
-  max-width: 95px;
+  max-width: 140px;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 2px 6px rgba(124, 58, 237, 0.18));
+  filter: drop-shadow(0 2px 8px rgba(124, 58, 237, 0.22));
   transition: transform 0.22s var(--ease-spring);
 }
 
 .brand-logo-img:hover {
   transform: scale(1.04);
+}
+
+/* Menu Toggle Button Active State */
+.icon-bubble.menu-trigger-active {
+  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(124, 58, 237, 0.35);
+  color: var(--boosta-violet);
+  transform: scale(1.05);
+}
+
+/* =========================================================
+   HANGING ROPE MENU FEATURE (ONE-LINE SUSPENDED SHELF)
+   ========================================================= */
+
+/* Very subtle backdrop overlay */
+.hanging-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 50, 74, 0.06);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 18;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.hanging-menu-backdrop.backdrop-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* The Suspended Structure Container */
+.hanging-menu-container {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 420px;
+  z-index: 22;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hanging-menu-container.menu-open {
+  pointer-events: auto;
+  opacity: 1;
+  animation: hangingDropSwing 0.7s cubic-bezier(0.34, 1.25, 0.64, 1) both;
+}
+
+.hanging-menu-container:not(.menu-open) {
+  animation: hangingRetract 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Two Physical Suspended Ropes */
+.hanging-rope {
+  position: absolute;
+  top: -4px;
+  width: 4px;
+  height: 34px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hanging-rope.rope-left {
+  left: 36px;
+}
+
+.hanging-rope.rope-right {
+  right: 36px;
+}
+
+/* Metallic anchor ring fixed under appbar */
+.rope-anchor-top {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E2E8F0 0%, #94A3B8 100%);
+  border: 1.5px solid #CBD5E1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+  flex-shrink: 0;
+}
+
+/* Realistic woven braided rope cord */
+.rope-cord {
+  width: 3.5px;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #C29B62 0px,
+    #C29B62 2.5px,
+    #9E743A 2.5px,
+    #9E743A 4.5px,
+    #DFBF8E 4.5px,
+    #DFBF8E 6.5px
+  );
+  border-radius: 2px;
+  box-shadow: 1px 2px 4px rgba(26, 10, 46, 0.2);
+}
+
+/* Knot / Eyelet ring attaching rope to the shelf */
+.rope-knot-bottom {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #A8834E;
+  border: 1.5px solid #F3DFC1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+/* Compact Single-Line Suspended Navigation Shelf */
+.hanging-nav-shelf {
+  position: relative;
+  margin-top: 24px;
+  width: 100%;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1.2px solid rgba(255, 255, 255, 0.98);
+  border-radius: 20px;
+  box-shadow: 
+    0 16px 36px -8px rgba(124, 58, 237, 0.18),
+    0 4px 12px rgba(26, 10, 46, 0.06),
+    inset 0 1px 2px rgba(255, 255, 255, 1);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* Subtle top Boosta brand gradient rim */
+.shelf-gradient-rim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: var(--boosta-gradient);
+  opacity: 0.9;
+}
+
+/* Horizontal single-line scrollable list */
+.shelf-items-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  padding: 0 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.shelf-items-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* Navigation Link */
+.shelf-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-dark-azure);
+  text-decoration: none;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.shelf-nav-link:hover {
+  background: rgba(124, 58, 237, 0.08);
+  color: var(--boosta-violet);
+}
+
+.shelf-nav-link.active {
+  background: rgba(124, 58, 237, 0.10);
+  color: var(--boosta-violet);
+  font-weight: 700;
+}
+
+.link-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--boosta-gradient);
+}
+
+/* Vertical divider between links and action buttons */
+.shelf-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(26, 10, 46, 0.12);
+  flex-shrink: 0;
+  margin: 0 3px;
+}
+
+/* Log In Button */
+.shelf-login-btn {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-dark-azure);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.shelf-login-btn:hover {
+  background: rgba(26, 10, 46, 0.06);
+}
+
+/* Get Started Mini CTA Button */
+.shelf-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--boosta-gradient);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  transition: transform 0.18s var(--ease-spring), box-shadow 0.2s ease;
+}
+
+.shelf-cta-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.45);
+}
+
+.shelf-cta-btn:active {
+  transform: scale(0.96);
+}
+
+/* Physical drop & swing keyframes */
+@keyframes hangingDropSwing {
+  0% {
+    opacity: 0;
+    transform: translateY(-34px) scaleY(0.68) rotate(-1.5deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(6px) scaleY(1.02) rotate(1.4deg);
+  }
+  75% {
+    transform: translateY(-2px) scaleY(0.99) rotate(-0.7deg);
+  }
+  90% {
+    transform: translateY(1px) scaleY(1) rotate(0.3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes hangingRetract {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scaleY(0.7) rotate(-1deg);
+  }
 }
 
 .appbar-actions {

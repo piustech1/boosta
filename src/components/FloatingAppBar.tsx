@@ -1,8 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { HangingRopeMenu } from './HangingRopeMenu';
 
 export const FloatingAppBar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+  const toggleMenu = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(15);
+    }
+    setIsMenuOpen(prev => !prev);
+  };
+
   return (
     <header className="floating-appbar-wrapper">
       <nav className="floating-appbar glass-pill">
@@ -16,14 +26,8 @@ export const FloatingAppBar: React.FC = () => {
           />
         </div>
 
-        {/* Relative Action Icons on the Right */}
+        {/* Action Icons on the Right */}
         <div className="appbar-actions">
-          {/* Live Engine Speed Badge */}
-          <div className="status-chip glass-pill">
-            <span className="status-pulse-dot" />
-            <span className="status-text">All systems online</span>
-          </div>
-
           {/* Notification / Live Updates Bell */}
           <button className="icon-bubble glass-pill" aria-label="Notifications">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -33,16 +37,31 @@ export const FloatingAppBar: React.FC = () => {
             <span className="unread-dot" aria-hidden="true" />
           </button>
 
-          {/* Quick Menu / Sparkle Icon */}
-          <button className="icon-bubble glass-pill" aria-label="Menu">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="1.5" />
-              <circle cx="19" cy="12" r="1.5" />
-              <circle cx="5" cy="12" r="1.5" />
-            </svg>
+          {/* Quick Menu / Three-Dots Toggle Trigger */}
+          <button 
+            className={`icon-bubble glass-pill ${isMenuOpen ? 'menu-trigger-active' : ''}`}
+            aria-label={isMenuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={isMenuOpen}
+            onClick={toggleMenu}
+          >
+            {isMenuOpen ? (
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="1.5" />
+                <circle cx="19" cy="12" r="1.5" />
+                <circle cx="5" cy="12" r="1.5" />
+              </svg>
+            )}
           </button>
         </div>
       </nav>
+
+      {/* Hanging Rope Menu Feature */}
+      <HangingRopeMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </header>
   );
 };
