@@ -1865,11 +1865,11 @@ html, body {
   min-height: 0;
   overflow: hidden;
   justify-content: space-between;
-  padding: 8px 0 6px 0;
+  padding: 6px 0 4px 0;
 }
 
 /* =========================================================
-   1. INLINE HERO: Prominent Mickey Asset + Styled Typography
+   1. INLINE HERO: Prominent Mickey Asset + Clean Bold Title
    ========================================================= */
 .auth-inline-hero {
   display: flex;
@@ -1878,8 +1878,8 @@ html, body {
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  margin-top: 4px;
-  margin-bottom: 6px;
+  margin-top: 2px;
+  margin-bottom: 4px;
   flex-shrink: 0;
 }
 
@@ -1892,41 +1892,14 @@ html, body {
   min-width: 0;
 }
 
-.auth-inline-tracker-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.auth-tracker-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #7357FF;
-}
-
-.tracker-glow-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #7357FF;
-  box-shadow: 0 0 8px #7357FF;
-  animation: pulseBeacon 2s infinite;
-}
-
 .auth-inline-headline {
   font-family: var(--font-syne), 'Syne', sans-serif;
-  font-size: clamp(1.28rem, 5vw, 1.55rem);
+  font-size: clamp(1.30rem, 5vw, 1.58rem);
   font-weight: 800;
   line-height: 1.12;
   color: #182033;
   letter-spacing: -0.03em;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
   text-align: left;
 }
 
@@ -1934,15 +1907,6 @@ html, body {
   background: linear-gradient(135deg, #7357FF 0%, #ED5FC9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.auth-inline-subtext {
-  font-size: 0.74rem;
-  font-weight: 500;
-  color: #6D7587;
-  margin: 0 0 6px 0;
-  text-align: left;
-  white-space: nowrap;
 }
 
 .auth-inline-bubble {
@@ -1983,8 +1947,8 @@ html, body {
 /* Right: Prominent Mickey Asset with Doodling Liquid Dudu */
 .auth-inline-asset-wrap {
   position: relative;
-  width: 140px;
-  height: 165px;
+  width: 130px;
+  height: 145px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -2008,9 +1972,9 @@ html, body {
   -webkit-backdrop-filter: blur(20px);
   border: 1.8px solid rgba(255, 255, 255, 0.96);
   box-shadow: 
-    0 20px 42px -8px rgba(115, 87, 255, 0.22),
-    0 10px 22px -4px rgba(237, 95, 201, 0.14),
-    inset 0 2px 5px rgba(255, 255, 255, 1);
+    0 18px 36px -8px rgba(115, 87, 255, 0.22),
+    0 8px 18px -4px rgba(237, 95, 201, 0.14),
+    inset 0 2px 4px rgba(255, 255, 255, 1);
   animation: 
     doodleMorph 8s ease-in-out infinite,
     doodleWiggle 5.5s ease-in-out infinite alternate;
@@ -2020,7 +1984,7 @@ html, body {
 
 .dudu-halo {
   position: absolute;
-  inset: -12px;
+  inset: -10px;
   background: radial-gradient(circle at 50% 50%, rgba(237, 95, 201, 0.18), transparent 70%);
   border-radius: 50%;
   pointer-events: none;
@@ -2029,12 +1993,12 @@ html, body {
 .auth-mickey-cutout {
   position: relative;
   z-index: 2;
-  height: 160px;
+  height: 140px;
   width: auto;
   max-width: 100%;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 6px 14px rgba(26, 10, 46, 0.18));
+  filter: drop-shadow(0 5px 12px rgba(26, 10, 46, 0.16));
   pointer-events: none;
 }
 
@@ -2045,8 +2009,8 @@ html, body {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 6px;
   flex-shrink: 0;
 }
 
@@ -2056,7 +2020,7 @@ html, body {
   grid-template-columns: 1fr 1fr;
   width: 100%;
   max-width: 250px;
-  height: 38px;
+  height: 36px;
   padding: 3px;
   background: rgba(255, 255, 255, 0.48);
   backdrop-filter: blur(20px);
@@ -2077,7 +2041,7 @@ html, body {
   border: none;
   background: transparent;
   font-family: inherit;
-  font-size: 0.80rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: #6D7587;
   cursor: pointer;
@@ -2167,22 +2131,22 @@ html, body {
   width: 100%;
 }
 
-/* Floating Liquid-Glass Fields (iOS 48px Height Standard) */
+/* Floating Liquid-Glass Fields (Ergonomic & Non-Scrolling) */
 .liquid-glass-field {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 350px;
-  height: 48px;
-  margin-bottom: 9px;
-  border-radius: 15px;
+  height: 44px;
+  margin-bottom: 7px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.38);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1.2px solid rgba(255, 255, 255, 0.82);
   box-shadow: 
-    0 6px 16px -4px rgba(26, 10, 46, 0.04),
+    0 5px 14px -4px rgba(26, 10, 46, 0.04),
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.85);
   transition: transform 0.22s var(--ease-spring), border-color 0.2s ease, box-shadow 0.22s ease, background 0.2s ease;
   overflow: hidden;
@@ -2193,8 +2157,8 @@ html, body {
   background: rgba(255, 255, 255, 0.58);
   border-color: rgba(115, 87, 255, 0.65);
   box-shadow: 
-    0 10px 22px -4px rgba(115, 87, 255, 0.16),
-    0 0 0 3px rgba(115, 87, 255, 0.10),
+    0 8px 18px -4px rgba(115, 87, 255, 0.16),
+    0 0 0 2.5px rgba(115, 87, 255, 0.10),
     inset 0 1px 2px rgba(255, 255, 255, 1);
 }
 
@@ -2202,12 +2166,12 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
+  width: 38px;
   height: 100%;
   color: #182033;
   opacity: 0.65;
   flex-shrink: 0;
-  padding-left: 12px;
+  padding-left: 10px;
   transition: opacity 0.2s ease, color 0.2s ease;
 }
 
@@ -2223,31 +2187,106 @@ html, body {
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 500;
   color: #182033;
-  padding: 0 12px 0 4px;
+  padding: 0 10px 0 4px;
   text-align: left;
 }
 
 .liquid-input::placeholder {
   color: #182033;
-  opacity: 0.50;
+  opacity: 0.52;
   font-weight: 400;
+}
+
+/* Custom Liquid Glass Select Dropdown */
+.select-field-wrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.liquid-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  cursor: pointer;
+  padding-right: 30px;
+  background: transparent;
+  color: #182033;
+}
+
+.liquid-select option {
+  background: #FFFFFF;
+  color: #182033;
+  padding: 6px;
+}
+
+.select-chevron {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: #6D7587;
+  opacity: 0.7;
+}
+
+/* Password Strength Indicator */
+.field-with-strength {
+  width: 100%;
+  max-width: 350px;
+  margin-bottom: 7px;
+}
+
+.field-with-strength .liquid-glass-field {
+  margin-bottom: 3px;
+}
+
+.strength-meter-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1px 4px 0 6px;
+  width: 100%;
+  animation: slideUpFade 0.2s ease both;
+}
+
+.strength-track {
+  flex: 1;
+  height: 3.5px;
+  border-radius: 999px;
+  background: rgba(26, 10, 46, 0.08);
+  overflow: hidden;
+}
+
+.strength-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s var(--ease-spring), background-color 0.3s ease;
+}
+
+.strength-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  min-width: 38px;
+  text-align: right;
+  transition: color 0.3s ease;
 }
 
 .field-toggle-eye {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
+  width: 38px;
   height: 100%;
   background: transparent;
   border: none;
   color: #182033;
   opacity: 0.55;
   cursor: pointer;
-  padding-right: 12px;
+  padding-right: 10px;
   transition: opacity 0.2s ease, color 0.2s ease;
 }
 
@@ -2263,8 +2302,8 @@ html, body {
   justify-content: space-between;
   width: 100%;
   max-width: 350px;
-  margin: 1px 0 10px 0;
-  font-size: 0.76rem;
+  margin: 1px 0 8px 0;
+  font-size: 0.75rem;
 }
 
 .stay-signed-label {
@@ -2280,8 +2319,8 @@ html, body {
 .custom-glass-checkbox {
   appearance: none;
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border-radius: 4px;
   border: 1.2px solid rgba(26, 10, 46, 0.22);
   background: rgba(255, 255, 255, 0.6);
@@ -2312,7 +2351,7 @@ html, body {
   background: transparent;
   border: none;
   font-family: inherit;
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #7357FF;
   cursor: pointer;
@@ -2324,12 +2363,45 @@ html, body {
   color: #ED5FC9;
 }
 
+/* Login Vitality Pill (Live status in login) */
+.login-vitality-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  width: 100%;
+  max-width: 350px;
+  margin: 2px 0 10px 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #182033;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(115, 87, 255, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px -2px rgba(26, 10, 46, 0.04);
+}
+
+.vitality-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00D26A;
+  box-shadow: 0 0 8px #00D26A;
+  flex-shrink: 0;
+  animation: pulseBeacon 2s infinite;
+}
+
+.vitality-text {
+  flex: 1;
+  line-height: 1.3;
+}
+
 /* Signup Legal Notice */
 .auth-legal-subtle {
-  font-size: 0.72rem;
-  line-height: 1.35;
+  font-size: 0.70rem;
+  line-height: 1.3;
   color: #6D7587;
-  margin: 1px 0 10px 0;
+  margin: 1px 0 8px 0;
   max-width: 350px;
   text-align: left;
 }
@@ -2347,14 +2419,14 @@ html, body {
 
 /* Feedback Notice Pill */
 .auth-feedback-pill {
-  padding: 6px 12px;
-  font-size: 0.74rem;
+  padding: 5px 11px;
+  font-size: 0.72rem;
   font-weight: 600;
   color: #182033;
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(115, 87, 255, 0.35);
   border-radius: var(--radius-pill);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   max-width: 350px;
   animation: slideUpFade 0.25s ease both;
 }
@@ -2365,7 +2437,7 @@ html, body {
   justify-content: flex-start;
   width: 100%;
   max-width: 350px;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .auth-compact-pill-btn {
@@ -2375,18 +2447,18 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-width: 175px;
-  height: 48px;
-  padding: 0 24px;
+  min-width: 165px;
+  height: 44px;
+  padding: 0 22px;
   border-radius: 999px;
   background: linear-gradient(135deg, #7357FF 0%, #ED5FC9 55%, #FF9B63 100%);
   color: #FFFFFF;
   font-family: inherit;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
-    0 8px 22px -4px rgba(115, 87, 255, 0.38),
+    0 8px 20px -4px rgba(115, 87, 255, 0.38),
     0 4px 10px rgba(237, 95, 201, 0.2);
   cursor: pointer;
   transition: transform 0.2s var(--ease-spring), box-shadow 0.22s ease;
@@ -2396,7 +2468,7 @@ html, body {
 .auth-compact-pill-btn:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 
-    0 12px 28px -4px rgba(115, 87, 255, 0.48),
+    0 12px 26px -4px rgba(115, 87, 255, 0.48),
     0 6px 14px rgba(237, 95, 201, 0.25);
 }
 
@@ -2448,8 +2520,8 @@ html, body {
   justify-content: center;
   gap: 6px;
   width: 100%;
-  padding: 8px 0 2px 0;
-  font-size: 0.68rem;
+  padding: 6px 0 2px 0;
+  font-size: 0.67rem;
   font-weight: 600;
   color: #6D7587;
   opacity: 0.85;
@@ -2467,32 +2539,33 @@ html, body {
 /* Desktop Responsive Layout */
 @media (min-width: 640px) {
   .auth-inline-hero {
-    margin-top: 10px;
-    margin-bottom: 14px;
+    margin-top: 8px;
+    margin-bottom: 12px;
   }
 
   .auth-inline-asset-wrap {
-    width: 165px;
-    height: 195px;
+    width: 155px;
+    height: 175px;
   }
 
   .auth-mickey-cutout {
-    height: 185px;
+    height: 165px;
   }
 
   .auth-segmented-control {
     max-width: 270px;
-    height: 40px;
+    height: 38px;
   }
 
   .liquid-glass-field {
-    height: 50px;
-    margin-bottom: 12px;
+    height: 46px;
+    margin-bottom: 10px;
   }
 
   .auth-compact-pill-btn {
-    height: 50px;
+    height: 48px;
   }
 }
+
 
 

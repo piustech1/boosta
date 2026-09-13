@@ -22,12 +22,16 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [isSwitching, setIsSwitching] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(true);
 
   // Form fields
   const [name, setName] = useState<string>('');
   const [emailOrUsername, setEmailOrUsername] = useState<string>('');
+  const [signupEmail, setSignupEmail] = useState<string>('');
+  const [hearAboutUs, setHearAboutUs] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [authFeedback, setAuthFeedback] = useState<string | null>(null);
 
@@ -36,7 +40,25 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
     setMode(initialMode);
   }, [initialMode]);
 
-  // Handle smooth mode switch with animation timing
+  // Password strength calculation
+  const getPasswordStrength = (pass: string) => {
+    if (!pass) return { score: 0, label: '', color: 'transparent', width: '0%' };
+    let score = 0;
+    if (pass.length >= 6) score++;
+    if (pass.length >= 9) score++;
+    if (/[A-Z]/.test(pass) && /[a-z]/.test(pass)) score++;
+    if (/[0-9]/.test(pass)) score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
+
+    if (score <= 1) return { score: 1, label: 'Weak', color: '#FF5A5F', width: '25%' };
+    if (score === 2) return { score: 2, label: 'Fair', color: '#FFA048', width: '50%' };
+    if (score === 3 || score === 4) return { score: 3, label: 'Good', color: '#7357FF', width: '75%' };
+    return { score: 4, label: 'Strong', color: '#00D26A', width: '100%' };
+  };
+
+  const strength = getPasswordStrength(password);
+
+  // Handle smooth mode switch
   const handleModeSwitch = (newMode: AuthMode) => {
     if (newMode === mode || isSwitching) return;
     if (typeof navigator !== 'undefined' && navigator.vibrate) {
@@ -55,9 +77,25 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!emailOrUsername || !password || (mode === 'signup' && !name)) {
-      setAuthFeedback('Please fill in all required fields.');
-      return;
+
+    if (mode === 'signup') {
+      if (!name.trim() || !signupEmail.trim() || !password) {
+        setAuthFeedback('Please fill in your name, email, and password.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        setAuthFeedback('Passwords do not match. Please verify.');
+        return;
+      }
+      if (password.length < 6) {
+        setAuthFeedback('Password must be at least 6 characters.');
+        return;
+      }
+    } else {
+      if (!emailOrUsername.trim() || !password) {
+        setAuthFeedback('Please enter your email/username and password.');
+        return;
+      }
     }
 
     setIsSubmitting(true);
@@ -71,34 +109,28 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       setIsSubmitting(false);
       setAuthFeedback(
         mode === 'login'
-          ? 'Welcome back! Launching your engine...'
+          ? 'Welcome back! Connecting your dashboard...'
           : 'Account created! Welcome to Boosta.'
       );
       if (onSuccess) {
-        onSuccess({ email: emailOrUsername, name: mode === 'signup' ? name : undefined });
+        onSuccess({
+          email: mode === 'login' ? emailOrUsername : signupEmail,
+          name: mode === 'signup' ? name : undefined,
+        });
       }
-    }, 1000);
+    }, 950);
   };
 
-  // Dynamic reaction speech for Mickey
   const heroSpeech = mode === 'login' ? 'Ready to grow?' : "Let's grow together.";
 
   return (
     <div className={`auth-experience-wrapper ${isStandalonePage ? 'auth-standalone' : ''}`}>
       {/* =========================================================
-          1. INLINE HERO: Prominent Mickey Asset + Styled Typography
-          Side-by-side with high brand styling, no collisions or crushes
+          1. INLINE HERO: Clean & Spacious (No irrelevant badges)
           ========================================================= */}
       <div className="auth-inline-hero">
-        {/* Left Column: Styled Typography & Mickey's Speech */}
+        {/* Left Column: Clean Bold Headline + Mickey's Speech */}
         <div className="auth-inline-info">
-          <div className="auth-inline-tracker-row">
-            <span className="auth-tracker-badge">
-              <span className="tracker-glow-dot" aria-hidden="true" />
-              {mode === 'login' ? 'PORTAL ACCESS' : 'CREATE ENGINE'}
-            </span>
-          </div>
-
           <h1 className="auth-inline-headline">
             {mode === 'login' ? (
               <>
@@ -111,12 +143,6 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             )}
           </h1>
 
-          <p className="auth-inline-subtext">
-            {mode === 'login'
-              ? 'Your social engine is ready.'
-              : 'Zero setup. Instant social power.'}
-          </p>
-
           {/* Mickey's dynamic reaction speech bubble */}
           <div className={`auth-inline-bubble mode-bubble-${mode}`}>
             <span className="bubble-dot" aria-hidden="true" />
@@ -124,7 +150,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Prominent Mickey Asset with Doodling Liquid Dudu */}
+        {/* Right Column: Prominent Mickey Cutout with Wiggling Dudu */}
         <div className="auth-inline-asset-wrap">
           <div className="auth-dudu-pebble doodle-animated" aria-hidden="true">
             <div className="dudu-halo" />
@@ -139,7 +165,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       </div>
 
       {/* =========================================================
-          2. DEDICATED MODE SWITCHER: 50/50 CSS Grid (No self-collision)
+          2. DEDICATED MODE SWITCHER: 50/50 CSS Grid
           ========================================================= */}
       <div className="auth-switcher-container">
         <div className="auth-segmented-control" role="tablist" aria-label="Authentication Mode">
@@ -169,121 +195,274 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       </div>
 
       {/* =========================================================
-          3. FLOATING LIQUID-GLASS FORM FIELDS (Strictly Left Aligned)
+          3. FLOATING LIQUID-GLASS FORM FIELDS
           ========================================================= */}
       <div className="auth-form-zone">
         <div className={`auth-content-column ${isSwitching ? 'form-fade-out' : 'form-fade-in'}`}>
           <form onSubmit={handleSubmit} className="auth-floating-form" noValidate>
             
-            {/* SIGNUP: Name field */}
-            {mode === 'signup' && (
-              <div className="liquid-glass-field field-stagger-1">
-                <span className="field-semantic-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </span>
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your name"
-                  autoComplete="name"
-                  required
-                  className="liquid-input"
-                />
-              </div>
-            )}
-
-            {/* Email / Username field */}
-            <div className="liquid-glass-field field-stagger-2">
-              <span className="field-semantic-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
-              </span>
-              <input
-                type={mode === 'login' ? 'text' : 'email'}
-                name="identifier"
-                value={emailOrUsername}
-                onChange={(e) => setEmailOrUsername(e.target.value)}
-                placeholder={mode === 'login' ? 'Email or username' : 'Email address'}
-                autoComplete={mode === 'login' ? 'username' : 'email'}
-                required
-                className="liquid-input"
-              />
-            </div>
-
-            {/* Password field with semantic Eye Toggle */}
-            <div className="liquid-glass-field field-stagger-3">
-              <span className="field-semantic-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-              </span>
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder={mode === 'login' ? 'Password' : 'Create a password'}
-                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                required
-                className="liquid-input"
-              />
-              <button
-                type="button"
-                className="field-toggle-eye"
-                onClick={() => setShowPassword(!showPassword)}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? (
-                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-                    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-                    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
-                    <line x1="2" y1="2" x2="22" y2="22" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </svg>
-                )}
-              </button>
-            </div>
-
-            {/* LOGIN: Minimal options row (Stay signed in & Forgot password) */}
-            {mode === 'login' && (
-              <div className="auth-options-row field-stagger-4">
-                <label className="stay-signed-label">
+            {/* ==================== SIGNUP FIELDS ==================== */}
+            {mode === 'signup' ? (
+              <>
+                {/* 1. Name */}
+                <div className="liquid-glass-field field-stagger-1">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </span>
                   <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    className="custom-glass-checkbox"
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full Name"
+                    autoComplete="name"
+                    required
+                    className="liquid-input"
                   />
-                  <span>Stay signed in</span>
-                </label>
-                <button
-                  type="button"
-                  className="forgot-pass-link"
-                  onClick={() => setAuthFeedback('Password reset instructions sent.')}
-                >
-                  Forgot password?
-                </button>
-              </div>
-            )}
+                </div>
 
-            {/* SIGNUP: Minimal Legal Notice */}
-            {mode === 'signup' && (
-              <p className="auth-legal-subtle field-stagger-4">
-                By continuing, you accept our <a href="#terms" className="legal-link">Terms & Privacy</a>.
-              </p>
+                {/* 2. Email */}
+                <div className="liquid-glass-field field-stagger-2">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                  </span>
+                  <input
+                    type="email"
+                    name="signup-email"
+                    value={signupEmail}
+                    onChange={(e) => setSignupEmail(e.target.value)}
+                    placeholder="Email address"
+                    autoComplete="email"
+                    required
+                    className="liquid-input"
+                  />
+                </div>
+
+                {/* 3. How did you hear about us? Dropdown */}
+                <div className="liquid-glass-field field-stagger-3 select-field-wrap">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m3 11 18-5-5 18-3-7-10-6z" />
+                    </svg>
+                  </span>
+                  <select
+                    name="hearAboutUs"
+                    value={hearAboutUs}
+                    onChange={(e) => setHearAboutUs(e.target.value)}
+                    className="liquid-input liquid-select"
+                  >
+                    <option value="" disabled>How did you hear about us?</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="x">Twitter / X</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="google">Google Search</option>
+                    <option value="referral">Friend / Recommendation</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <span className="select-chevron" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </span>
+                </div>
+
+                {/* 4. Password + Strength Bar */}
+                <div className="field-with-strength field-stagger-4">
+                  <div className="liquid-glass-field">
+                    <span className="field-semantic-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
+                    </span>
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Create password"
+                      autoComplete="new-password"
+                      required
+                      className="liquid-input"
+                    />
+                    <button
+                      type="button"
+                      className="field-toggle-eye"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? (
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                          <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                          <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                          <line x1="2" y1="2" x2="22" y2="22" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Password Strength Indicator Bar */}
+                  {password.length > 0 && (
+                    <div className="strength-meter-container" aria-live="polite">
+                      <div className="strength-track">
+                        <div 
+                          className="strength-bar-fill" 
+                          style={{ width: strength.width, backgroundColor: strength.color }}
+                        />
+                      </div>
+                      <span className="strength-label" style={{ color: strength.color }}>
+                        {strength.label}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* 5. Confirm Password */}
+                <div className="liquid-glass-field field-stagger-5">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                  </span>
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm password"
+                    autoComplete="new-password"
+                    required
+                    className="liquid-input"
+                  />
+                  <button
+                    type="button"
+                    className="field-toggle-eye"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                  >
+                    {showConfirmPassword ? (
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                        <line x1="2" y1="2" x2="22" y2="22" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+
+                {/* Signup Legal Note */}
+                <p className="auth-legal-subtle">
+                  By continuing, you accept our <a href="#terms" className="legal-link">Terms & Privacy</a>.
+                </p>
+              </>
+            ) : (
+              /* ==================== LOGIN FIELDS ==================== */
+              <>
+                {/* 1. Email or Username */}
+                <div className="liquid-glass-field field-stagger-1">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                  </span>
+                  <input
+                    type="text"
+                    name="identifier"
+                    value={emailOrUsername}
+                    onChange={(e) => setEmailOrUsername(e.target.value)}
+                    placeholder="Email or username"
+                    autoComplete="username"
+                    required
+                    className="liquid-input"
+                  />
+                </div>
+
+                {/* 2. Password */}
+                <div className="liquid-glass-field field-stagger-2">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                  </span>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    autoComplete="current-password"
+                    required
+                    className="liquid-input"
+                  />
+                  <button
+                    type="button"
+                    className="field-toggle-eye"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? (
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                        <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                        <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                        <line x1="2" y1="2" x2="22" y2="22" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+
+                {/* 3. Options Row */}
+                <div className="auth-options-row field-stagger-3">
+                  <label className="stay-signed-label">
+                    <input
+                      type="checkbox"
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
+                      className="custom-glass-checkbox"
+                    />
+                    <span>Stay signed in</span>
+                  </label>
+                  <button
+                    type="button"
+                    className="forgot-pass-link"
+                    onClick={() => setAuthFeedback('Password reset link sent to your registered email.')}
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+
+                {/* 4. Login Trust & Speed Feature Badge */}
+                <div className="login-vitality-pill glass-pill field-stagger-4">
+                  <span className="vitality-pulse" aria-hidden="true" />
+                  <span className="vitality-text">14.8K+ Active SMM Deliveries Today · Instant Auto-Processing</span>
+                </div>
+              </>
             )}
 
             {/* Feedback Notice */}
@@ -293,8 +472,8 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
               </div>
             )}
 
-            {/* COMPACT PILL ACTION BUTTON (NOT FULL WIDTH!) */}
-            <div className="auth-cta-container field-stagger-5">
+            {/* COMPACT PILL ACTION BUTTON */}
+            <div className="auth-cta-container">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -329,7 +508,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
         </span>
-        <span>256-Bit Encrypted Session · Instant Delivery Enabled</span>
+        <span>256-Bit Encrypted Session · Instant Live Delivery</span>
       </footer>
     </div>
   );
