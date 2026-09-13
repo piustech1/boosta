@@ -853,11 +853,18 @@ html, body {
   align-items: center;
 }
 
-/* 2-column override for 4 platforms */
+/* Single horizontal row — 4 platforms in one line, perfectly fitted */
+.social-media-logos-row,
 .social-media-logos-grid--2col {
-  grid-template-columns: repeat(2, 1fr);
-  max-width: 220px;
-  gap: 20px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 14px);
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 4px 2px;
 }
 
 /* Individual Tile Button Container */
@@ -866,8 +873,9 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 66px;
+  height: 66px;
+  flex-shrink: 0;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -893,9 +901,9 @@ html, body {
 /* Secondary Darker, Slightly Larger Shadow/Aura Blob Layer */
 .blob-shadow-underlayer {
   position: absolute;
-  width: 74px;
-  height: 74px;
-  transform: translate(3px, 4px);
+  width: 60px;
+  height: 60px;
+  transform: translate(2px, 3px);
   opacity: 0.88;
   filter: blur(1.5px);
   z-index: 1;
@@ -905,7 +913,7 @@ html, body {
 
 .liquid-blob-tile:hover .blob-shadow-underlayer,
 .liquid-blob-tile.blob-tile-active .blob-shadow-underlayer {
-  transform: translate(4px, 6px) scale(1.1);
+  transform: translate(3px, 5px) scale(1.08);
   filter: blur(3px);
   opacity: 0.98;
 }
@@ -920,18 +928,18 @@ html, body {
 }
 
 .blob-satellite-droplet.droplet-1 {
-  width: 10px;
-  height: 10px;
-  top: 4px;
-  right: 6px;
+  width: 8px;
+  height: 8px;
+  top: 3px;
+  right: 5px;
   animation: floatDroplet1 5s ease-in-out infinite alternate;
 }
 
 .blob-satellite-droplet.droplet-2 {
-  width: 7px;
-  height: 7px;
-  bottom: 5px;
-  left: 6px;
+  width: 6px;
+  height: 6px;
+  bottom: 4px;
+  left: 5px;
   animation: floatDroplet2 6s ease-in-out infinite alternate;
 }
 
@@ -941,12 +949,12 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 62px;
-  height: 62px;
+  width: 52px;
+  height: 52px;
   z-index: 3;
   box-shadow: 
-    0 10px 20px -3px rgba(0, 0, 0, 0.28),
-    inset 0 2.5px 4px 0 rgba(255, 255, 255, 0.55),
+    0 8px 18px -3px rgba(0, 0, 0, 0.28),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 0.55),
     inset 0 -2px 3px 0 rgba(0, 0, 0, 0.15);
   transition: transform 0.32s var(--ease-spring), box-shadow 0.3s ease;
   animation: blobMainMorph 7.5s ease-in-out infinite alternate;
@@ -955,7 +963,7 @@ html, body {
 .liquid-blob-tile:hover .blob-main-layer,
 .liquid-blob-tile.blob-tile-active .blob-main-layer {
   box-shadow: 
-    0 16px 30px -4px rgba(0, 0, 0, 0.38),
+    0 14px 26px -4px rgba(0, 0, 0, 0.38),
     inset 0 3px 5px 0 rgba(255, 255, 255, 0.75),
     inset 0 -2px 4px 0 rgba(0, 0, 0, 0.22);
 }
@@ -968,6 +976,11 @@ html, body {
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.28));
   transition: transform 0.28s var(--ease-spring);
   z-index: 4;
+}
+
+.blob-brand-icon svg {
+  width: 23px;
+  height: 23px;
 }
 
 .liquid-blob-tile:hover .blob-brand-icon {
@@ -1396,6 +1409,27 @@ html, body {
   .hero-asset-card.irregular-dudu {
     width: 280px;
     height: 340px;
+  }
+  .social-media-logos-row,
+  .social-media-logos-grid--2col {
+    gap: 6px;
+    max-width: 300px;
+  }
+  .liquid-blob-tile {
+    width: 58px;
+    height: 58px;
+  }
+  .blob-shadow-underlayer {
+    width: 52px;
+    height: 52px;
+  }
+  .blob-main-layer {
+    width: 46px;
+    height: 46px;
+  }
+  .blob-brand-icon svg {
+    width: 20px;
+    height: 20px;
   }
   .service-name {
     display: none;

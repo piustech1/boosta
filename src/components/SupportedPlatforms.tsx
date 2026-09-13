@@ -73,8 +73,8 @@ export const SupportedPlatforms: React.FC<SupportedPlatformsProps> = ({ onSelect
         <h2 className="social-showcase-title">Where do you want to grow?</h2>
       </div>
 
-      {/* 2×2 Grid of Fluid Organic Blob Tiles */}
-      <div className="social-media-logos-grid social-media-logos-grid--2col" role="grid">
+      {/* Single Horizontal Row of 4 Fluid Organic Blob Tiles */}
+      <div className="social-media-logos-row social-media-logos-grid--2col" role="grid">
         {platforms.map(item => {
           const isActive = activePlatform === item.id;
           return (
