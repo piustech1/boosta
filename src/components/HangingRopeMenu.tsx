@@ -5,9 +5,10 @@ import React, { useEffect } from 'react';
 interface HangingRopeMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  onNavigate?: (mode: 'login' | 'signup') => void;
 }
 
-export const HangingRopeMenu: React.FC<HangingRopeMenuProps> = ({ isOpen, onClose }) => {
+export const HangingRopeMenu: React.FC<HangingRopeMenuProps> = ({ isOpen, onClose, onNavigate }) => {
   // Close menu on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -75,11 +76,25 @@ export const HangingRopeMenu: React.FC<HangingRopeMenuProps> = ({ isOpen, onClos
 
             <span className="shelf-divider" aria-hidden="true" />
 
-            <button type="button" className="shelf-login-btn" onClick={onClose}>
+            <button 
+              type="button" 
+              className="shelf-login-btn" 
+              onClick={() => {
+                onClose();
+                if (onNavigate) onNavigate('login');
+              }}
+            >
               Log In
             </button>
 
-            <button type="button" className="shelf-cta-btn" onClick={onClose}>
+            <button 
+              type="button" 
+              className="shelf-cta-btn" 
+              onClick={() => {
+                onClose();
+                if (onNavigate) onNavigate('signup');
+              }}
+            >
               <span>Get Started</span>
               <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" />

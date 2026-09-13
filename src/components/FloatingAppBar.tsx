@@ -3,7 +3,11 @@
 import React, { useState } from 'react';
 import { HangingRopeMenu } from './HangingRopeMenu';
 
-export const FloatingAppBar: React.FC = () => {
+interface FloatingAppBarProps {
+  onNavigate?: (mode: 'login' | 'signup') => void;
+}
+
+export const FloatingAppBar: React.FC<FloatingAppBarProps> = ({ onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
@@ -61,7 +65,7 @@ export const FloatingAppBar: React.FC = () => {
       </nav>
 
       {/* Hanging Rope Menu Feature */}
-      <HangingRopeMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <HangingRopeMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onNavigate={onNavigate} />
     </header>
   );
 };

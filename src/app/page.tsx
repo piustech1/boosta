@@ -7,12 +7,23 @@ import { TikTokFloatingChips } from '@/components/TikTokFloatingChips';
 import { ChatBubble } from '@/components/ChatBubble';
 import { SupportedPlatforms } from '@/components/SupportedPlatforms';
 import { HalfBarControls } from '@/components/HalfBarControls';
+import { AuthExperience, AuthMode } from '@/components/AuthExperience';
 
 export default function OnboardingPage() {
+  const [authMode, setAuthMode] = useState<'none' | AuthMode>('none');
   const [chatMessage, setChatMessage] = useState<string>(
     "Hey! 👋 Welcome to Boosta. Your social growth starts here."
   );
   const [parallaxOffset, setParallaxOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Listen to hash or search changes on initial load (#login or #signup)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#login') setAuthMode('login');
+      if (hash === '#signup') setAuthMode('signup');
+    }
+  }, []);
 
   // Real-time Parallax Physics (Desktop Pointer & Mobile Gyroscope)
   useEffect(() => {
@@ -69,30 +80,43 @@ export default function OnboardingPage() {
 
       {/* Main Mobile App Shell */}
       <main className="app-container">
-        {/* Floating Top App Bar */}
-        <FloatingAppBar />
-
-        {/* Hero Section */}
-        <section className="hero-section">
-          {/* Classy Floating TikTok SMM Metric Badges */}
-          <TikTokFloatingChips parallaxOffset={parallaxOffset} />
-
-          {/* Prominent Hero Asset in an Irregular Morphing Liquid Dudu Pebble */}
-          <HeroDuduPortal parallaxOffset={parallaxOffset} />
-
-          {/* Animated Chat Bubble directly emerging from Mickey's waving hand */}
-          <ChatBubble 
-            message={chatMessage} 
-            parallaxOffset={parallaxOffset}
-            onTap={handleChatBubbleTap}
+        {authMode !== 'none' ? (
+          /* Seamless In-Place Liquid Glass Auth Experience */
+          <AuthExperience
+            initialMode={authMode}
+            onClose={() => setAuthMode('none')}
           />
+        ) : (
+          <>
+            {/* Floating Top App Bar */}
+            <FloatingAppBar onNavigate={(mode) => setAuthMode(mode)} />
 
-          {/* High-Energy Holographic Supported Platforms Dock */}
-          <SupportedPlatforms onSelectPlatform={handleSelectPlatform} />
-        </section>
+            {/* Hero Section */}
+            <section className="hero-section">
+              {/* Classy Floating TikTok SMM Metric Badges */}
+              <TikTokFloatingChips parallaxOffset={parallaxOffset} />
 
-        {/* Bottom Controls: Minimalist Dual Half-Bars */}
-        <HalfBarControls />
+              {/* Prominent Hero Asset in an Irregular Morphing Liquid Dudu Pebble */}
+              <HeroDuduPortal parallaxOffset={parallaxOffset} />
+
+              {/* Animated Chat Bubble directly emerging from Mickey's waving hand */}
+              <ChatBubble 
+                message={chatMessage} 
+                parallaxOffset={parallaxOffset}
+                onTap={handleChatBubbleTap}
+              />
+
+              {/* High-Energy Holographic Supported Platforms Dock */}
+              <SupportedPlatforms onSelectPlatform={handleSelectPlatform} />
+            </section>
+
+            {/* Bottom Controls: Minimalist Dual Half-Bars */}
+            <HalfBarControls 
+              onGetStarted={() => setAuthMode('signup')}
+              onLogIn={() => setAuthMode('login')}
+            />
+          </>
+        )}
       </main>
     </>
   );

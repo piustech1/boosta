@@ -2,7 +2,12 @@
 
 import React, { useState } from 'react';
 
-export const HalfBarControls: React.FC = () => {
+interface HalfBarControlsProps {
+  onGetStarted?: () => void;
+  onLogIn?: () => void;
+}
+
+export const HalfBarControls: React.FC<HalfBarControlsProps> = ({ onGetStarted, onLogIn }) => {
   const [getStartedText, setGetStartedText] = useState<string>('Get Started');
   const [logInText, setLogInText] = useState<string>('Log In');
 
@@ -13,7 +18,8 @@ export const HalfBarControls: React.FC = () => {
     setGetStartedText('Launching...');
     setTimeout(() => {
       setGetStartedText('Get Started');
-    }, 1200);
+      if (onGetStarted) onGetStarted();
+    }, 200);
   };
 
   const handleLogIn = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,7 +29,8 @@ export const HalfBarControls: React.FC = () => {
     setLogInText('Opening...');
     setTimeout(() => {
       setLogInText('Log In');
-    }, 1200);
+      if (onLogIn) onLogIn();
+    }, 200);
   };
 
   return (
