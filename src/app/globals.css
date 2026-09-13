@@ -774,6 +774,13 @@ html, body {
   align-items: center;
 }
 
+/* 2-column override for 4 platforms */
+.social-media-logos-grid--2col {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 220px;
+  gap: 20px 20px;
+}
+
 /* Individual Tile Button Container */
 .liquid-blob-tile {
   position: relative;
@@ -889,8 +896,52 @@ html, body {
 }
 
 /* =========================================================
-   INDIVIDUAL LIQUID BLOB STYLING (9 PLATFORMS)
+   INDIVIDUAL LIQUID BLOB STYLING (PLATFORMS)
    ========================================================= */
+
+/* --- TikTok Blob --- */
+.tiktok-blob .blob-shadow-underlayer {
+  background: #0A0A0A;
+  border-radius: 54% 46% 60% 40% / 44% 58% 42% 56%;
+}
+.tiktok-blob .blob-main-layer {
+  background: #000000;
+  border: 1.5px solid rgba(37, 244, 238, 0.5);
+  border-radius: 52% 48% 58% 42% / 46% 56% 44% 54%;
+  box-shadow:
+    -3px -3px 12px rgba(37, 244, 238, 0.4),
+    3px 3px 12px rgba(254, 44, 85, 0.4),
+    0 10px 20px -3px rgba(0, 0, 0, 0.45),
+    inset 0 2.5px 4px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 3px 0 rgba(0, 0, 0, 0.2);
+}
+.tiktok-blob .droplet-1 {
+  background: #25F4EE;
+  box-shadow: 0 0 8px rgba(37, 244, 238, 0.9);
+}
+.tiktok-blob .droplet-2 {
+  background: #FE2C55;
+  box-shadow: 0 0 7px rgba(254, 44, 85, 0.8);
+}
+
+/* --- Telegram Blob --- */
+.telegram-blob .blob-shadow-underlayer {
+  background: #004A7A;
+  border-radius: 50% 50% 58% 42% / 42% 58% 42% 58%;
+}
+.telegram-blob .blob-main-layer {
+  background: linear-gradient(135deg, #2AABEE 0%, #229ED9 55%, #0088cc 100%);
+  border-radius: 48% 52% 56% 44% / 44% 56% 44% 56%;
+}
+.telegram-blob .droplet-1 {
+  background: #75CFFF;
+  box-shadow: 0 0 7px rgba(117, 207, 255, 0.8);
+}
+.telegram-blob .droplet-2 {
+  background: #229ED9;
+  box-shadow: 0 0 5px rgba(34, 158, 217, 0.7);
+}
+
 
 /* --- 1. Facebook Blob --- */
 .facebook-blob .blob-shadow-underlayer {
