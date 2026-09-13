@@ -154,6 +154,9 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             className="auth-mickey-cutout"
           />
 
+          {/* Front Bottom Lip of Wiggling Container: Slightly covers bottom part of Mickey */}
+          <div className="auth-dudu-front-lip doodle-animated" aria-hidden="true" />
+
           {/* Speech Bubble fixed directly ON the Mickey asset */}
           <div className={`auth-mickey-speech-bubble mode-bubble-${mode}`}>
             <span className="speech-tail" aria-hidden="true" />

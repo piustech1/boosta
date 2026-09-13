@@ -84,6 +84,9 @@ export const HeroDuduPortal: React.FC<HeroDuduPortalProps> = ({ parallaxOffset =
           />
         )}
       </div>
+
+      {/* 3. Front Bottom Lip of Wiggling Container: Slightly covers bottom part of Mickey */}
+      <div className="hero-dudu-front-lip doodle-animated" aria-hidden="true" />
     </div>
   );
 };
