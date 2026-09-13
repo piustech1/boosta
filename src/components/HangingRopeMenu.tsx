@@ -6,9 +6,10 @@ interface HangingRopeMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigate?: (mode: 'login' | 'signup') => void;
+  onHome?: () => void;
 }
 
-export const HangingRopeMenu: React.FC<HangingRopeMenuProps> = ({ isOpen, onClose, onNavigate }) => {
+export const HangingRopeMenu: React.FC<HangingRopeMenuProps> = ({ isOpen, onClose, onNavigate, onHome }) => {
   // Close menu on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -57,20 +58,30 @@ export const HangingRopeMenu: React.FC<HangingRopeMenuProps> = ({ isOpen, onClos
 
           {/* Single horizontal line with smooth hidden scroll for narrow viewports */}
           <div className="shelf-items-row">
-            <a href="#home" className="shelf-nav-link active" onClick={onClose}>
+            <a 
+              href="/" 
+              className="shelf-nav-link active" 
+              onClick={(e) => {
+                onClose();
+                if (onHome) {
+                  e.preventDefault();
+                  onHome();
+                }
+              }}
+            >
               <span className="link-indicator" aria-hidden="true" />
               Home
             </a>
-            <a href="#services" className="shelf-nav-link" onClick={onClose}>
+            <a href="/#services" className="shelf-nav-link" onClick={onClose}>
               Services
             </a>
-            <a href="#platforms" className="shelf-nav-link" onClick={onClose}>
+            <a href="/#platforms" className="shelf-nav-link" onClick={onClose}>
               Platforms
             </a>
-            <a href="#how-it-works" className="shelf-nav-link" onClick={onClose}>
+            <a href="/#how-it-works" className="shelf-nav-link" onClick={onClose}>
               How It Works
             </a>
-            <a href="#support" className="shelf-nav-link" onClick={onClose}>
+            <a href="/#support" className="shelf-nav-link" onClick={onClose}>
               Support
             </a>
 

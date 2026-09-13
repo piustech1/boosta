@@ -80,17 +80,21 @@ export default function OnboardingPage() {
 
       {/* Main Mobile App Shell */}
       <main className="app-container">
+        {/* Floating Top App Bar — Surfaces across both landing and auth screens */}
+        <FloatingAppBar 
+          onNavigate={(mode) => setAuthMode(mode)} 
+          onHome={() => setAuthMode('none')} 
+        />
+
         {authMode !== 'none' ? (
           /* Seamless In-Place Liquid Glass Auth Experience */
           <AuthExperience
             initialMode={authMode}
             onClose={() => setAuthMode('none')}
+            onModeChange={(mode) => setAuthMode(mode)}
           />
         ) : (
           <>
-            {/* Floating Top App Bar */}
-            <FloatingAppBar onNavigate={(mode) => setAuthMode(mode)} />
-
             {/* Hero Section */}
             <section className="hero-section">
               {/* Classy Floating TikTok SMM Metric Badges */}

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { FloatingAppBar } from '@/components/FloatingAppBar';
 import { AuthExperience } from '@/components/AuthExperience';
 
 export default function LoginPage() {
@@ -17,11 +18,18 @@ export default function LoginPage() {
         <div className="orb orb-4" />
       </div>
 
-      <main className="app-container auth-page-container">
+      <main className="app-container">
+        {/* Top Styled App Bar */}
+        <FloatingAppBar 
+          onNavigate={(mode) => router.push(mode === 'login' ? '/login' : '/signup')} 
+          onHome={() => router.push('/')}
+        />
+
         <AuthExperience
           initialMode="login"
           isStandalonePage={true}
           onClose={() => router.push('/')}
+          onModeChange={(mode) => router.push(mode === 'login' ? '/login' : '/signup')}
         />
       </main>
     </>

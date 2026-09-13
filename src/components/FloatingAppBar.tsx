@@ -5,9 +5,10 @@ import { HangingRopeMenu } from './HangingRopeMenu';
 
 interface FloatingAppBarProps {
   onNavigate?: (mode: 'login' | 'signup') => void;
+  onHome?: () => void;
 }
 
-export const FloatingAppBar: React.FC<FloatingAppBarProps> = ({ onNavigate }) => {
+export const FloatingAppBar: React.FC<FloatingAppBarProps> = ({ onNavigate, onHome }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const toggleMenu = () => {
@@ -17,17 +18,26 @@ export const FloatingAppBar: React.FC<FloatingAppBarProps> = ({ onNavigate }) =>
     setIsMenuOpen(prev => !prev);
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (onHome) {
+      e.preventDefault();
+      onHome();
+    }
+  };
+
   return (
     <header className="floating-appbar-wrapper">
       <nav className="floating-appbar glass-pill">
         {/* Site Brand with Official Boosta Logo Image */}
         <div className="brand-left">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src="/assets/boosta_icon.png" 
-            alt="boosta" 
-            className="brand-logo-img" 
-          />
+          <a href="/" onClick={handleLogoClick} className="brand-logo-link" style={{ display: 'flex', alignItems: 'center' }} aria-label="Boosta Home">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/assets/boosta_icon.png" 
+              alt="boosta" 
+              className="brand-logo-img" 
+            />
+          </a>
         </div>
 
         {/* Action Icons on the Right */}
@@ -65,7 +75,12 @@ export const FloatingAppBar: React.FC<FloatingAppBarProps> = ({ onNavigate }) =>
       </nav>
 
       {/* Hanging Rope Menu Feature */}
-      <HangingRopeMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} onNavigate={onNavigate} />
+      <HangingRopeMenu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)} 
+        onNavigate={onNavigate} 
+        onHome={onHome}
+      />
     </header>
   );
 };
