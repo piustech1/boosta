@@ -93,7 +93,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       }
     } else {
       if (!emailOrUsername.trim() || !password) {
-        setAuthFeedback('Please enter your email/username and password.');
+        setAuthFeedback('Please enter your email or username and password.');
         return;
       }
     }
@@ -126,46 +126,35 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
   return (
     <div className={`auth-experience-wrapper ${isStandalonePage ? 'auth-standalone' : ''}`}>
       {/* =========================================================
-          1. INLINE HERO: Clean & Spacious (No irrelevant badges)
+          TIER 1: Prominent Centered Mickey Asset (Takes ~1/4 page)
+          With chat bubble anchored directly on the asset image
           ========================================================= */}
-      <div className="auth-inline-hero">
-        {/* Left Column: Clean Bold Headline + Mickey's Speech */}
-        <div className="auth-inline-info">
-          <h1 className="auth-inline-headline">
-            {mode === 'login' ? (
-              <>
-                Turn attention<br />into <span className="auth-gradient-text">growth.</span>
-              </>
-            ) : (
-              <>
-                Start your next<br /><span className="auth-gradient-text">growth story.</span>
-              </>
-            )}
-          </h1>
-
-          {/* Mickey's dynamic reaction speech bubble */}
-          <div className={`auth-inline-bubble mode-bubble-${mode}`}>
-            <span className="bubble-dot" aria-hidden="true" />
-            <span className="bubble-copy">{heroSpeech}</span>
-          </div>
-        </div>
-
-        {/* Right Column: Prominent Mickey Cutout with Wiggling Dudu */}
-        <div className="auth-inline-asset-wrap">
+      <div className="auth-asset-centered-stage">
+        <div className="auth-asset-wrap">
+          {/* Animated Wiggling Liquid Dudu Pebble */}
           <div className="auth-dudu-pebble doodle-animated" aria-hidden="true">
             <div className="dudu-halo" />
           </div>
+
+          {/* Mickey Cutout Asset */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/assets/mickey.png"
             alt="Mickey Waving"
             className="auth-mickey-cutout"
           />
+
+          {/* Speech Bubble fixed directly ON the Mickey asset */}
+          <div className={`auth-mickey-speech-bubble mode-bubble-${mode}`}>
+            <span className="speech-tail" aria-hidden="true" />
+            <span className="speech-pulse-dot" aria-hidden="true" />
+            <span className="speech-text">{heroSpeech}</span>
+          </div>
         </div>
       </div>
 
       {/* =========================================================
-          2. DEDICATED MODE SWITCHER: 50/50 CSS Grid
+          TIER 2: Auth Form Switcher (Below the asset image, centered)
           ========================================================= */}
       <div className="auth-switcher-container">
         <div className="auth-segmented-control" role="tablist" aria-label="Authentication Mode">
@@ -195,7 +184,24 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       </div>
 
       {/* =========================================================
-          3. FLOATING LIQUID-GLASS FORM FIELDS
+          TIER 3: Headline Text (Below the auth switcher, centered)
+          ========================================================= */}
+      <div className="auth-headline-centered-wrap">
+        <h1 className="auth-centered-headline">
+          {mode === 'login' ? (
+            <>
+              Turn attention into <span className="auth-gradient-text">growth.</span>
+            </>
+          ) : (
+            <>
+              Start your next <span className="auth-gradient-text">growth story.</span>
+            </>
+          )}
+        </h1>
+      </div>
+
+      {/* =========================================================
+          TIER 4: Form Fields (Slightly increased height, centered placeholders)
           ========================================================= */}
       <div className="auth-form-zone">
         <div className={`auth-content-column ${isSwitching ? 'form-fade-out' : 'form-fade-in'}`}>
@@ -220,7 +226,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     placeholder="Full Name"
                     autoComplete="name"
                     required
-                    className="liquid-input"
+                    className="liquid-input centered-input"
                   />
                 </div>
 
@@ -240,7 +246,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     placeholder="Email address"
                     autoComplete="email"
                     required
-                    className="liquid-input"
+                    className="liquid-input centered-input"
                   />
                 </div>
 
@@ -255,7 +261,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     name="hearAboutUs"
                     value={hearAboutUs}
                     onChange={(e) => setHearAboutUs(e.target.value)}
-                    className="liquid-input liquid-select"
+                    className="liquid-input liquid-select centered-input"
                   >
                     <option value="" disabled>How did you hear about us?</option>
                     <option value="tiktok">TikTok</option>
@@ -290,7 +296,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                       placeholder="Create password"
                       autoComplete="new-password"
                       required
-                      className="liquid-input"
+                      className="liquid-input centered-input"
                     />
                     <button
                       type="button"
@@ -345,7 +351,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     placeholder="Confirm password"
                     autoComplete="new-password"
                     required
-                    className="liquid-input"
+                    className="liquid-input centered-input"
                   />
                   <button
                     type="button"
@@ -370,7 +376,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                 </div>
 
                 {/* Signup Legal Note */}
-                <p className="auth-legal-subtle">
+                <p className="auth-legal-subtle centered-text">
                   By continuing, you accept our <a href="#terms" className="legal-link">Terms & Privacy</a>.
                 </p>
               </>
@@ -393,7 +399,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     placeholder="Email or username"
                     autoComplete="username"
                     required
-                    className="liquid-input"
+                    className="liquid-input centered-input"
                   />
                 </div>
 
@@ -413,7 +419,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     placeholder="Password"
                     autoComplete="current-password"
                     required
-                    className="liquid-input"
+                    className="liquid-input centered-input"
                   />
                   <button
                     type="button"
@@ -472,7 +478,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
               </div>
             )}
 
-            {/* COMPACT PILL ACTION BUTTON */}
+            {/* COMPACT PILL ACTION BUTTON (Centered) */}
             <div className="auth-cta-container">
               <button
                 type="submit"
@@ -500,7 +506,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       </div>
 
       {/* =========================================================
-          4. TRUST & SECURITY MICRO-FOOTER (Grounds and fills lower screen)
+          TIER 5: Security Micro-Footer
           ========================================================= */}
       <footer className="auth-trust-footer">
         <span className="trust-shield-icon" aria-hidden="true">
