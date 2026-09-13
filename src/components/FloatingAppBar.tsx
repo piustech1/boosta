@@ -19,7 +19,7 @@ export const FloatingAppBar: React.FC = () => {
           {/* Live Engine Speed Badge */}
           <div className="status-chip glass-pill">
             <span className="status-pulse-dot" />
-            <span className="status-text">99.9%</span>
+            <span className="status-text">All systems online</span>
           </div>
 
           {/* Notification / Live Updates Bell */}

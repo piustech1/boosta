@@ -70,7 +70,7 @@ export const SupportedPlatforms: React.FC<SupportedPlatformsProps> = ({ onSelect
   return (
     <section className="supported-services-section" aria-label="Social Media Showcase">
       <div className="social-showcase-header">
-        <h2 className="social-showcase-title">SOCIAL MEDIA LOGOS</h2>
+        <h2 className="social-showcase-title">Where do you want to grow?</h2>
       </div>
 
       {/* 2×2 Grid of Fluid Organic Blob Tiles */}

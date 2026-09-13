@@ -10,7 +10,7 @@ import { HalfBarControls } from '@/components/HalfBarControls';
 
 export default function OnboardingPage() {
   const [chatMessage, setChatMessage] = useState<string>(
-    "Hey! Welcome to your new growth engine. Let's get started."
+    "Hey! 👋 Welcome to Boosta. Your social growth starts here."
   );
   const [parallaxOffset, setParallaxOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
