@@ -240,42 +240,18 @@ html, body {
   gap: 8px;
 }
 
-.brand-spark-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--boosta-gradient);
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.6), 0 0 20px rgba(236, 72, 153, 0.3);
-  animation: pulseDot 2s infinite ease-in-out;
+.brand-logo-img {
+  height: 25px;
+  width: auto;
+  max-width: 95px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(124, 58, 237, 0.18));
+  transition: transform 0.22s var(--ease-spring);
 }
 
-/* Twisted Avant-Garde Typography */
-.twisted-brand {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-style: italic;
-  font-size: 1.35rem;
-  letter-spacing: -0.05em;
-  color: var(--color-dark-azure);
-  text-transform: lowercase;
-  display: inline-flex;
-  align-items: baseline;
-  transform: skewX(-6deg);
-  text-shadow: 0 2px 8px rgba(26, 10, 46, 0.08);
-  cursor: default;
-}
-
-.brand-dot {
-  /* Gradient via background-clip trick */
-  background: var(--boosta-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-style: normal;
-  font-size: 1.55rem;
-  line-height: 0;
-  margin-left: -1px;
-  filter: drop-shadow(0 0 6px rgba(236, 72, 153, 0.5));
+.brand-logo-img:hover {
+  transform: scale(1.04);
 }
 
 .appbar-actions {
@@ -490,19 +466,18 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 316px;
+  height: 388px;
+  margin: 0 auto;
   animation: heroEnter 0.9s var(--ease-out) both;
   z-index: 2;
 }
 
 .hero-asset-card.irregular-dudu {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  /* Larger — person is more prominent */
-  width: 316px;
-  height: 388px;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 58% 42% 64% 36% / 46% 58% 42% 54%;
   /* Violet/pink-tinted translucent glass — not cyan */
   background: linear-gradient(
@@ -521,7 +496,7 @@ html, body {
     0 8px 20px -4px rgba(26, 10, 46, 0.06),
     inset 0 3px 6px 0 rgba(255, 255, 255, 1),
     inset 0 -4px 14px 0 rgba(124, 58, 237, 0.08);
-  /* overflow: visible — person intentionally breaks out of aura */
+  /* overflow: visible */
   overflow: visible;
   /* Unlimited continuous doodling & wiggling */
   animation: 
@@ -529,6 +504,7 @@ html, body {
     doodleWiggle 5.5s ease-in-out infinite alternate;
   transform-origin: center 75%;
   will-change: transform, border-radius;
+  z-index: 1;
 }
 
 /* Unlimited Doodling — continuous fluid organic border-radius morphing */
@@ -655,8 +631,10 @@ html, body {
   }
 }
 
-.character-wrapper {
-  position: relative;
+.character-wrapper,
+.character-wrapper.hero-person-stationary {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -664,7 +642,8 @@ html, body {
   justify-content: center;
   /* ALLOW OVERFLOW — person extends beyond the aura shape */
   overflow: visible;
-  border-radius: inherit;
+  z-index: 3;
+  pointer-events: none;
 }
 
 .cutout-asset {
@@ -1478,7 +1457,7 @@ html, body {
 }
 
 @media (max-width: 380px) {
-  .hero-asset-card.irregular-dudu {
+  .hero-portal-wrapper {
     width: 280px;
     height: 340px;
   }

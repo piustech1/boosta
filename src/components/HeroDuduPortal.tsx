@@ -26,15 +26,19 @@ export const HeroDuduPortal: React.FC<HeroDuduPortalProps> = ({ parallaxOffset =
         transform: `translate(${parallaxOffset.x * 0.8}px, ${parallaxOffset.y * 0.8}px)`
       }}
     >
+      {/* 1. Irregular Dudu Container: Doodling and wiggling unlimitedly BEHIND Mickey */}
       <div 
         className="hero-asset-card irregular-dudu doodle-animated" 
         id="heroAssetCard"
+        aria-hidden="true"
       >
-      {/* Ambient Liquid Backlight Halo & Specular Refraction */}
-      <div className="character-halo" aria-hidden="true" />
-      <div className="liquid-rim-glow" aria-hidden="true" />
+        {/* Ambient Liquid Backlight Halo & Specular Refraction */}
+        <div className="character-halo" aria-hidden="true" />
+        <div className="liquid-rim-glow" aria-hidden="true" />
+      </div>
 
-      <div className="character-wrapper">
+      {/* 2. Mickey Person Cutout: Stationary foreground — does NOT wiggle */}
+      <div className="character-wrapper hero-person-stationary">
         {/* SVG Fallback if assets fail */}
         {imgError && (
           <div className="character-fallback">
@@ -81,6 +85,5 @@ export const HeroDuduPortal: React.FC<HeroDuduPortalProps> = ({ parallaxOffset =
         )}
       </div>
     </div>
-  </div>
   );
 };

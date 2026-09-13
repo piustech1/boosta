@@ -6,12 +6,14 @@ export const FloatingAppBar: React.FC = () => {
   return (
     <header className="floating-appbar-wrapper">
       <nav className="floating-appbar glass-pill">
-        {/* Site Brand with Twisted Avant-Garde Typography */}
+        {/* Site Brand with Official Boosta Logo Image */}
         <div className="brand-left">
-          <div className="brand-spark-dot" aria-hidden="true" />
-          <span className="twisted-brand">
-            boosta<span className="brand-dot">.</span>
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img 
+            src="/assets/boosta_icon.png" 
+            alt="boosta" 
+            className="brand-logo-img" 
+          />
         </div>
 
         {/* Relative Action Icons on the Right */}
