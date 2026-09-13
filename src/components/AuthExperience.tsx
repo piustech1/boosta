@@ -86,43 +86,36 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
   return (
     <div className={`auth-experience-wrapper ${isStandalonePage ? 'auth-standalone' : ''}`}>
       {/* =========================================================
-          1. INLINE HERO: Text & Mickey Asset placed side-by-side
-          Highly styled to match brand without collisions or crushes
+          1. INLINE HERO: Prominent Mickey Asset + Styled Typography
+          Side-by-side with high brand styling, no collisions or crushes
           ========================================================= */}
       <div className="auth-inline-hero">
         {/* Left Column: Styled Typography & Mickey's Speech */}
         <div className="auth-inline-info">
           <div className="auth-inline-tracker-row">
-            {onClose && (
-              <button
-                type="button"
-                className="auth-back-pill"
-                onClick={onClose}
-                aria-label="Back to home"
-              >
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M19 12H5M12 19l-7-7 7-7" />
-                </svg>
-                <span>Back</span>
-              </button>
-            )}
             <span className="auth-tracker-badge">
               <span className="tracker-glow-dot" aria-hidden="true" />
-              {mode === 'login' ? 'ACCESS PORTAL' : 'JOIN ENGINE'}
+              {mode === 'login' ? 'PORTAL ACCESS' : 'CREATE ENGINE'}
             </span>
           </div>
 
           <h1 className="auth-inline-headline">
             {mode === 'login' ? (
               <>
-                Turn attention into <span className="auth-gradient-text">growth.</span>
+                Turn attention<br />into <span className="auth-gradient-text">growth.</span>
               </>
             ) : (
               <>
-                Start your next <span className="auth-gradient-text">growth story.</span>
+                Start your next<br /><span className="auth-gradient-text">growth story.</span>
               </>
             )}
           </h1>
+
+          <p className="auth-inline-subtext">
+            {mode === 'login'
+              ? 'Your social engine is ready.'
+              : 'Zero setup. Instant social power.'}
+          </p>
 
           {/* Mickey's dynamic reaction speech bubble */}
           <div className={`auth-inline-bubble mode-bubble-${mode}`}>
@@ -131,7 +124,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Compact Mickey Asset with Doodling Liquid Dudu */}
+        {/* Right Column: Prominent Mickey Asset with Doodling Liquid Dudu */}
         <div className="auth-inline-asset-wrap">
           <div className="auth-dudu-pebble doodle-animated" aria-hidden="true">
             <div className="dudu-halo" />
@@ -186,7 +179,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             {mode === 'signup' && (
               <div className="liquid-glass-field field-stagger-1">
                 <span className="field-semantic-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                     <circle cx="12" cy="7" r="4" />
                   </svg>
@@ -207,7 +200,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             {/* Email / Username field */}
             <div className="liquid-glass-field field-stagger-2">
               <span className="field-semantic-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
@@ -227,7 +220,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             {/* Password field with semantic Eye Toggle */}
             <div className="liquid-glass-field field-stagger-3">
               <span className="field-semantic-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                   <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                 </svg>
@@ -249,14 +242,14 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
                     <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
                     <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
                     <line x1="2" y1="2" x2="22" y2="22" />
                   </svg>
                 ) : (
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
@@ -316,7 +309,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                     : 'Create my Boosta'}
                 </span>
                 <span className="pill-btn-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                  <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 10h12M11 5l5 5-5 5" />
                   </svg>
                 </span>
@@ -326,6 +319,18 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
           </form>
         </div>
       </div>
+
+      {/* =========================================================
+          4. TRUST & SECURITY MICRO-FOOTER (Grounds and fills lower screen)
+          ========================================================= */}
+      <footer className="auth-trust-footer">
+        <span className="trust-shield-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </span>
+        <span>256-Bit Encrypted Session · Instant Delivery Enabled</span>
+      </footer>
     </div>
   );
 };
