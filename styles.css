@@ -1,0 +1,978 @@
+/* =========================================================
+   BOOSTA SMM PANEL — LIQUID GLASS DESIGN SYSTEM
+   iOS-Inspired Mobile-First Onboarding & Welcome Page
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:ital,wght@0,700;0,800;1,800&family=Plus+Jakarta+Sans:ital,wght@0,700;1,800&display=swap');
+
+:root {
+  /* Color Palette */
+  --color-soft-blue: #ADDFF1;
+  --color-soft-blue-light: #E7F6FD;
+  --color-soft-blue-mid: #98D2EA;
+  --color-dark-azure: #003152;
+  --color-dark-azure-hover: #00223A;
+  --color-dark-azure-light: rgba(0, 49, 82, 0.08);
+  --color-pure-white: #FFFFFF;
+  --color-text-muted: rgba(0, 49, 82, 0.65);
+  --color-text-subtle: rgba(0, 49, 82, 0.45);
+
+  /* Frost Glass Properties */
+  --glass-bg-primary: rgba(255, 255, 255, 0.55);
+  --glass-bg-secondary: rgba(255, 255, 255, 0.4);
+  --glass-bg-card: rgba(255, 255, 255, 0.5);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.85);
+  --glass-border-subtle: 1px solid rgba(255, 255, 255, 0.55);
+  --glass-blur: 18px;
+  --glass-shadow: 
+    0 16px 36px -10px rgba(0, 49, 82, 0.09),
+    0 4px 12px -2px rgba(0, 49, 82, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  --glass-shadow-press:
+    0 6px 16px -4px rgba(0, 49, 82, 0.08),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+
+  /* Liquid Gradient Orbs */
+  --orb-1: radial-gradient(circle, rgba(173, 223, 241, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+  --orb-2: radial-gradient(circle, rgba(137, 207, 240, 0.75) 0%, rgba(173, 223, 241, 0) 70%);
+  --orb-3: radial-gradient(circle, rgba(0, 49, 82, 0.12) 0%, rgba(0, 49, 82, 0) 70%);
+
+  /* Border Radii — Strictly Bubble & Pill geometry (NO sharp corners) */
+  --radius-pill: 9999px;
+  --radius-bubble-lg: 38px;
+  --radius-bubble-md: 26px;
+  --radius-bubble-sm: 20px;
+
+  /* Spring Physics Timing */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  color: var(--color-dark-azure);
+  background: linear-gradient(175deg, var(--color-soft-blue) 0%, #E3F5FC 45%, var(--color-pure-white) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   LIQUID BACKGROUND & FLOATING GLOWING ORBS
+   ========================================================= */
+.liquid-canvas {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.85;
+  will-change: transform;
+}
+
+.orb-1 {
+  top: -8%;
+  left: -12%;
+  width: 380px;
+  height: 380px;
+  background: var(--orb-1);
+  animation: floatOrb1 18s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  bottom: 8%;
+  right: -15%;
+  width: 440px;
+  height: 440px;
+  background: var(--orb-2);
+  animation: floatOrb2 22s ease-in-out infinite alternate;
+}
+
+.orb-3 {
+  top: 40%;
+  left: 20%;
+  width: 280px;
+  height: 280px;
+  background: var(--orb-3);
+  animation: floatOrb3 15s ease-in-out infinite alternate;
+}
+
+.orb-4 {
+  top: 15%;
+  right: -5%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(35px);
+  animation: floatOrb1 14s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatOrb1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(45px, 60px) scale(1.12); }
+  100% { transform: translate(-30px, 90px) scale(0.92); }
+}
+
+@keyframes floatOrb2 {
+  0% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-60px, -45px) scale(0.95); }
+  100% { transform: translate(30px, -75px) scale(1.15); }
+}
+
+@keyframes floatOrb3 {
+  0% { transform: translate(0, 0) scale(0.95); }
+  50% { transform: translate(50px, -40px) scale(1.1); }
+  100% { transform: translate(-40px, 35px) scale(1); }
+}
+
+/* =========================================================
+   APP CONTAINER (MOBILE-FIRST VIEWPORT)
+   ========================================================= */
+.app-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 430px; /* Flagship mobile viewport width */
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top, 14px) + 8px) 18px calc(env(safe-area-inset-bottom, 14px) + 10px) 18px;
+  user-select: none;
+}
+
+/* =========================================================
+   FROST GLASSMORPHISM BUBBLE PRIMITIVES
+   ========================================================= */
+.glass-pill {
+  background: var(--glass-bg-primary);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+
+.glass-bubble {
+  background: var(--glass-bg-primary);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+  border-radius: var(--radius-bubble-lg);
+  box-shadow: var(--glass-shadow);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
+}
+
+/* =========================================================
+   FLOATING TOP APP BAR (DETACHED PILL)
+   ========================================================= */
+.floating-appbar-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 4px;
+  z-index: 10;
+}
+
+.floating-appbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 12px 8px 18px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 14px 34px -8px rgba(0, 49, 82, 0.11),
+    0 2px 6px 0 rgba(0, 49, 82, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+  border-radius: var(--radius-pill);
+}
+
+.brand-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-spark-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #25F4EE;
+  box-shadow: 0 0 10px #25F4EE;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+/* Twisted Avant-Garde Typography */
+.twisted-brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 1.35rem;
+  letter-spacing: -0.05em;
+  color: var(--color-dark-azure);
+  text-transform: lowercase;
+  display: inline-flex;
+  align-items: baseline;
+  transform: skewX(-6deg);
+  text-shadow: 0 2px 8px rgba(0, 49, 82, 0.1);
+  cursor: default;
+}
+
+.brand-dot {
+  color: #FE2C55; /* TikTok vibrant punch */
+  font-style: normal;
+  font-size: 1.55rem;
+  line-height: 0;
+  margin-left: -1px;
+  filter: drop-shadow(0 0 6px rgba(254, 44, 85, 0.7));
+}
+
+.appbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-pill);
+}
+
+.status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+  animation: pulseDot 2s infinite;
+}
+
+.status-text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-dark-azure);
+  letter-spacing: -0.01em;
+}
+
+.icon-bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  color: var(--color-dark-azure);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.2s var(--ease-spring), background 0.2s ease;
+}
+
+.icon-bubble:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.icon-bubble:active {
+  transform: scale(0.94);
+}
+
+.unread-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FE2C55;
+  box-shadow: 0 0 5px #FE2C55;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+/* =========================================================
+   HERO SECTION & INTERACTIONS
+   ========================================================= */
+.hero-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: auto 0;
+  padding: 10px 0 6px 0;
+}
+
+/* =========================================================
+   CLASSY FLOATING TIKTOK SMM METRIC BADGES
+   ========================================================= */
+.floating-chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px 7px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 12px 28px -6px rgba(0, 49, 82, 0.13),
+    0 2px 6px -1px rgba(0, 49, 82, 0.05),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+  z-index: 6;
+  pointer-events: none;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.chip-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* TikTok View Badge (Chromatic glow) */
+.tiktok-glow {
+  background: #010101;
+  color: #FFFFFF;
+  box-shadow: 
+    -1.5px -1.5px 0 #25F4EE,
+    1.5px 1.5px 0 #FE2C55,
+    0 4px 10px rgba(37, 244, 238, 0.25);
+}
+
+/* TikTok Like Badge */
+.like-glow {
+  background: rgba(254, 44, 85, 0.12);
+  box-shadow: 0 4px 12px rgba(254, 44, 85, 0.25);
+}
+
+/* TikTok Followers Badge */
+.followers-glow {
+  background: rgba(0, 49, 82, 0.1);
+  color: var(--color-dark-azure);
+  box-shadow: 0 4px 10px rgba(0, 49, 82, 0.15);
+}
+
+.chip-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.chip-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+}
+
+.chip-metric {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-dark-azure);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.trend-up {
+  color: #10B981;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+/* Precise Floating Orbit Positions */
+.chip-tiktok-views {
+  top: 4%;
+  left: -8px;
+  animation: floatChipViews 7s ease-in-out infinite alternate;
+}
+
+.chip-tiktok-likes {
+  top: 14%;
+  right: -8px;
+  animation: floatChipLikes 8s ease-in-out infinite alternate 0.8s;
+}
+
+.chip-tiktok-followers {
+  top: 44%;
+  left: -10px;
+  animation: floatChipFollowers 6.5s ease-in-out infinite alternate 1.6s;
+}
+
+@keyframes floatChipViews {
+  0% { transform: translateY(0) rotate(-1.5deg); }
+  100% { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+@keyframes floatChipLikes {
+  0% { transform: translateY(0) rotate(1.5deg); }
+  100% { transform: translateY(14px) rotate(-2deg); }
+}
+
+@keyframes floatChipFollowers {
+  0% { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(-10px) rotate(1.5deg); }
+}
+
+/* =========================================================
+   HERO CHARACTER IRREGULAR DUDU PORTAL & PROMINENT ASSET
+   ========================================================= */
+.hero-asset-card.irregular-dudu {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 295px;
+  height: 355px; /* Prominent, commanding luxury size */
+  border-radius: 58% 42% 64% 36% / 46% 58% 42% 54%; /* Organic irregular dudu pebble */
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.78) 0%, rgba(173, 223, 241, 0.45) 55%, rgba(255, 255, 255, 0.88) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 32px 70px -15px rgba(0, 49, 82, 0.18),
+    0 10px 24px -4px rgba(0, 49, 82, 0.06),
+    inset 0 3px 5px 0 rgba(255, 255, 255, 1),
+    inset 0 -3px 10px 0 rgba(173, 223, 241, 0.45);
+  animation: morphIrregularDudu 14s ease-in-out infinite alternate;
+  overflow: visible;
+}
+
+@keyframes morphIrregularDudu {
+  0% {
+    border-radius: 58% 42% 64% 36% / 46% 58% 42% 54%;
+    transform: translateY(0) scale(1);
+  }
+  33% {
+    border-radius: 46% 54% 42% 58% / 58% 44% 56% 42%;
+    transform: translateY(-8px) scale(1.01);
+  }
+  66% {
+    border-radius: 64% 36% 56% 44% / 42% 62% 38% 58%;
+    transform: translateY(-4px) scale(0.995);
+  }
+  100% {
+    border-radius: 58% 42% 64% 36% / 46% 58% 42% 54%;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Ambient Backlight Halo behind Mickey */
+.character-halo {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 75%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(173, 223, 241, 0.85) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.liquid-rim-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+.character-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Prominent, expensive cutout asset */
+.cutout-asset {
+  width: auto;
+  height: 102%; /* Mickey stands tall and commanding */
+  max-width: 106%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: none;
+  filter: 
+    drop-shadow(0 0 1.5px rgba(255, 255, 255, 0.98))
+    drop-shadow(0 18px 36px rgba(0, 49, 82, 0.22))
+    drop-shadow(0 0 24px rgba(173, 223, 241, 0.6));
+  transition: opacity 0.4s ease, filter 0.3s ease;
+}
+
+.character-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+}
+
+.fallback-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 310px;
+}
+
+/* Waving arm micro-animation */
+.waving-arm-animation {
+  transform-origin: 165px 185px;
+  animation: waveHand 2.4s ease-in-out infinite;
+}
+
+@keyframes waveHand {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(12deg); }
+}
+
+/* =========================================================
+   ANIMATED CHAT BUBBLE (COMING OUT OF MICKEY)
+   ========================================================= */
+.chat-bubble-container {
+  position: relative;
+  width: 100%;
+  max-width: 370px;
+  margin-top: -24px; /* Smooth overlap with the irregular hero container */
+  z-index: 5;
+  animation: bubbleEntrance 0.85s var(--ease-spring) backwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes bubbleEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-bubble {
+  position: relative;
+  padding: 15px 18px;
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: var(--radius-bubble-md);
+  border-bottom-left-radius: 8px; /* iOS conversational tail curve */
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 49, 82, 0.16),
+    0 4px 12px -2px rgba(0, 49, 82, 0.05),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1);
+  animation: chatSway 6s ease-in-out infinite alternate;
+}
+
+@keyframes chatSway {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+.chat-tail {
+  position: absolute;
+  top: -10px;
+  left: 36px;
+  width: 20px;
+  height: 12px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.chat-tail::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  border-top: 1px solid rgba(255, 255, 255, 0.95);
+  border-left: 1px solid rgba(255, 255, 255, 0.95);
+  transform: rotate(45deg);
+  border-radius: 4px;
+}
+
+.chat-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.chat-sender {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-dark-azure);
+  opacity: 0.75;
+}
+
+.chat-time {
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--color-text-subtle);
+}
+
+.chat-message {
+  font-size: 0.94rem;
+  line-height: 1.42;
+  font-weight: 600;
+  color: var(--color-dark-azure);
+  letter-spacing: -0.015em;
+  margin-bottom: 4px;
+}
+
+.chat-read-status {
+  display: flex;
+  justify-content: flex-end;
+  color: #0284C7;
+}
+
+/* =========================================================
+   SUPPORTED PLATFORMS DOCK (INSTAGRAM, TIKTOK, TELEGRAM, YOUTUBE, X)
+   ========================================================= */
+.supported-services-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.services-label-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.services-label-line {
+  height: 1px;
+  flex: 1;
+  max-width: 48px;
+  background: linear-gradient(90deg, transparent, rgba(0, 49, 82, 0.22), transparent);
+}
+
+.services-label-text {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+}
+
+.services-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: var(--radius-pill);
+  box-shadow: 
+    0 12px 28px -8px rgba(0, 49, 82, 0.08),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+  gap: 5px;
+}
+
+.service-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px 5px 5px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-spring), background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-pill:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 14px -2px rgba(0, 49, 82, 0.12);
+}
+
+.service-pill:active {
+  transform: scale(0.94);
+}
+
+.service-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Brand styling */
+.ig-box {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(220, 39, 67, 0.35);
+}
+
+.tt-box {
+  background: #000000;
+  color: #FFFFFF;
+  box-shadow: -1px -1px 0 #25F4EE, 1px 1px 0 #FE2C55;
+}
+
+.tg-box {
+  background: #24A1DE;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(36, 161, 222, 0.35);
+}
+
+.yt-box {
+  background: #FF0000;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.35);
+}
+
+.x-box {
+  background: #001e33;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 30, 51, 0.25);
+}
+
+.service-name {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--color-dark-azure);
+  letter-spacing: -0.01em;
+}
+
+/* =========================================================
+   BOTTOM CONTROLS: SLEEK MINIMALIST "HALF-BARS"
+   ========================================================= */
+.controls-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding-top: 8px;
+}
+
+.half-bars-wrapper {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.half-bar-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  transition: 
+    transform 0.18s var(--ease-spring),
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.half-bar-btn:active {
+  transform: scale(0.955);
+}
+
+/* Primary Button ("Get Started") */
+.primary-btn {
+  background: linear-gradient(135deg, #003152 0%, #00233B 100%);
+  color: var(--color-pure-white);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 12px 28px -6px rgba(0, 49, 82, 0.38),
+    0 4px 10px rgba(0, 49, 82, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.primary-btn:hover {
+  background: linear-gradient(135deg, #003b63 0%, #002842 100%);
+  box-shadow: 
+    0 16px 32px -6px rgba(0, 49, 82, 0.45),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.primary-btn:active {
+  box-shadow: 
+    0 6px 14px -3px rgba(0, 49, 82, 0.35),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-sheen {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-22deg);
+  pointer-events: none;
+  animation: glossSheen 5s infinite ease-in-out;
+}
+
+@keyframes glossSheen {
+  0%, 65% { left: -120%; }
+  100% { left: 160%; }
+}
+
+/* Secondary Button ("Log In") */
+.secondary-btn {
+  background: var(--glass-bg-primary);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  color: var(--color-dark-azure);
+  border: var(--glass-border);
+  box-shadow: 
+    0 10px 24px -6px rgba(0, 49, 82, 0.08),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 
+    0 14px 28px -6px rgba(0, 49, 82, 0.12),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 1);
+}
+
+.secondary-btn:active {
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: var(--glass-shadow-press);
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s var(--ease-spring);
+}
+
+.half-bar-btn:hover .btn-icon {
+  transform: translateX(3px);
+}
+
+/* iOS Native Style Home Indicator Bar */
+.ios-home-indicator {
+  align-self: center;
+  width: 134px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 49, 82, 0.22);
+  margin-top: 2px;
+}
+
+/* =========================================================
+   DESKTOP RESPONSIVE CONTAINER & BEAUTIFICATION
+   ========================================================= */
+@media (min-width: 640px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+  }
+
+  .app-container {
+    height: 870px;
+    min-height: 870px;
+    max-height: 94vh;
+    border-radius: 48px;
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+    background: linear-gradient(175deg, rgba(173, 223, 241, 0.7) 0%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0.85) 100%);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 
+      0 32px 80px -20px rgba(0, 49, 82, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.6),
+      inset 0 1px 2px 0 rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* Compact mobile screens (< 380px) */
+@media (max-width: 380px) {
+  .hero-asset-card.irregular-dudu {
+    width: 270px;
+    height: 320px;
+  }
+  .service-name {
+    display: none; /* Show sleek luxury icon badges on very narrow screens */
+  }
+  .service-pill {
+    padding: 6px;
+  }
+  .services-dock {
+    justify-content: space-around;
+  }
+}
