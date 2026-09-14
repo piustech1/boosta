@@ -31,6 +31,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
   const [signupEmail, setSignupEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [hearAboutUs, setHearAboutUs] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [authFeedback, setAuthFeedback] = useState<string | null>(null);
 
@@ -167,32 +168,30 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             ========================================================= */}
         <div className="auth-form-stage">
           
-          {/* 1. Signature Mode Switcher: Active Underline Morphs Left-to-Right */}
-          <div className="auth-mode-nav-wrap" role="tablist" aria-label="Authentication Mode">
-            <div className="auth-mode-nav">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === 'login'}
-                className={`auth-nav-tab ${mode === 'login' ? 'tab-active' : ''}`}
-                onClick={() => handleModeSwitch('login')}
-              >
-                Log In
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === 'signup'}
-                className={`auth-nav-tab ${mode === 'signup' ? 'tab-active' : ''}`}
-                onClick={() => handleModeSwitch('signup')}
-              >
-                Sign Up
-              </button>
-              <span 
-                className={`auth-nav-underline ${mode === 'signup' ? 'underline-signup' : 'underline-login'}`}
-                aria-hidden="true" 
-              />
-            </div>
+          {/* 1. Glass Pill Mode Switcher — iOS-style premium sliding capsule */}
+          <div className="auth-mode-pill-switch" role="tablist" aria-label="Authentication Mode">
+            <div
+              className={`auth-mode-active-pill ${mode === 'signup' ? 'pill-at-signup' : 'pill-at-login'}`}
+              aria-hidden="true"
+            />
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === 'login'}
+              className={`auth-mode-tab ${mode === 'login' ? 'tab-active' : ''}`}
+              onClick={() => handleModeSwitch('login')}
+            >
+              Log In
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === 'signup'}
+              className={`auth-mode-tab ${mode === 'signup' ? 'tab-active' : ''}`}
+              onClick={() => handleModeSwitch('signup')}
+            >
+              Sign Up
+            </button>
           </div>
 
           {/* 2. Left-Aligned Dynamic Headline Block (No long subtext paragraph) */}
@@ -265,8 +264,39 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                   />
                 </div>
 
-                {/* 3. Create password */}
-                <div className="liquid-glass-field field-stagger-3">
+                {/* 3. How did you hear about us? */}
+                <div className="liquid-glass-field liquid-glass-select-wrap field-stagger-3">
+                  <span className="field-semantic-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="12" />
+                      <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                  </span>
+                  <select
+                    name="hearAboutUs"
+                    value={hearAboutUs}
+                    onChange={(e) => setHearAboutUs(e.target.value)}
+                    className="liquid-input liquid-select"
+                    required
+                  >
+                    <option value="" disabled>How did you hear about us?</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="x">Twitter / X</option>
+                    <option value="google">Google Search</option>
+                    <option value="referral">Friend / Recommendation</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <span className="select-chevron" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </span>
+                </div>
+
+                {/* 4. Create password */}
+                <div className="liquid-glass-field field-stagger-4">
                   <span className="field-semantic-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -305,8 +335,8 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                   </button>
                 </div>
 
-                {/* 4. Confirm password */}
-                <div className="liquid-glass-field field-stagger-4">
+                {/* 5. Confirm password */}
+                <div className="liquid-glass-field field-stagger-5">
                   <span className="field-semantic-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -485,6 +515,40 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
 
         </div>
 
+      </div>
+
+      {/* Decorative Boosta Gradient Wave Footer — pointer-events none, behind all content */}
+      <div className="auth-bottom-wave" aria-hidden="true">
+        <svg
+          viewBox="0 0 390 100"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          className="auth-wave-svg"
+        >
+          <defs>
+            <linearGradient id="boostaWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#7357FF" stopOpacity="0.72" />
+              <stop offset="48%" stopColor="#ED5FC9" stopOpacity="0.68" />
+              <stop offset="100%" stopColor="#FF9B63" stopOpacity="0.65" />
+            </linearGradient>
+            <linearGradient id="boostaWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#A389FF" stopOpacity="0.45" />
+              <stop offset="55%" stopColor="#F48FD8" stopOpacity="0.40" />
+              <stop offset="100%" stopColor="#FFB89A" stopOpacity="0.38" />
+            </linearGradient>
+          </defs>
+          {/* Back wave layer */}
+          <path
+            d="M0,60 C60,28 130,80 195,50 C260,20 310,72 390,42 L390,100 L0,100 Z"
+            fill="url(#boostaWaveGrad2)"
+          />
+          {/* Front wave layer */}
+          <path
+            d="M0,74 C70,44 140,90 210,64 C280,38 330,82 390,58 L390,100 L0,100 Z"
+            fill="url(#boostaWaveGrad)"
+          />
+        </svg>
+        <span className="auth-copyright">© Boosta™ 2026</span>
       </div>
     </div>
   );
