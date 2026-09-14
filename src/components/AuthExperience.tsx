@@ -124,11 +124,48 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
       <div className="auth-stage-container">
         
         {/* =========================================================
-            LEFT COLUMN (Desktop Lower-Left, Mobile Lower Area)
-            Strictly Left-Aligned: Mode Switcher, Eyebrow, Headline,
-            Subtext, Individual Floating Liquid-Glass Fields, Compact CTA
+            1. HERO STAGE (Top on Mobile, Right on Desktop)
+            Wiggling Liquid Pebble, solo.png cutout (Janice & Dr. Solomon),
+            frosted bottom lip, and dynamic reacting speech bubble
             ========================================================= */}
-        <div className="auth-left-column">
+        <div className="auth-hero-stage">
+          <div className="auth-asset-wrap">
+            {/* 1. Animated Wiggling Liquid Dudu Pebble */}
+            <div className="auth-dudu-pebble doodle-animated" aria-hidden="true">
+              <div className="dudu-halo" />
+            </div>
+
+            {/* 2. Asset Cutout (solo.png) inside positioning wrapper */}
+            <div className="auth-mickey-wrapper">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/solo.png"
+                alt="Boosta Characters"
+                className="auth-mickey-cutout"
+              />
+            </div>
+
+            {/* 3. Front Frosted Liquid Glass Lip: Strongly covers bottom edge even while wiggling */}
+            <div className="auth-dudu-front-lip doodle-animated" aria-hidden="true" />
+
+            {/* 4. Speech Bubble Reacting to Mode Switch with Scale/Fade */}
+            <div className={`auth-mickey-speech-bubble bubble-mode-${mode} ${isSwitching ? 'bubble-transitioning' : 'bubble-active'}`}>
+              <span className="speech-tail" aria-hidden="true" />
+              <span className="speech-pulse-dot" aria-hidden="true" />
+              <span className="speech-text">
+                <strong className="speech-name">{heroCharacter}:</strong>{' '}
+                <span className="speech-msg">{heroSpeech}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* =========================================================
+            2. AUTH FORM STAGE (Directly Below Hero on Mobile, Left on Desktop)
+            Strictly Left-Aligned: Mode Switcher, Eyebrow, Headline,
+            Individual Floating Liquid-Glass Fields, Google on Login, Compact CTA, Terms
+            ========================================================= */}
+        <div className="auth-form-stage">
           
           {/* 1. Signature Mode Switcher: Active Underline Morphs Left-to-Right */}
           <div className="auth-mode-nav-wrap" role="tablist" aria-label="Authentication Mode">
@@ -158,7 +195,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             </div>
           </div>
 
-          {/* 2. Left-Aligned Dynamic Copy Block (Smooth Transformation) */}
+          {/* 2. Left-Aligned Dynamic Headline Block (No long subtext paragraph) */}
           <div className={`auth-copy-block ${isSwitching ? 'copy-transitioning' : 'copy-active'}`}>
             <span className="auth-eyebrow">
               {mode === 'login' ? 'BOOSTA / ACCESS' : 'BOOSTA / JOIN'}
@@ -176,11 +213,6 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
                 </>
               )}
             </h1>
-            <p className="auth-subtext">
-              {mode === 'login'
-                ? 'One clean space to boost your social presence and keep moving.'
-                : 'Start with a clean dashboard built to help your socials move.'}
-            </p>
           </div>
 
           {/* 3. Individual Floating Liquid-Glass Fields (NO large background card) */}
@@ -451,54 +483,6 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
 
           </form>
 
-          {/* Minimal Security Tagline */}
-          <div className="auth-security-subtle">
-            <span className="trust-shield-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-            </span>
-            <span>256-Bit Encrypted Session · Fast Access</span>
-          </div>
-
-        </div>
-
-        {/* =========================================================
-            RIGHT COLUMN (Desktop: Right side large visual star;
-            Mobile: Upper/middle area)
-            Wiggling Liquid Pebble, solo.png cutout, frosted bottom lip,
-            and dynamic reacting speech bubble with Janice & Dr. Solomon
-            ========================================================= */}
-        <div className="auth-right-column">
-          <div className="auth-asset-wrap">
-            {/* 1. Animated Wiggling Liquid Dudu Pebble */}
-            <div className="auth-dudu-pebble doodle-animated" aria-hidden="true">
-              <div className="dudu-halo" />
-            </div>
-
-            {/* 2. Asset Cutout (solo.png) inside positioning wrapper */}
-            <div className="auth-mickey-wrapper">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/solo.png"
-                alt="Boosta Team"
-                className="auth-mickey-cutout"
-              />
-            </div>
-
-            {/* 3. Front Frosted Liquid Glass Lip: Strongly covers the downer part even while wiggling */}
-            <div className="auth-dudu-front-lip doodle-animated" aria-hidden="true" />
-
-            {/* 4. Speech Bubble Reacting to Mode Switch with Scale/Fade */}
-            <div className={`auth-mickey-speech-bubble bubble-mode-${mode} ${isSwitching ? 'bubble-transitioning' : 'bubble-active'}`}>
-              <span className="speech-tail" aria-hidden="true" />
-              <span className="speech-pulse-dot" aria-hidden="true" />
-              <span className="speech-text">
-                <strong className="speech-name">{heroCharacter}:</strong>{' '}
-                <span className="speech-msg">{heroSpeech}</span>
-              </span>
-            </div>
-          </div>
         </div>
 
       </div>

@@ -1916,29 +1916,46 @@ html, body {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   flex: 1;
   min-height: 0;
-  overflow: hidden;
-  padding: 6px 22px 8px 22px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 22px 14px 22px;
 }
 
 .auth-stage-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 440px;
+  max-width: 380px;
   margin: 0 auto;
   flex: 1;
   min-height: 0;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 0;
 }
 
 /* =========================================================
-   LEFT COLUMN (Auth Content Area)
-   Strictly Left-Aligned, Sitting Toward Lower Screen Portion
+   1. HERO STAGE (Top on Mobile, Right on Desktop)
    ========================================================= */
-.auth-left-column {
+.auth-hero-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 2px auto 14px auto;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   2. AUTH FORM STAGE (Directly below Hero on Mobile)
+   Strictly Left-Aligned Content
+   ========================================================= */
+.auth-form-stage {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1955,7 +1972,7 @@ html, body {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 .auth-mode-nav {
@@ -2013,7 +2030,7 @@ html, body {
   align-items: flex-start;
   text-align: left;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
   transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
 }
 
@@ -2054,15 +2071,6 @@ html, body {
   background: linear-gradient(135deg, #7357FF 0%, #ED5FC9 65%, #FF9B63 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.auth-subtext {
-  font-size: 0.78rem;
-  line-height: 1.34;
-  color: #6D7587;
-  margin: 0;
-  text-align: left;
-  max-width: 340px;
 }
 
 /* 3. Floating Liquid-Glass Fields Form (NO large card panel) */
@@ -2436,16 +2444,16 @@ html, body {
 .field-stagger-4 { animation: slideUpFade 0.32s var(--ease-out) 0.20s both; }
 
 /* =========================================================
-   RIGHT COLUMN (Hero Asset Stage)
+   HERO ASSET STAGE
    Wiggling Liquid Pebble, solo.png cutout, frosted bottom lip,
    and dynamic reacting speech bubble
    ========================================================= */
-.auth-right-column {
+.auth-hero-stage {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 4px auto;
+  margin: 2px auto 14px auto;
   flex-shrink: 0;
 }
 
@@ -2663,24 +2671,28 @@ html, body {
   .auth-stage-container {
     display: grid;
     grid-template-columns: 1.15fr 1fr;
+    grid-template-areas: "form hero";
     gap: 48px;
     max-width: 980px;
     height: auto;
     min-height: 520px;
-    align-items: flex-end;
+    align-items: center;
   }
 
-  .auth-left-column {
+  .auth-form-stage {
+    grid-area: form;
     max-width: 400px;
     margin: 0;
   }
 
-  .auth-display-title {
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
+  .auth-hero-stage {
+    grid-area: hero;
+    margin: 0;
+    justify-content: flex-end;
   }
 
-  .auth-subtext {
-    font-size: 0.85rem;
+  .auth-display-title {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
   }
 
   .liquid-glass-field {
@@ -2691,11 +2703,6 @@ html, body {
   .auth-compact-pill-btn {
     height: 48px;
     min-width: 160px;
-  }
-
-  .auth-right-column {
-    margin: 0;
-    justify-content: flex-end;
   }
 
   .auth-asset-wrap {
@@ -2716,28 +2723,32 @@ html, body {
 /* Compact Mobile Height Protection (Under 740px height) */
 @media (max-width: 859px) and (max-height: 740px) {
   .auth-experience-wrapper {
-    padding: 2px 14px 4px 14px;
+    padding: 4px 14px 8px 14px;
   }
 
-  .auth-right-column {
-    margin: 2px auto;
+  .auth-hero-stage {
+    margin: 0 auto 8px auto;
   }
 
   .auth-asset-wrap {
     width: 165px;
-    height: 154px;
+    height: 148px;
   }
 
   .auth-mickey-cutout {
-    height: 145px;
+    height: 138px;
+  }
+
+  .auth-mode-nav-wrap {
+    margin-bottom: 8px;
+  }
+
+  .auth-copy-block {
+    margin-bottom: 10px;
   }
 
   .auth-display-title {
-    font-size: 1.15rem;
-  }
-
-  .auth-subtext {
-    display: none; /* Hide subtext on very short screens to guarantee zero-scroll */
+    font-size: 1.18rem;
   }
 
   .liquid-glass-field {
