@@ -293,7 +293,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
                 <div 
                   className="card-bg-layer" 
                   style={{
-                    background: `linear-gradient(135deg, ${slide.secondaryColor}25 0%, ${slide.accentColor}30 100%)`
+                    background: `linear-gradient(135deg, ${slide.secondaryColor}15 0%, ${slide.accentColor}18 100%)`
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -306,13 +306,22 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
                   <div className="card-gradient-overlay" />
                 </div>
 
-                {/* Card lower-left title + subtitle */}
-                <div className="card-label-group">
-                  <span className="card-platform-tag" style={{ color: slide.accentColor }}>
-                    {slide.platform}
-                  </span>
-                  <span className="card-title-text">{slide.title}</span>
-                  <span className="card-subtitle-text">{slide.subtitle}</span>
+                {/* Platform Icon Capsule + Card Title/Subtitle Layout */}
+                <div className="card-content-layout">
+                  <div 
+                    className="card-icon-capsule" 
+                    style={{ color: slide.accentColor }}
+                    aria-hidden="true"
+                  >
+                    {slide.icon}
+                  </div>
+                  <div className="card-label-group">
+                    <span className="card-platform-tag" style={{ color: slide.accentColor }}>
+                      {slide.platform}
+                    </span>
+                    <span className="card-title-text">{slide.title}</span>
+                    <span className="card-subtitle-text">{slide.subtitle}</span>
+                  </div>
                 </div>
               </div>
             );
@@ -338,7 +347,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
           <div 
             className="detail-bg-layer prev-layer"
             style={{
-              background: `radial-gradient(circle at 65% 45%, ${previousSlide.secondaryColor}30 0%, ${previousSlide.accentColor}25 60%, rgba(15, 23, 42, 0.95) 100%)`
+              background: `radial-gradient(circle at 70% 45%, ${previousSlide.secondaryColor}22 0%, ${previousSlide.accentColor}16 50%, #F8F9FD 100%)`
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -354,7 +363,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
             key={currentSlide.id}
             className="detail-bg-layer current-layer active-enter"
             style={{
-              background: `radial-gradient(circle at 65% 45%, ${currentSlide.secondaryColor}35 0%, ${currentSlide.accentColor}28 60%, rgba(15, 23, 42, 0.92) 100%)`
+              background: `radial-gradient(circle at 70% 45%, ${currentSlide.secondaryColor}25 0%, ${currentSlide.accentColor}18 50%, #F8F9FD 100%)`
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
