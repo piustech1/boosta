@@ -151,7 +151,7 @@ export default function AuthenticatedHomePage() {
       navigator.vibrate(12);
     }
     setSelectedGoal(goalId);
-    setSelectedPlatform(null);
+    router.push(`/boost?type=${goalId}`);
   };
 
   const handleSelectPlatform = (platformId: string) => {
@@ -159,13 +159,7 @@ export default function AuthenticatedHomePage() {
       navigator.vibrate([10, 25, 15]);
     }
     setSelectedPlatform(platformId);
-    const goalObj = GROWTH_GOALS.find(g => g.id === selectedGoal);
-    const goalLabel = goalObj ? goalObj.label : 'growth';
-    setActiveFeedback(`Launching ${platformId} ${goalLabel} booster...`);
-    setTimeout(() => {
-      setActiveFeedback(null);
-      handleBoost(platformId);
-    }, 1200);
+    router.push(`/boost?type=${selectedGoal || 'followers'}&platform=${platformId}`);
   };
 
   const handleAddFunds = () => {
