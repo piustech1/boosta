@@ -21,6 +21,8 @@ interface CarouselSlide {
   badgeBg: string;
   statLabel: string;
   icon: React.ReactNode;
+  objectPosition?: string;
+  cardObjectPosition?: string;
 }
 
 const SLIDES: CarouselSlide[] = [
@@ -32,12 +34,13 @@ const SLIDES: CarouselSlide[] = [
     headline: 'MAKE YOUR CONTENT MOVE.',
     description: 'Put your content in front of more people and build unstoppable momentum with high-retention views.',
     ctaText: 'Boost TikTok',
-    cardImage: '/assets/mickey.png',
-    detailImage: '/assets/mickey.png',
+    cardImage: '/assets/praise.png',
+    detailImage: '/assets/praise.png',
     accentColor: '#FE2C55',
     secondaryColor: '#00F2FE',
     badgeBg: 'linear-gradient(135deg, rgba(254, 44, 85, 0.2), rgba(0, 242, 254, 0.15))',
     statLabel: '1.2M+ Delivered',
+    objectPosition: 'center right',
     icon: (
       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
@@ -52,12 +55,13 @@ const SLIDES: CarouselSlide[] = [
     headline: 'TURN ATTENTION INTO MOMENTUM.',
     description: 'Give your Reels and profile the push they deserve with genuine creator reach and active engagement.',
     ctaText: 'Boost Instagram',
-    cardImage: '/assets/solo.png',
-    detailImage: '/assets/solo.png',
+    cardImage: '/assets/usher.png',
+    detailImage: '/assets/usher.png',
     accentColor: '#E1306C',
     secondaryColor: '#7357FF',
     badgeBg: 'linear-gradient(135deg, rgba(225, 48, 108, 0.2), rgba(115, 87, 255, 0.15))',
     statLabel: '85K+ Visits',
+    objectPosition: 'center right',
     icon: (
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -74,12 +78,13 @@ const SLIDES: CarouselSlide[] = [
     headline: 'GIVE YOUR NEXT UPLOAD MOMENTUM.',
     description: 'Build stronger signals and discoverability around the videos you create with targeted impressions.',
     ctaText: 'Boost YouTube',
-    cardImage: '/assets/mickey.png',
-    detailImage: '/assets/mickey.png',
+    cardImage: '/assets/chicken.png',
+    detailImage: '/assets/chicken.png',
     accentColor: '#FF0000',
     secondaryColor: '#ED5FC9',
     badgeBg: 'linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(237, 95, 201, 0.15))',
     statLabel: '450K+ Hours',
+    objectPosition: 'center right',
     icon: (
       <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -94,62 +99,29 @@ const SLIDES: CarouselSlide[] = [
     headline: 'COMMAND THE CONVERSATION.',
     description: 'Instant reposts, bookmark bursts, and verified impression velocity across trending topics.',
     ctaText: 'Boost X',
-    cardImage: '/assets/solo.png',
-    detailImage: '/assets/solo.png',
+    cardImage: '/assets/cb.png',
+    detailImage: '/assets/cb.png',
     accentColor: '#182033',
     secondaryColor: '#7357FF',
     badgeBg: 'linear-gradient(135deg, rgba(24, 32, 51, 0.18), rgba(115, 87, 255, 0.15))',
     statLabel: '320K+ Impressions',
+    objectPosition: 'center right',
     icon: (
       <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
-  {
-    id: 'telegram',
-    platform: 'Telegram',
-    title: 'Telegram Community',
-    subtitle: 'Members & Post Views',
-    headline: 'SCALE YOUR COMMUNITY FASTER.',
-    description: 'Real active channel members and targeted post views deployed instantly to build group authority.',
-    ctaText: 'Boost Telegram',
-    cardImage: '/assets/mickey.png',
-    detailImage: '/assets/mickey.png',
-    accentColor: '#2AABEE',
-    secondaryColor: '#7357FF',
-    badgeBg: 'linear-gradient(135deg, rgba(42, 171, 238, 0.2), rgba(115, 87, 255, 0.15))',
-    statLabel: '48K+ Members',
-    icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
-      </svg>
-    ),
-  },
-  {
-    id: 'facebook',
-    platform: 'Facebook',
-    title: 'Facebook Presence',
-    subtitle: 'Page Likes & Followers',
-    headline: 'EXPAND YOUR SOCIAL FOOTPRINT.',
-    description: 'Build authority with engaged followers, page likes, and viral feed reach across worldwide audiences.',
-    ctaText: 'Boost Facebook',
-    cardImage: '/assets/solo.png',
-    detailImage: '/assets/solo.png',
-    accentColor: '#1877F2',
-    secondaryColor: '#ED5FC9',
-    badgeBg: 'linear-gradient(135deg, rgba(24, 119, 242, 0.2), rgba(237, 95, 201, 0.15))',
-    statLabel: '180K+ Reach',
-    icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-      </svg>
-    ),
-  },
+];
+
+// Continuous ring track items for seamless circular sliding physics
+const TRACK_ITEMS = [
+  ...SLIDES.map((s, i) => ({ ...s, trackKey: `${s.id}-a`, slideIndex: i })),
+  ...SLIDES.map((s, i) => ({ ...s, trackKey: `${s.id}-b`, slideIndex: i })),
 ];
 
 export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [trackIndex, setTrackIndex] = useState<number>(0);
   const [prevSlideIndex, setPrevSlideIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [isTextAnimating, setIsTextAnimating] = useState<boolean>(false);
@@ -160,31 +132,42 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
   const autoPlayTimer = useRef<NodeJS.Timeout | null>(null);
 
   const totalSlides = SLIDES.length;
+  const totalTrackItems = TRACK_ITEMS.length;
 
-  const goToIndex = useCallback((newIndex: number) => {
-    if (newIndex === activeIndex) return;
+  const currentSlideIndex = trackIndex % totalSlides;
+  const currentSlide = SLIDES[currentSlideIndex];
+  const previousSlide = SLIDES[prevSlideIndex];
+
+  const previousTrackIndex = useRef<number>(0);
+
+  useEffect(() => {
+    previousTrackIndex.current = trackIndex;
+  }, [trackIndex]);
+
+  const goToIndex = useCallback((newTrackIndex: number) => {
+    if (newTrackIndex === trackIndex) return;
     if (typeof navigator !== 'undefined' && navigator.vibrate) {
       navigator.vibrate(10);
     }
-    setPrevSlideIndex(activeIndex);
+    setPrevSlideIndex(trackIndex % totalSlides);
     setIsTextAnimating(true);
-    setActiveIndex(newIndex);
+    setTrackIndex(newTrackIndex);
 
     // Staggered text fade-in like reference
     setTimeout(() => {
       setIsTextAnimating(false);
     }, 600);
-  }, [activeIndex]);
+  }, [trackIndex, totalSlides]);
 
   const goToNext = useCallback(() => {
-    const nextIdx = (activeIndex + 1) % totalSlides;
+    const nextIdx = (trackIndex + 1) % totalTrackItems;
     goToIndex(nextIdx);
-  }, [activeIndex, totalSlides, goToIndex]);
+  }, [trackIndex, totalTrackItems, goToIndex]);
 
   const goToPrev = useCallback(() => {
-    const prevIdx = (activeIndex - 1 + totalSlides) % totalSlides;
+    const prevIdx = (trackIndex - 1 + totalTrackItems) % totalTrackItems;
     goToIndex(prevIdx);
-  }, [activeIndex, totalSlides, goToIndex]);
+  }, [trackIndex, totalTrackItems, goToIndex]);
 
   // Autoplay every 3500ms
   useEffect(() => {
@@ -234,20 +217,11 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
     }, 3000);
   };
 
-  const currentSlide = SLIDES[activeIndex];
-  const previousSlide = SLIDES[prevSlideIndex];
-
-  const previousActiveIndex = useRef<number>(0);
-
-  useEffect(() => {
-    previousActiveIndex.current = activeIndex;
-  }, [activeIndex]);
-
   // Helper to calculate wrapping circular card state and detect offstage wrap
   const getCardInfo = (index: number) => {
-    let diff = (index - activeIndex + totalSlides) % totalSlides;
-    if (diff > totalSlides / 2) {
-      diff -= totalSlides;
+    let diff = (index - trackIndex + totalTrackItems) % totalTrackItems;
+    if (diff > totalTrackItems / 2) {
+      diff -= totalTrackItems;
     }
 
     let stateClass = '';
@@ -257,9 +231,9 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
     else if (diff < -1) stateClass = 'card-hidden-top hidden-above';
     else stateClass = 'card-hidden-bottom hidden-below';
 
-    let prevDiff = (index - previousActiveIndex.current + totalSlides) % totalSlides;
-    if (prevDiff > totalSlides / 2) {
-      prevDiff -= totalSlides;
+    let prevDiff = (index - previousTrackIndex.current + totalTrackItems) % totalTrackItems;
+    if (prevDiff > totalTrackItems / 2) {
+      prevDiff -= totalTrackItems;
     }
 
     // Only suppress transition if the card is leaping across the circular seam while offstage
@@ -290,40 +264,41 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
           ========================================================= */}
       <div className="vertical-carousel-panel" aria-label="Platform Slider">
         <div className="vertical-carousel-track">
-          {SLIDES.map((slide, index) => {
+          {TRACK_ITEMS.map((item, index) => {
             const cardInfo = getCardInfo(index);
             const isCurrent = cardInfo.isCurrent;
             const isClickable = cardInfo.isClickable;
 
             return (
               <div
-                key={slide.id}
+                key={item.trackKey}
                 className={`vertical-carousel-card card ${cardInfo.stateClass}`}
                 onClick={() => {
                   if (isClickable) goToIndex(index);
                 }}
                 style={{
-                  ['--card-accent' as string]: slide.accentColor,
-                  ['--card-secondary' as string]: slide.secondaryColor,
+                  ['--card-accent' as string]: item.accentColor,
+                  ['--card-secondary' as string]: item.secondaryColor,
                   transition: cardInfo.isWrapping ? 'none' : undefined,
                 }}
                 role="button"
                 tabIndex={isClickable || isCurrent ? 0 : -1}
-                aria-label={`${slide.title} - ${slide.subtitle}`}
+                aria-label={`${item.title} - ${item.subtitle}`}
                 aria-current={isCurrent ? 'true' : undefined}
               >
                 {/* Background image & gradient overlay */}
                 <div 
                   className="card-bg-layer" 
                   style={{
-                    background: `linear-gradient(135deg, ${slide.secondaryColor}15 0%, ${slide.accentColor}18 100%)`
+                    background: `linear-gradient(135deg, ${item.secondaryColor}15 0%, ${item.accentColor}18 100%)`
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={slide.cardImage}
-                    alt={slide.title}
+                    src={item.cardImage}
+                    alt={item.title}
                     className="card-asset-img"
+                    style={{ objectPosition: item.cardObjectPosition || 'bottom right' }}
                     loading="lazy"
                   />
                   <div className="card-gradient-overlay" />
@@ -336,17 +311,17 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
                 <div className="card-content-layout">
                   <div 
                     className="card-icon-capsule" 
-                    style={{ color: slide.accentColor }}
+                    style={{ color: item.accentColor }}
                     aria-hidden="true"
                   >
-                    {slide.icon}
+                    {item.icon}
                   </div>
                   <div className="card-label-group">
-                    <span className="card-platform-tag" style={{ color: slide.accentColor }}>
-                      {slide.platform}
+                    <span className="card-platform-tag" style={{ color: item.accentColor }}>
+                      {item.platform}
                     </span>
-                    <span className="card-title-text">{slide.title}</span>
-                    <span className="card-subtitle-text">{slide.subtitle}</span>
+                    <span className="card-title-text">{item.title}</span>
+                    <span className="card-subtitle-text">{item.subtitle}</span>
                   </div>
                 </div>
               </div>
@@ -381,6 +356,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
               src={previousSlide.detailImage}
               alt=""
               className="detail-creator-img"
+              style={{ objectPosition: previousSlide.objectPosition || 'center right' }}
             />
           </div>
 
@@ -397,6 +373,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
               src={currentSlide.detailImage}
               alt={currentSlide.title}
               className="detail-creator-img"
+              style={{ objectPosition: currentSlide.objectPosition || 'center right' }}
             />
           </div>
 
@@ -450,13 +427,13 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
           </div>
         </div>
 
-        {/* Progress Dots Indicator (01 / 06) */}
+        {/* Progress Dots Indicator (01 / 04) */}
         <div className="detail-progress-indicator" aria-hidden="true">
-          <span className="progress-current">0{activeIndex + 1}</span>
+          <span className="progress-current">0{currentSlideIndex + 1}</span>
           <div className="progress-mini-bar">
             <div 
               className="progress-mini-fill" 
-              style={{ width: `${((activeIndex + 1) / totalSlides) * 100}%` }}
+              style={{ width: `${((currentSlideIndex + 1) / totalSlides) * 100}%` }}
             />
           </div>
           <span className="progress-total">0{totalSlides}</span>
