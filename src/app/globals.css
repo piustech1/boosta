@@ -2169,23 +2169,26 @@ html, body {
 
 /* =========================================================
    3. SIGNATURE CURVED GAP HERO CAROUSEL LAYOUT
-   - Left Panel: High z-index (z: 3), radial concave mask on right edge
-   - Active Card: z-index 10, translates toward detail panel, trimmed by mask
-   - Right Panel: Lower z-index (z: 1), large convex border-radius (top/bottom left)
-   - Organic curved concentric gap where genuine background shines through
+   - Exact Equal Heights: Left and Right panels strictly share --hero-height
+   - 50/50 Balanced Desktop Proportions with proportional responsive scaling
+   - Left Panel: High z-index (z: 3), true circular concave mask cut on right edge
+   - Active Card: z-index 20, translates toward detail panel across gap, scale(1)
+   - Right Panel: Lower z-index (z: 1), matching true circular convex border-radius
+   - Genuine Background Gap: Organic curved concentric gap where Home background shines through
+   - Full-bleed expanded slide detail image with crossfade and dark gradient overlay
    - Smooth 0.6s cubic-bezier(0.25, 1, 0.5, 1) carousel physics
    - Zero horizontal overflow across ALL viewports (320px to 1440px+)
    ========================================================= */
 
 .curved-hero-container {
-  --hero-height: 460px;
-  --curve-radius: 220px;
+  --hero-height: 480px;
+  --curve-radius: calc(var(--hero-height) / 2); /* 240px: perfect 180° semicircle */
   --curve-gap: 16px;
-  --overlap: calc(var(--curve-radius) - var(--curve-gap));
-  --card-height: 118px;
-  --card-spacing: 132px;
-  --active-offset: 16px;
-  --card-text-width: 220px;
+  --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 224px */
+  --card-height: 120px;
+  --card-spacing: 136px;
+  --active-bridge: 20px;
+  --card-text-max-width: 200px;
 
   position: relative;
   display: flex;
@@ -2194,6 +2197,8 @@ html, body {
   width: 100%;
   max-width: 100%;
   height: var(--hero-height);
+  min-height: var(--hero-height);
+  max-height: var(--hero-height);
   border-radius: 28px;
   overflow: hidden;
   user-select: none;
@@ -2205,19 +2210,23 @@ html, body {
 /* --- PANEL A: LEFT VERTICAL SLIDING CAROUSEL --- */
 .vertical-carousel-panel {
   position: relative;
-  flex: 0 0 calc(46% + var(--overlap));
-  width: calc(46% + var(--overlap));
-  height: 100%;
+  flex: 0 0 calc(50% + var(--overlap));
+  width: calc(50% + var(--overlap));
+  height: var(--hero-height);
+  min-height: var(--hero-height);
+  max-height: var(--hero-height);
+  border-top-left-radius: 28px;
+  border-bottom-left-radius: 28px;
   z-index: 3;
   overflow: visible;
-  /* Concave circular cut on the right edge revealing the genuine background */
+  /* True circular concave cut on the right edge revealing the genuine background */
   -webkit-mask-image: radial-gradient(
-    ellipse var(--curve-radius) 50% at 100% 50%,
+    circle at 100% 50%,
     transparent calc(var(--curve-radius) - 1px),
     black var(--curve-radius)
   );
   mask-image: radial-gradient(
-    ellipse var(--curve-radius) 50% at 100% 50%,
+    circle at 100% 50%,
     transparent calc(var(--curve-radius) - 1px),
     black var(--curve-radius)
   );
@@ -2238,7 +2247,7 @@ html, body {
   top: 50%;
   border-radius: 20px;
   overflow: hidden;
-  background: #111827;
+  background: #0F172A;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
   cursor: pointer;
@@ -2257,29 +2266,30 @@ html, body {
 /* --- Card Stack Hierarchy (Active, Previous, Next, Hidden) --- */
 
 /* ACTIVE CARD:
-   - Elevated z-index (z: 10)
-   - Bridges the gap by translating to the right toward the right panel
-   - Right edge is trimmed cleanly by the concave mask
-   - Lit & crisp with scale(1.04) and subtle accent aura (NO harsh white border) */
+   - Highest z-index (z: 20)
+   - Bridges the gap toward the right panel with translateX(var(--active-bridge))
+   - scale(1), 100% brightness and opacity
+   - Right edge is trimmed by the concave mask into the matching circular curve
+   - Compatible dark obsidian tone matching detail panel with NO harsh white borders */
 .vertical-carousel-card.card-active {
-  transform: translateY(-50%) translateX(var(--active-offset)) scale(1.04);
+  transform: translateY(-50%) translateX(var(--active-bridge)) scale(1);
   opacity: 1;
   filter: brightness(1) saturate(1);
-  z-index: 10;
+  z-index: 20;
   cursor: default;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55),
-              0 0 24px -4px rgba(115, 87, 255, 0.35);
+  background: #0F172A;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.5);
 }
 
 /* PREVIOUS CARD:
-   - Scaled down, reduced brightness/saturation, lower z-index for depth */
+   - Scaled down, reduced brightness/saturation, recedes behind active */
 .vertical-carousel-card.card-prev {
-  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.85);
-  opacity: 0.58;
-  filter: brightness(0.62) saturate(0.8);
-  z-index: 2;
-  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.86);
+  opacity: 0.55;
+  filter: brightness(0.60) saturate(0.75);
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .vertical-carousel-card.card-prev:hover {
@@ -2289,13 +2299,13 @@ html, body {
 }
 
 /* NEXT CARD:
-   - Scaled down, reduced brightness/saturation, lower z-index for depth */
+   - Scaled down, reduced brightness/saturation, recedes behind active */
 .vertical-carousel-card.card-next {
-  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.85);
-  opacity: 0.58;
-  filter: brightness(0.62) saturate(0.8);
-  z-index: 2;
-  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.86);
+  opacity: 0.55;
+  filter: brightness(0.60) saturate(0.75);
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .vertical-carousel-card.card-next:hover {
@@ -2305,7 +2315,7 @@ html, body {
 }
 
 /* HIDDEN CARDS:
-   - Move farther upward/downward, scale smaller, fade to opacity 0 */
+   - Displaced farther, scaled down, faded to 0 */
 .vertical-carousel-card.card-hidden-top {
   transform: translateY(calc(-50% - var(--card-spacing) * 1.85)) scale(0.70);
   opacity: 0;
@@ -2333,6 +2343,7 @@ html, body {
   bottom: 0;
   height: 100%;
   width: auto;
+  max-width: 55%;
   object-fit: contain;
   object-position: bottom right;
   opacity: 0.85;
@@ -2342,15 +2353,16 @@ html, body {
 .card-gradient-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(17, 24, 39, 0.95) 25%, rgba(17, 24, 39, 0.6) 65%, transparent 100%);
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.95) 25%, rgba(15, 23, 42, 0.6) 65%, transparent 100%);
   pointer-events: none;
 }
 
 .card-label-group {
   position: absolute;
-  left: 14px;
-  bottom: 12px;
-  max-width: var(--card-text-width, 220px);
+  left: 16px;
+  bottom: 14px;
+  max-width: var(--card-text-max-width, 200px);
+  padding-right: 12px;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -2390,21 +2402,22 @@ html, body {
 /* --- PANEL B: RIGHT EXPANDED ACTIVE DETAIL PANEL --- */
 .active-detail-panel {
   position: relative;
-  flex: 0 0 54%;
-  width: 54%;
-  height: 100%;
+  flex: 0 0 50%;
+  width: 50%;
+  height: var(--hero-height);
+  min-height: var(--hero-height);
+  max-height: var(--hero-height);
   z-index: 1;
-  /* Matching convex left arc (horizontal radius var(--curve-radius), vertical 50%) */
-  border-top-left-radius: var(--curve-radius) 50%;
-  border-bottom-left-radius: var(--curve-radius) 50%;
+  /* Matching convex circular arc spanning full panel height */
+  border-top-left-radius: var(--curve-radius);
+  border-bottom-left-radius: var(--curve-radius);
   border-top-right-radius: 28px;
   border-bottom-right-radius: 28px;
   /* Negative margin pulls panel into the concave hollow, forming the visible curved background gap */
   margin-left: calc(-1 * var(--overlap));
   background: #0B1120;
   border: none;
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55),
-              0 8px 24px -4px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2424,8 +2437,8 @@ html, body {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
               transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -2442,17 +2455,15 @@ html, body {
   animation: detailFadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
+/* Full-bleed cover image across detail panel */
 .detail-creator-img {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 94%;
-  max-height: 440px;
-  width: auto;
-  max-width: 60%;
-  object-fit: contain;
-  object-position: bottom right;
-  filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.55));
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.4));
   pointer-events: none;
 }
 
@@ -2460,7 +2471,13 @@ html, body {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(90deg, rgba(11, 17, 32, 0.96) 0%, rgba(11, 17, 32, 0.85) 45%, rgba(11, 17, 32, 0.32) 75%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(11, 17, 32, 0.95) 0%,
+    rgba(11, 17, 32, 0.82) 45%,
+    rgba(11, 17, 32, 0.40) 75%,
+    rgba(11, 17, 32, 0.20) 100%
+  );
   pointer-events: none;
 }
 
@@ -2671,25 +2688,33 @@ html, body {
 /* --- TABLET RESPONSIVE LAYOUT (600px – 859px) --- */
 @media (min-width: 600px) and (max-width: 859px) {
   .curved-hero-container {
-    --hero-height: 400px;
-    --curve-radius: 160px;
+    --hero-height: 420px;
+    --curve-radius: calc(var(--hero-height) / 2); /* 210px */
     --curve-gap: 12px;
-    --overlap: calc(var(--curve-radius) - var(--curve-gap));
-    --card-height: 96px;
-    --card-spacing: 110px;
-    --active-offset: 12px;
-    --card-text-width: 160px;
+    --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 198px */
+    --card-height: 102px;
+    --card-spacing: 116px;
+    --active-bridge: 14px;
+    --card-text-max-width: 150px;
     height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
   }
 
   .vertical-carousel-panel {
-    flex: 0 0 calc(46% + var(--overlap));
-    width: calc(46% + var(--overlap));
+    flex: 0 0 calc(50% + var(--overlap));
+    width: calc(50% + var(--overlap));
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
   }
 
   .active-detail-panel {
-    flex: 0 0 54%;
-    width: 54%;
+    flex: 0 0 50%;
+    width: 50%;
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
   }
 
   .detail-content-block {
@@ -2701,21 +2726,28 @@ html, body {
 /* --- MOBILE RESPONSIVE LAYOUT (<= 599px) --- */
 @media (max-width: 599px) {
   .curved-hero-container {
-    --hero-height: 336px;
-    --curve-radius: clamp(70px, 21vw, 84px);
+    --hero-height: 350px;
+    --curve-radius: calc(var(--hero-height) / 2); /* 175px */
     --curve-gap: 8px;
-    --overlap: calc(var(--curve-radius) - var(--curve-gap));
-    --card-height: 72px;
-    --card-spacing: 82px;
-    --active-offset: 8px;
-    --card-text-width: 110px;
+    --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 167px */
+    --card-height: 76px;
+    --card-spacing: 86px;
+    --active-bridge: 10px;
+    --card-text-max-width: 110px;
     height: var(--hero-height);
-    border-radius: 22px;
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
+    border-radius: 20px;
   }
 
   .vertical-carousel-panel {
-    flex: 0 0 calc(48% + var(--overlap));
-    width: calc(48% + var(--overlap));
+    flex: 0 0 calc(50% + var(--overlap));
+    width: calc(50% + var(--overlap));
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
   }
 
   .vertical-carousel-card {
@@ -2728,6 +2760,8 @@ html, body {
   .card-label-group {
     left: 8px;
     bottom: 8px;
+    padding-right: 6px;
+    max-width: var(--card-text-max-width);
   }
 
   .card-platform-tag {
@@ -2742,11 +2776,22 @@ html, body {
     font-size: 0.58rem;
   }
 
+  .card-asset-img {
+    max-width: 50%;
+  }
+
   .active-detail-panel {
-    flex: 0 0 52%;
-    width: 52%;
-    border-top-right-radius: 22px;
-    border-bottom-right-radius: 22px;
+    flex: 0 0 50%;
+    width: 50%;
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .detail-creator-img {
+    object-position: 70% center;
   }
 
   .detail-content-block {
@@ -2785,11 +2830,6 @@ html, body {
     display: none;
   }
 
-  .detail-creator-img {
-    height: 86%;
-    max-width: 56%;
-  }
-
   .detail-progress-indicator {
     bottom: 10px;
     left: 18px;
@@ -2798,6 +2838,58 @@ html, body {
 
   .progress-mini-bar {
     width: 36px;
+  }
+}
+
+/* --- VERY SMALL MOBILE (<= 345px) --- */
+@media (max-width: 345px) {
+  .curved-hero-container {
+    --hero-height: 330px;
+    --curve-radius: calc(var(--hero-height) / 2); /* 165px */
+    --curve-gap: 8px;
+    --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 157px */
+    --card-height: 68px;
+    --card-spacing: 78px;
+    --active-bridge: 8px;
+    --card-text-max-width: 95px;
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
+  }
+
+  .vertical-carousel-panel {
+    flex: 0 0 calc(50% + var(--overlap));
+    width: calc(50% + var(--overlap));
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
+  }
+
+  .active-detail-panel {
+    flex: 0 0 50%;
+    width: 50%;
+    height: var(--hero-height);
+    min-height: var(--hero-height);
+    max-height: var(--hero-height);
+  }
+
+  .detail-content-block {
+    padding: 12px 10px 12px 14px;
+  }
+
+  .detail-headline {
+    font-size: 0.88rem;
+  }
+
+  .detail-description {
+    font-size: 0.62rem;
+    margin-bottom: 8px;
+  }
+
+  .detail-cta-button {
+    height: 30px;
+    padding: 0 12px;
+    font-size: 0.68rem;
   }
 }
 
