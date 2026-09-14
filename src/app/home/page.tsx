@@ -81,6 +81,16 @@ const GROWTH_GOALS: GrowthGoal[] = [
 
 const PLATFORMS: PlatformOption[] = [
   {
+    id: 'TikTok',
+    name: 'TikTok',
+    brandColor: '#FE2C55',
+    icon: (
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
+      </svg>
+    ),
+  },
+  {
     id: 'Instagram',
     name: 'Instagram',
     brandColor: '#E1306C',
@@ -89,16 +99,6 @@ const PLATFORMS: PlatformOption[] = [
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-      </svg>
-    ),
-  },
-  {
-    id: 'TikTok',
-    name: 'TikTok',
-    brandColor: '#FE2C55',
-    icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
       </svg>
     ),
   },
@@ -137,10 +137,13 @@ const PLATFORMS: PlatformOption[] = [
 export default function AuthenticatedHomePage() {
   const router = useRouter();
   const [user, setUser] = useState<UserSession | null>(null);
+  const [balance, setBalance] = useState<number>(48500);
+  const [isBalanceLoading, setIsBalanceLoading] = useState<boolean>(true);
   const [activeFeedback, setActiveFeedback] = useState<string | null>(null);
 
-  // Core Experience state: What are you growing?
-  const [selectedGoal, setSelectedGoal] = useState<GrowthGoalId | null>('followers');
+  // Core Experience state: What do you want to boost?
+  // Initializes to null so NO platform strip is visible on page load!
+  const [selectedGoal, setSelectedGoal] = useState<GrowthGoalId | null>(null);
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
 
   const handleSelectGoal = (goalId: GrowthGoalId) => {
@@ -165,6 +168,16 @@ export default function AuthenticatedHomePage() {
     }, 1200);
   };
 
+  const handleAddFunds = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(12);
+    }
+    setActiveFeedback('Opening quick deposit options...');
+    setTimeout(() => {
+      setActiveFeedback(null);
+    }, 2200);
+  };
+
   // Retrieve authenticated session on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -173,6 +186,12 @@ export default function AuthenticatedHomePage() {
         try {
           const parsed = JSON.parse(stored);
           setUser(parsed);
+          if (parsed.balance !== undefined && parsed.balance !== null) {
+            const num = Number(parsed.balance);
+            if (!isNaN(num)) {
+              setBalance(num);
+            }
+          }
         } catch {
           setUser({ email: 'creator@boosta.app', name: 'Creator' });
         }
@@ -180,6 +199,7 @@ export default function AuthenticatedHomePage() {
         // Fallback demo user session so the screen is directly viewable if opened
         setUser({ email: 'creator@boosta.app', name: 'Boosta Creator' });
       }
+      setIsBalanceLoading(false);
     }
   }, []);
 
@@ -235,14 +255,38 @@ export default function AuthenticatedHomePage() {
           <HeroCarousel onBoost={handleBoost} />
         </section>
 
-        {/* 3. Core Experience: What are you growing? */}
-        <section className="growth-discovery-section" aria-label="What are you growing?">
+        {/* 3. Account Balance Surface: Compact, confident, non-intrusive */}
+        <section className="account-balance-surface" aria-label="Boosta account balance">
+          <div className="balance-info-col">
+            <span className="balance-eyebrow">Your Boosta balance</span>
+            <div className="balance-amount-row">
+              {isBalanceLoading ? (
+                <span className="balance-skeleton" aria-label="Loading balance..." />
+              ) : (
+                <span className="balance-amount">UGX {balance.toLocaleString()}</span>
+              )}
+            </div>
+            <span className="balance-caption">Available to boost</span>
+          </div>
+          <button 
+            type="button" 
+            className="balance-add-funds-btn"
+            onClick={handleAddFunds}
+            aria-label="Add funds to Boosta balance"
+          >
+            <span className="add-funds-plus" aria-hidden="true">+</span>
+            <span>Add funds</span>
+          </button>
+        </section>
+
+        {/* 4. Core Intent Experience: What do you want to boost? */}
+        <section className="growth-discovery-section" aria-label="What do you want to boost?">
           <div className="growth-discovery-header">
-            <h2 className="growth-discovery-title">What are you growing?</h2>
+            <h2 className="growth-discovery-title">What do you want to boost?</h2>
           </div>
 
           {/* 2x2 Unified Cohesive Interactive Surface */}
-          <div className="growth-goals-surface" role="radiogroup" aria-label="Social media growth goals">
+          <div className="growth-goals-surface" role="radiogroup" aria-label="Social media goals">
             {GROWTH_GOALS.map((goal) => {
               const isSelected = selectedGoal === goal.id;
               return (
@@ -266,7 +310,7 @@ export default function AuthenticatedHomePage() {
             })}
           </div>
 
-          {/* In-Place Progressive Disclosure: Platform Selection */}
+          {/* In-Place Progressive Disclosure: Platform Selection (only unfolds if an outcome is selected) */}
           {selectedGoal && (
             <div className="progressive-platform-panel" role="region" aria-label="Platform selection">
               <div className="progressive-panel-header">
