@@ -83,6 +83,26 @@ export default function AuthenticatedHomePage() {
   const [activeOrders, setActiveOrders] = useState<ActiveOrder[]>(DEFAULT_ACTIVE_ORDERS);
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>(DEFAULT_RECENT_ACTIVITIES);
 
+  // Switching module state: single visual surface with switchable internal views
+  const [financialTab, setFinancialTab] = useState<'balance' | 'growth'>('balance');
+  const [activityTab, setActivityTab] = useState<'orders' | 'activity'>('orders');
+
+  const handleSwitchFinancial = (tab: 'balance' | 'growth') => {
+    if (tab === financialTab) return;
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+    setFinancialTab(tab);
+  };
+
+  const handleSwitchActivity = (tab: 'orders' | 'activity') => {
+    if (tab === activityTab) return;
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(10);
+    }
+    setActivityTab(tab);
+  };
+
   // Retrieve authenticated session on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -242,220 +262,258 @@ export default function AuthenticatedHomePage() {
           </button>
         </section>
 
-        {/* 4. Balance + Growth Twin Module */}
-        <section className="dashboard-twin-modules" aria-label="Account Financials and Growth Overview">
-          {/* Module A: YOUR BALANCE */}
-          <div className="twin-module-card balance-module">
-            <div className="module-header-row">
-              <span className="module-tag-label">YOUR BALANCE</span>
-              <div className="module-tag-icon balance-accent" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
-                  <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
-                  <path d="M18 12a2 2 0 0 0 0 4h3v-4z" />
-                </svg>
-              </div>
-            </div>
-
-            <div className="module-main-value-wrap">
-              <span className="module-currency-prefix">UGX</span>
-              <span className="module-main-value">{balance}</span>
-            </div>
-
-            <div className="module-subtext">Available balance</div>
-
-            <div className="module-footer-action">
-              <button 
-                type="button" 
-                className="compact-secondary-action"
-                onClick={() => handleQuickAction('deposit')}
-                aria-label="Deposit Funds"
+        {/* 4. Switching Module A: YOUR BALANCE ↔ YOUR GROWTH */}
+        <section className="switching-module-card financial-switching-card" aria-label="Account Balance and Growth">
+          {/* Header row with iOS-style Liquid Glass Segmented Switch */}
+          <div className="module-control-header">
+            <div className="module-segmented-control" role="tablist" aria-label="Financial views">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={financialTab === 'balance'}
+                className={`segmented-tab-btn ${financialTab === 'balance' ? 'tab-active' : ''}`}
+                onClick={() => handleSwitchFinancial('balance')}
               >
-                <span>Deposit</span>
-                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" />
-                </svg>
+                <span>Balance</span>
               </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={financialTab === 'growth'}
+                className={`segmented-tab-btn ${financialTab === 'growth' ? 'tab-active' : ''}`}
+                onClick={() => handleSwitchFinancial('growth')}
+              >
+                <span>Growth</span>
+              </button>
+              <div 
+                className={`segmented-slider-thumb ${financialTab === 'growth' ? 'slide-right' : 'slide-left'}`}
+                aria-hidden="true" 
+              />
+            </div>
+
+            <div className="module-header-meta" aria-hidden="true">
+              {financialTab === 'balance' ? (
+                <span className="module-status-chip">
+                  <span className="status-chip-dot dot-purple" />
+                  <span>Wallet</span>
+                </span>
+              ) : (
+                <span className="module-status-chip">
+                  <span className="status-chip-dot dot-green" />
+                  <span>Performance</span>
+                </span>
+              )}
             </div>
           </div>
 
-          {/* Module B: YOUR GROWTH */}
-          <div className="twin-module-card growth-module">
-            <div className="module-header-row">
-              <span className="module-tag-label">YOUR GROWTH</span>
-              <div className="module-tag-icon growth-accent" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M23 6l-9.5 9.5-5-5L1 18" />
-                  <path d="M17 6h6v6" />
-                </svg>
+          {/* Stacked Switching Viewport: same physical cell (grid-area: 1 / 1 / 2 / 2) */}
+          <div className="switching-viewport financial-viewport">
+            {/* VIEW 1: Your Balance */}
+            <div 
+              className={`switch-pane pane-left ${financialTab === 'balance' ? 'pane-active' : 'pane-inactive'}`}
+              aria-hidden={financialTab !== 'balance'}
+            >
+              <div className="financial-pane-layout">
+                <div className="financial-data-group">
+                  <span className="pane-kicker-label">Your balance</span>
+                  <div className="financial-value-wrap">
+                    <span className="financial-currency">UGX</span>
+                    <span className="financial-number">{balance}</span>
+                  </div>
+                  <span className="pane-secondary-label">Available balance</span>
+                </div>
+
+                <div className="financial-action-wrap">
+                  <button
+                    type="button"
+                    className="deposit-action-pill"
+                    onClick={() => handleQuickAction('deposit')}
+                    aria-label="Deposit Funds"
+                  >
+                    <span>Deposit</span>
+                    <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M3 8h10M9 4l4 4-4 4" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div className="module-main-value-wrap">
-              <span className="module-main-value growth-green">+12.8%</span>
-            </div>
+            {/* VIEW 2: Your Growth */}
+            <div 
+              className={`switch-pane pane-right ${financialTab === 'growth' ? 'pane-active' : 'pane-inactive'}`}
+              aria-hidden={financialTab !== 'growth'}
+            >
+              <div className="financial-pane-layout">
+                <div className="financial-data-group">
+                  <span className="pane-kicker-label">Your growth</span>
+                  <div className="financial-value-wrap">
+                    <span className="financial-number growth-text">+12.8%</span>
+                  </div>
+                  <span className="pane-secondary-label">This week</span>
+                </div>
 
-            <div className="module-subtext">This week</div>
-
-            <div className="module-footer-viz" aria-hidden="true">
-              {/* Compact Mini Upward Trend Sparkline */}
-              <svg viewBox="0 0 88 24" className="growth-sparkline-svg" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="growthSparklineGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#10B981" stopOpacity="0.25" />
-                    <stop offset="100%" stopColor="#10B981" stopOpacity="0.0" />
-                  </linearGradient>
-                </defs>
-                <path
-                  d="M2 20 Q 22 18, 34 13 T 58 9 T 74 5 L 86 2"
-                  fill="none"
-                  stroke="#059669"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M2 20 Q 22 18, 34 13 T 58 9 T 74 5 L 86 2 L 86 24 L 2 24 Z"
-                  fill="url(#growthSparklineGrad)"
-                />
-                <circle cx="86" cy="2" r="2.5" fill="#059669" />
-              </svg>
+                <div className="growth-sparkline-box" aria-hidden="true">
+                  <svg viewBox="0 0 110 36" className="growth-sparkline-svg" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="growthSparklineGrad2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#10B981" stopOpacity="0.25" />
+                        <stop offset="100%" stopColor="#10B981" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M2 28 Q 28 24, 46 18 T 76 11 T 96 6 L 108 3"
+                      fill="none"
+                      stroke="#059669"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M2 28 Q 28 24, 46 18 T 76 11 T 96 6 L 108 3 L 108 36 L 2 36 Z"
+                      fill="url(#growthSparklineGrad2)"
+                    />
+                    <circle cx="108" cy="3" r="2.8" fill="#059669" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* 5. Active Orders + Recent Activity Twin Module (Phase 2) */}
-        <section className="dashboard-activity-twin-modules" aria-label="Active Orders and Recent Activity Overview">
-          {/* Module A: ACTIVE ORDERS */}
-          <div className="twin-module-card activity-twin-card orders-card">
-            <div className="module-header-row">
-              <div className="module-header-left">
-                <span className="module-tag-label">Active orders</span>
+        {/* 5. Switching Module B: ACTIVE ORDERS ↔ RECENT ACTIVITY */}
+        <section className="switching-module-card activity-switching-card" aria-label="Active Orders and Recent Activity">
+          {/* Header row with iOS-style Liquid Glass Segmented Switch */}
+          <div className="module-control-header">
+            <div className="module-segmented-control" role="tablist" aria-label="Activity views">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activityTab === 'orders'}
+                className={`segmented-tab-btn ${activityTab === 'orders' ? 'tab-active' : ''}`}
+                onClick={() => handleSwitchActivity('orders')}
+              >
+                <span>Active orders</span>
                 {activeOrders.length > 0 && (
-                  <span className="active-live-badge" aria-label={`${activeOrders.length} active orders`}>
-                    <span className="live-dot" aria-hidden="true" />
-                    <span>{activeOrders.length}</span>
-                  </span>
+                  <span className="segmented-counter-pill">{activeOrders.length}</span>
                 )}
-              </div>
-              <div className="module-tag-icon orders-accent" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activityTab === 'activity'}
+                className={`segmented-tab-btn ${activityTab === 'activity' ? 'tab-active' : ''}`}
+                onClick={() => handleSwitchActivity('activity')}
+              >
+                <span>Recent activity</span>
+              </button>
+              <div 
+                className={`segmented-slider-thumb ${activityTab === 'activity' ? 'slide-right' : 'slide-left'}`}
+                aria-hidden="true" 
+              />
             </div>
 
-            {/* Orders Content or Empty State */}
-            {activeOrders.length === 0 ? (
-              <div className="twin-empty-state">
-                <p className="empty-state-headline">No active orders</p>
-                <p className="empty-state-sub">Your next boost will appear here.</p>
-                <button 
-                  type="button" 
-                  className="empty-state-link"
-                  onClick={() => handleQuickAction('new-order')}
-                >
-                  <span>View services →</span>
-                </button>
-              </div>
-            ) : (
-              <div className="orders-stack-list">
-                {activeOrders.slice(0, 2).map((order) => (
-                  <div key={order.id} className="order-compact-item">
-                    <div className="order-info-row">
-                      <span className="order-service-name">{order.service}</span>
-                      <span className="order-status-pill">{order.status}</span>
-                    </div>
-
-                    <div className="order-qty-row">
-                      <span className="order-qty-text">
-                        {order.current.toLocaleString()} / {order.target.toLocaleString()}
-                      </span>
-                      <span className="order-pct-text">{order.progress}%</span>
-                    </div>
-
-                    <div className="order-progress-track" aria-hidden="true">
-                      <div 
-                        className="order-progress-fill" 
-                        style={{ width: `${Math.min(100, Math.max(0, order.progress))}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="module-footer-action">
-              <button 
-                type="button" 
-                className="compact-secondary-action"
+            <div className="module-header-meta">
+              <button
+                type="button"
+                className="view-all-link-btn"
                 onClick={() => handleQuickAction('orders')}
-                aria-label="View all active orders"
+                aria-label={activityTab === 'orders' ? 'View all active orders' : 'View all activity'}
               >
                 <span>View all</span>
-                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M3 8h10M9 4l4 4-4 4" />
                 </svg>
               </button>
             </div>
           </div>
 
-          {/* Module B: RECENT ACTIVITY */}
-          <div className="twin-module-card activity-twin-card activity-card">
-            <div className="module-header-row">
-              <span className="module-tag-label">Recent activity</span>
-              <div className="module-tag-icon activity-accent" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="9" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
+          {/* Stacked Switching Viewport */}
+          <div className="switching-viewport activity-viewport">
+            {/* VIEW 1: Active Orders */}
+            <div 
+              className={`switch-pane pane-left ${activityTab === 'orders' ? 'pane-active' : 'pane-inactive'}`}
+              aria-hidden={activityTab !== 'orders'}
+            >
+              <div className="activity-pane-content">
+                {activeOrders.length === 0 ? (
+                  <div className="pane-empty-state">
+                    <p className="empty-title">No active orders</p>
+                    <p className="empty-subtitle">Your next boost will appear here.</p>
+                    <button 
+                      type="button" 
+                      className="empty-cta-pill"
+                      onClick={() => handleQuickAction('new-order')}
+                    >
+                      <span>Explore services →</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="orders-product-list">
+                    {activeOrders.slice(0, 2).map((order) => (
+                      <div key={order.id} className="order-product-row">
+                        <div className="order-row-main">
+                          <div className="order-service-header">
+                            <span className="order-service-title">{order.service}</span>
+                            <span className="order-live-status-pill">{order.status}</span>
+                          </div>
+                          <div className="order-metric-line">
+                            <span className="order-fraction-text">
+                              {order.current.toLocaleString()} / {order.target.toLocaleString()}
+                            </span>
+                            <span className="order-percent-tag">{order.progress}%</span>
+                          </div>
+                        </div>
+
+                        <div className="order-progress-track" aria-hidden="true">
+                          <div 
+                            className="order-progress-fill" 
+                            style={{ width: `${Math.min(100, Math.max(0, order.progress))}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Activity Content or Empty State */}
-            {recentActivities.length === 0 ? (
-              <div className="twin-empty-state">
-                <p className="empty-state-headline">No recent activity</p>
-                <p className="empty-state-sub">Your deposits and boosts will appear here.</p>
-              </div>
-            ) : (
-              <div className="activity-timeline-list">
-                {recentActivities.slice(0, 3).map((act, index) => (
-                  <div key={act.id} className="timeline-item">
-                    {/* Node with subtle connecting line */}
-                    <div className="timeline-node-col" aria-hidden="true">
-                      <div className={`timeline-dot dot-${act.type}`} />
-                      {index < Math.min(recentActivities.length, 3) - 1 && (
-                        <div className="timeline-connector-line" />
-                      )}
-                    </div>
-
-                    <div className="timeline-content-col">
-                      <div className="timeline-title-row">
-                        <span className="timeline-title">{act.title}</span>
-                        <span className="timeline-time">{act.time}</span>
-                      </div>
-                      <span className={`timeline-sub ${act.type === 'deposit' ? 'sub-deposit' : ''}`}>
-                        {act.subtitle}
-                      </span>
-                    </div>
+            {/* VIEW 2: Recent Activity */}
+            <div 
+              className={`switch-pane pane-right ${activityTab === 'activity' ? 'pane-active' : 'pane-inactive'}`}
+              aria-hidden={activityTab !== 'activity'}
+            >
+              <div className="activity-pane-content">
+                {recentActivities.length === 0 ? (
+                  <div className="pane-empty-state">
+                    <p className="empty-title">No recent activity</p>
+                    <p className="empty-subtitle">Your deposits and boosts will appear here.</p>
                   </div>
-                ))}
-              </div>
-            )}
+                ) : (
+                  <div className="timeline-product-list">
+                    {recentActivities.slice(0, 3).map((act, index) => (
+                      <div key={act.id} className="timeline-product-item">
+                        <div className="timeline-spine-col" aria-hidden="true">
+                          <div className={`timeline-core-dot dot-${act.type}`} />
+                          {index < Math.min(recentActivities.length, 3) - 1 && (
+                            <div className="timeline-spine-line" />
+                          )}
+                        </div>
 
-            <div className="module-footer-action">
-              <button 
-                type="button" 
-                className="compact-secondary-action"
-                onClick={() => handleQuickAction('orders')}
-                aria-label="View all recent activity"
-              >
-                <span>View all</span>
-                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" />
-                </svg>
-              </button>
+                        <div className="timeline-body-col">
+                          <div className="timeline-title-bar">
+                            <span className="timeline-entry-title">{act.title}</span>
+                            <span className="timeline-entry-time">{act.time}</span>
+                          </div>
+                          <span className={`timeline-entry-sub ${act.type === 'deposit' ? 'deposit-highlight' : ''}`}>
+                            {act.subtitle}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>

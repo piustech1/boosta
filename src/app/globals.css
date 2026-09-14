@@ -3137,397 +3137,459 @@ html, body {
   white-space: nowrap;
 }
 
-/* 2. Balance + Growth Twin Modules */
-.dashboard-twin-modules {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  width: 100%;
-  margin-top: 6px;
-  z-index: 10;
-  box-sizing: border-box;
-}
+/* =========================================================
+   BOOSTA AUTHENTICATED DASHBOARD — UNIFIED SWITCHING MODULES
+   - Module A: Balance ↔ Growth (One Shared Surface)
+   - Module B: Active Orders ↔ Recent Activity (One Shared Surface)
+   - Native iOS Segmented Control with Liquid Glass Styling
+   - Direction-Aware Physical Transitions (Slide, Fade, Blur, Sharpen)
+   - Zero Layout Shift / Stationary Constant Height Container
+   ========================================================= */
 
-.twin-module-card {
+.switching-module-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 142px;
-  padding: 14px 14px 12px 14px;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  border-radius: 20px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 16px 16px 16px;
+  background: rgba(255, 255, 255, 0.80);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.90);
+  border-radius: 22px;
   box-shadow: 
-    0 8px 24px -4px rgba(60, 50, 90, 0.06),
-    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+    0 10px 30px -6px rgba(45, 30, 80, 0.06),
+    0 2px 8px -2px rgba(45, 30, 80, 0.03),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.98);
   overflow: hidden;
   box-sizing: border-box;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 10;
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
 }
 
-.twin-module-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 12px 28px -4px rgba(60, 50, 90, 0.09),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
-}
-
-.twin-module-card.balance-module::before {
+/* Subtle Boosta brand specular corner highlights */
+.financial-switching-card::before {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle at 100% 0%, rgba(115, 87, 255, 0.09) 0%, transparent 70%);
+  width: 130px;
+  height: 110px;
+  background: radial-gradient(circle at 95% 5%, rgba(115, 87, 255, 0.08) 0%, rgba(237, 95, 201, 0.04) 40%, transparent 70%);
   pointer-events: none;
 }
 
-.twin-module-card.growth-module::before {
+.activity-switching-card::before {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.09) 0%, transparent 70%);
+  width: 130px;
+  height: 110px;
+  background: radial-gradient(circle at 95% 5%, rgba(237, 95, 201, 0.07) 0%, rgba(255, 155, 99, 0.04) 45%, transparent 70%);
   pointer-events: none;
 }
 
-.module-header-row {
+/* Header Row: Segmented Control & Header Meta */
+.module-control-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 12px;
 }
 
-.module-tag-label {
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.07em;
+/* Native Mobile iOS-style Liquid Glass Segmented Switch */
+.module-segmented-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  background: rgba(115, 125, 150, 0.09);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.60);
+  box-shadow: inset 0 1px 2px rgba(0, 20, 40, 0.05);
+}
+
+.segmented-tab-btn {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #717A8C;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.22s ease, transform 0.15s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.segmented-tab-btn:active {
+  transform: scale(0.96);
+}
+
+.segmented-tab-btn.tab-active {
+  color: #182033;
+  font-weight: 700;
+}
+
+/* Sliding active indicator thumb */
+.segmented-slider-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  box-shadow: 
+    0 2px 6px rgba(15, 23, 42, 0.10),
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.segmented-slider-thumb.slide-left {
+  transform: translateX(0%);
+}
+
+.segmented-slider-thumb.slide-right {
+  transform: translateX(100%);
+}
+
+.segmented-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.16);
+  color: #059669;
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Header Meta & Status Chips */
+.module-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(0, 20, 50, 0.05);
+  font-size: 0.64rem;
+  font-weight: 600;
   color: #7B8296;
+}
+
+.status-chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.status-chip-dot.dot-purple {
+  background: #7357FF;
+  box-shadow: 0 0 5px rgba(115, 87, 255, 0.4);
+}
+
+.status-chip-dot.dot-green {
+  background: #10B981;
+  box-shadow: 0 0 5px rgba(16, 185, 129, 0.4);
+}
+
+.view-all-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  font-family: inherit;
+  font-size: 0.70rem;
+  font-weight: 600;
+  color: #7357FF;
+  cursor: pointer;
+  transition: transform 0.18s ease, color 0.18s ease;
+  user-select: none;
+}
+
+.view-all-link-btn:hover {
+  transform: translateX(2px);
+  color: #5D3FE8;
+}
+
+/* =========================================================
+   STACKED SWITCHING VIEWPORT ARCHITECTURE
+   - Views occupy the exact same CSS Grid cell (1 / 1 / 2 / 2)
+   - Guarantees zero height jump and smooth continuous canvas
+   ========================================================= */
+
+.switching-viewport {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+.financial-viewport {
+  min-height: 68px;
+}
+
+.activity-viewport {
+  min-height: 126px;
+}
+
+.switch-pane {
+  grid-area: 1 / 1 / 2 / 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  will-change: opacity, transform, filter;
+  transition: 
+    opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.36s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.36s ease;
+}
+
+/* Pane Active State (Sharpen, Settle, Full Opacity) */
+.switch-pane.pane-active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  filter: blur(0px);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Pane Inactive States (Directional Exit & Enter) */
+.switch-pane.pane-left.pane-inactive {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.97);
+  filter: blur(4px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.switch-pane.pane-right.pane-inactive {
+  opacity: 0;
+  transform: translateX(20px) scale(0.97);
+  filter: blur(4px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* =========================================================
+   MODULE A: FINANCIAL CONTENT (Balance & Growth Views)
+   ========================================================= */
+
+.financial-pane-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+}
+
+.financial-data-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pane-kicker-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #8C93A4;
   text-transform: uppercase;
 }
 
-.module-tag-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  flex-shrink: 0;
-}
-
-.module-tag-icon.balance-accent {
-  background: rgba(115, 87, 255, 0.10);
-  color: #7357FF;
-}
-
-.module-tag-icon.growth-accent {
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
-}
-
-.module-main-value-wrap {
+.financial-value-wrap {
   display: flex;
   align-items: baseline;
-  gap: 4px;
-  margin-top: 6px;
+  gap: 5px;
 }
 
-.module-currency-prefix {
-  font-size: 0.72rem;
+.financial-currency {
+  font-size: 0.82rem;
   font-weight: 700;
   color: #7B8296;
   letter-spacing: 0.02em;
 }
 
-.module-main-value {
+.financial-number {
   font-family: var(--font-syne), var(--font-jakarta), sans-serif;
-  font-size: 1.18rem;
+  font-size: 1.55rem;
   font-weight: 800;
   color: #182033;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
-.module-main-value.growth-green {
+.financial-number.growth-text {
   color: #059669;
 }
 
-.module-subtext {
+.pane-secondary-label {
   font-size: 0.72rem;
   font-weight: 500;
   color: #8F95A6;
-  margin-top: -2px;
 }
 
-.module-footer-action {
-  margin-top: 8px;
+.financial-action-wrap {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
-.compact-secondary-action {
+.deposit-action-pill {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
+  gap: 6px;
+  padding: 8px 16px;
   border-radius: 999px;
-  background: rgba(115, 87, 255, 0.08);
+  background: rgba(115, 87, 255, 0.10);
   color: #7357FF;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-weight: 700;
-  border: 1px solid rgba(115, 87, 255, 0.18);
+  border: 1px solid rgba(115, 87, 255, 0.20);
+  box-shadow: 0 2px 6px rgba(115, 87, 255, 0.08);
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
-.compact-secondary-action:hover {
-  background: rgba(115, 87, 255, 0.15);
-  transform: translateX(1px);
+.deposit-action-pill:hover {
+  background: rgba(115, 87, 255, 0.16);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(115, 87, 255, 0.15);
 }
 
-.compact-secondary-action:active {
+.deposit-action-pill:active {
   transform: scale(0.96);
 }
 
-.module-footer-viz {
-  margin-top: 8px;
-  height: 24px;
-  width: 100%;
+.growth-sparkline-box {
+  width: 115px;
+  height: 36px;
+  flex-shrink: 0;
   display: flex;
   align-items: flex-end;
 }
 
 .growth-sparkline-svg {
   width: 100%;
-  height: 24px;
+  height: 36px;
   overflow: visible;
 }
 
-/* Mobile responsive refinements for twin modules */
-@media (max-width: 420px) {
-  .dashboard-quick-actions {
-    gap: 8px;
-  }
-  .quick-action-btn {
-    height: 46px;
-    padding: 0 8px;
-    gap: 6px;
-  }
-  .action-icon-wrapper {
-    width: 26px;
-    height: 26px;
-  }
-  .action-btn-label {
-    font-size: 0.78rem;
-  }
-  .dashboard-twin-modules {
-    gap: 10px;
-  }
-  .twin-module-card {
-    padding: 12px 10px 10px 10px;
-    min-height: 136px;
-  }
-  .module-main-value {
-    font-size: 1.05rem;
-  }
-}
-
-@media (max-width: 350px) {
-  .dashboard-quick-actions {
-    gap: 6px;
-  }
-  .quick-action-btn {
-    height: 44px;
-    padding: 0 6px;
-    gap: 4px;
-  }
-  .action-icon-wrapper {
-    width: 24px;
-    height: 24px;
-  }
-  .action-btn-label {
-    font-size: 0.72rem;
-  }
-  .module-main-value {
-    font-size: 0.95rem;
-  }
-  .module-tag-label {
-    font-size: 0.62rem;
-  }
-}
-
 /* =========================================================
-   BOOSTA AUTHENTICATED DASHBOARD LAYER (PHASE 2)
-   - Active Orders + Recent Activity Twin Module
-   - Identical Height, Symmetrical Layout, Side-by-Side on Mobile
-   - Micro-Timeline for Activity & Progress Track for Active Orders
+   MODULE B: ACTIVITY CONTENT (Orders & Timeline Views)
+   - Reduced Cardiness: Clean Rows & Elegant Separators
    ========================================================= */
 
-.dashboard-activity-twin-modules {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.activity-pane-content {
   width: 100%;
-  margin-top: 6px;
-  z-index: 10;
-  box-sizing: border-box;
-}
-
-.activity-twin-card {
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 220px;
-  padding: 14px 13px 12px 13px;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  border-radius: 20px;
-  box-shadow: 
-    0 8px 24px -4px rgba(60, 50, 90, 0.06),
-    inset 0 1px 1px rgba(255, 255, 255, 0.95);
-  overflow: hidden;
-  box-sizing: border-box;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.activity-twin-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 12px 28px -4px rgba(60, 50, 90, 0.09),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
-}
-
-.activity-twin-card.orders-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle at 100% 0%, rgba(115, 87, 255, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.activity-twin-card.activity-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle at 100% 0%, rgba(237, 95, 201, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.module-header-left {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.active-live-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 1px 6px;
-  border-radius: 999px;
-  background: rgba(16, 185, 129, 0.12);
-  font-size: 0.62rem;
-  font-weight: 700;
-  color: #059669;
-}
-
-.live-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #10B981;
-}
-
-.module-tag-icon.orders-accent {
-  background: rgba(115, 87, 255, 0.10);
-  color: #7357FF;
-}
-
-.module-tag-icon.activity-accent {
-  background: rgba(237, 95, 201, 0.12);
-  color: #D946EF;
-}
-
-/* Orders Stack */
-.orders-stack-list {
+/* Active Orders Product List */
+.orders-product-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 8px 0;
+  width: 100%;
 }
 
-.order-compact-item {
+.order-product-row {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 5px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 30, 60, 0.05);
 }
 
-.order-info-row {
+.order-product-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.order-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-service-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4px;
+  gap: 8px;
 }
 
-.order-service-name {
-  font-size: 0.74rem;
+.order-service-title {
+  font-size: 0.78rem;
   font-weight: 700;
   color: #182033;
   line-height: 1.25;
-  white-space: normal;
-  word-break: break-word;
 }
 
-.order-status-pill {
+.order-live-status-pill {
   font-size: 0.60rem;
   font-weight: 700;
-  padding: 1px 5px;
-  border-radius: 4px;
+  padding: 1.5px 6px;
+  border-radius: 999px;
   background: rgba(115, 87, 255, 0.08);
   color: #7357FF;
-  flex-shrink: 0;
   letter-spacing: 0.02em;
+  flex-shrink: 0;
 }
 
-.order-qty-row {
+.order-metric-line {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.66rem;
+  font-size: 0.68rem;
   color: #7B8296;
 }
 
-.order-qty-text {
+.order-fraction-text {
   font-weight: 500;
 }
 
-.order-pct-text {
+.order-percent-tag {
   font-weight: 700;
   color: #182033;
 }
 
+/* Progress bar inside order */
 .order-progress-track {
   width: 100%;
   height: 5px;
-  background: rgba(115, 87, 255, 0.08);
+  background: rgba(115, 87, 255, 0.07);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -3535,163 +3597,170 @@ html, body {
 .order-progress-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #7357FF 0%, #ED5FC9 60%, #FF9B63 100%);
-  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  background: linear-gradient(90deg, #7357FF 0%, #ED5FC9 55%, #FF9B63 100%);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Activity Timeline */
-.activity-timeline-list {
+/* Recent Activity Product Timeline */
+.timeline-product-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin: 6px 0;
+  width: 100%;
 }
 
-.timeline-item {
+.timeline-product-item {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: 10px;
   position: relative;
 }
 
-.timeline-node-col {
+.timeline-spine-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 10px;
+  width: 8px;
   flex-shrink: 0;
   padding-top: 4px;
 }
 
-.timeline-dot {
-  width: 7px;
-  height: 7px;
+.timeline-core-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #7357FF;
 }
 
-.timeline-dot.dot-deposit {
+.timeline-core-dot.dot-deposit {
   background: #10B981;
+  box-shadow: 0 0 5px rgba(16, 185, 129, 0.4);
 }
 
-.timeline-dot.dot-completed {
+.timeline-core-dot.dot-completed {
   background: #7357FF;
+  box-shadow: 0 0 5px rgba(115, 87, 255, 0.4);
 }
 
-.timeline-dot.dot-started {
-  background: #FF6B35;
+.timeline-core-dot.dot-started {
+  background: #FF9B63;
+  box-shadow: 0 0 5px rgba(255, 155, 99, 0.4);
 }
 
-.timeline-connector-line {
+.timeline-spine-line {
   width: 1.5px;
-  height: 24px;
-  background: rgba(140, 150, 180, 0.20);
+  height: 20px;
+  background: rgba(140, 150, 180, 0.18);
   margin-top: 2px;
 }
 
-.timeline-content-col {
+.timeline-body-col {
   display: flex;
   flex-direction: column;
   flex: 1;
   min-width: 0;
 }
 
-.timeline-title-row {
+.timeline-title-bar {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 4px;
+  gap: 6px;
 }
 
-.timeline-title {
-  font-size: 0.72rem;
+.timeline-entry-title {
+  font-size: 0.74rem;
   font-weight: 700;
   color: #182033;
   line-height: 1.2;
 }
 
-.timeline-time {
-  font-size: 0.62rem;
+.timeline-entry-time {
+  font-size: 0.64rem;
   font-weight: 500;
   color: #8F95A6;
   flex-shrink: 0;
 }
 
-.timeline-sub {
-  font-size: 0.65rem;
+.timeline-entry-sub {
+  font-size: 0.68rem;
   font-weight: 500;
   color: #7B8296;
   margin-top: 1px;
 }
 
-.timeline-sub.sub-deposit {
+.timeline-entry-sub.deposit-highlight {
   color: #059669;
   font-weight: 700;
 }
 
 /* Empty States */
-.twin-empty-state {
+.pane-empty-state {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 16px 0;
+  padding: 10px 0;
   gap: 4px;
 }
 
-.empty-state-headline {
-  font-size: 0.76rem;
+.empty-title {
+  font-size: 0.78rem;
   font-weight: 700;
   color: #182033;
 }
 
-.empty-state-sub {
-  font-size: 0.66rem;
+.empty-subtitle {
+  font-size: 0.68rem;
   color: #8F95A6;
-  line-height: 1.35;
 }
 
-.empty-state-link {
-  margin-top: 4px;
+.empty-cta-pill {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(115, 87, 255, 0.08);
+  color: #7357FF;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #7357FF;
-  background: none;
-  border: none;
-  padding: 0;
+  border: 1px solid rgba(115, 87, 255, 0.16);
   cursor: pointer;
 }
 
-/* Mobile Responsive Refinements (<420px) */
+/* Responsive Scaling (<420px) */
 @media (max-width: 420px) {
-  .dashboard-activity-twin-modules {
-    gap: 10px;
+  .switching-module-card {
+    padding: 12px 14px 14px 14px;
+    border-radius: 20px;
   }
-  .activity-twin-card {
-    padding: 12px 10px 10px 10px;
-    min-height: 210px;
+  .financial-number {
+    font-size: 1.35rem;
   }
-  .order-service-name {
-    font-size: 0.70rem;
+  .growth-sparkline-box {
+    width: 95px;
   }
-  .timeline-title {
-    font-size: 0.68rem;
-  }
-  .timeline-sub {
-    font-size: 0.62rem;
+  .deposit-action-pill {
+    padding: 6px 12px;
+    font-size: 0.72rem;
   }
 }
 
 @media (max-width: 350px) {
-  .activity-twin-card {
-    padding: 10px 8px 8px 8px;
-    min-height: 200px;
+  .switching-module-card {
+    padding: 10px 12px 12px 12px;
   }
-  .order-service-name {
-    font-size: 0.66rem;
+  .segmented-tab-btn {
+    padding: 4px 8px;
+    font-size: 0.68rem;
   }
-  .timeline-title {
-    font-size: 0.64rem;
+  .financial-number {
+    font-size: 1.20rem;
+  }
+  .growth-sparkline-box {
+    width: 80px;
   }
 }
 
