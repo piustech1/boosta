@@ -92,6 +92,12 @@ export default function OnboardingPage() {
             initialMode={authMode}
             onClose={() => setAuthMode('none')}
             onModeChange={(mode) => setAuthMode(mode)}
+            onSuccess={(user) => {
+              if (typeof window !== 'undefined') {
+                localStorage.setItem('boosta_user', JSON.stringify(user));
+                window.location.href = '/home';
+              }
+            }}
           />
         ) : (
           <>

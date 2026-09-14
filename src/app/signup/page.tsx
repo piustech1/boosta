@@ -30,6 +30,12 @@ export default function SignupPage() {
           isStandalonePage={true}
           onClose={() => router.push('/')}
           onModeChange={(mode) => router.push(mode === 'login' ? '/login' : '/signup')}
+          onSuccess={(user) => {
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('boosta_user', JSON.stringify(user));
+            }
+            router.push('/home');
+          }}
         />
       </main>
     </>
