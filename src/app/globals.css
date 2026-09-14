@@ -3365,6 +3365,336 @@ html, body {
   }
 }
 
+/* =========================================================
+   BOOSTA AUTHENTICATED DASHBOARD LAYER (PHASE 2)
+   - Active Orders + Recent Activity Twin Module
+   - Identical Height, Symmetrical Layout, Side-by-Side on Mobile
+   - Micro-Timeline for Activity & Progress Track for Active Orders
+   ========================================================= */
+
+.dashboard-activity-twin-modules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-top: 6px;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.activity-twin-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  padding: 14px 13px 12px 13px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 24px -4px rgba(60, 50, 90, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activity-twin-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 28px -4px rgba(60, 50, 90, 0.09),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+.activity-twin-card.orders-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 100% 0%, rgba(115, 87, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.activity-twin-card.activity-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at 100% 0%, rgba(237, 95, 201, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.module-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.active-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.module-tag-icon.orders-accent {
+  background: rgba(115, 87, 255, 0.10);
+  color: #7357FF;
+}
+
+.module-tag-icon.activity-accent {
+  background: rgba(237, 95, 201, 0.12);
+  color: #D946EF;
+}
+
+/* Orders Stack */
+.orders-stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.order-compact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.order-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.order-service-name {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #182033;
+  line-height: 1.25;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.order-status-pill {
+  font-size: 0.60rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(115, 87, 255, 0.08);
+  color: #7357FF;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.order-qty-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.66rem;
+  color: #7B8296;
+}
+
+.order-qty-text {
+  font-weight: 500;
+}
+
+.order-pct-text {
+  font-weight: 700;
+  color: #182033;
+}
+
+.order-progress-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(115, 87, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.order-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7357FF 0%, #ED5FC9 60%, #FF9B63 100%);
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Activity Timeline */
+.activity-timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+}
+
+.timeline-node-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10px;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.timeline-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7357FF;
+}
+
+.timeline-dot.dot-deposit {
+  background: #10B981;
+}
+
+.timeline-dot.dot-completed {
+  background: #7357FF;
+}
+
+.timeline-dot.dot-started {
+  background: #FF6B35;
+}
+
+.timeline-connector-line {
+  width: 1.5px;
+  height: 24px;
+  background: rgba(140, 150, 180, 0.20);
+  margin-top: 2px;
+}
+
+.timeline-content-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.timeline-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #182033;
+  line-height: 1.2;
+}
+
+.timeline-time {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: #8F95A6;
+  flex-shrink: 0;
+}
+
+.timeline-sub {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #7B8296;
+  margin-top: 1px;
+}
+
+.timeline-sub.sub-deposit {
+  color: #059669;
+  font-weight: 700;
+}
+
+/* Empty States */
+.twin-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 16px 0;
+  gap: 4px;
+}
+
+.empty-state-headline {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #182033;
+}
+
+.empty-state-sub {
+  font-size: 0.66rem;
+  color: #8F95A6;
+  line-height: 1.35;
+}
+
+.empty-state-link {
+  margin-top: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #7357FF;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Mobile Responsive Refinements (<420px) */
+@media (max-width: 420px) {
+  .dashboard-activity-twin-modules {
+    gap: 10px;
+  }
+  .activity-twin-card {
+    padding: 12px 10px 10px 10px;
+    min-height: 210px;
+  }
+  .order-service-name {
+    font-size: 0.70rem;
+  }
+  .timeline-title {
+    font-size: 0.68rem;
+  }
+  .timeline-sub {
+    font-size: 0.62rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .activity-twin-card {
+    padding: 10px 8px 8px 8px;
+    min-height: 200px;
+  }
+  .order-service-name {
+    font-size: 0.66rem;
+  }
+  .timeline-title {
+    font-size: 0.64rem;
+  }
+}
+
 /* Compact Mobile Screen Protection (<740px height) */
 @media (max-width: 859px) and (max-height: 740px) {
   .curved-hero-container {
