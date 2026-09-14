@@ -1934,8 +1934,8 @@ html, body {
 
 .auth-asset-wrap {
   position: relative;
-  width: clamp(174px, 45vw, 196px);
-  height: clamp(192px, 24.5vh, 216px);
+  width: clamp(192px, 50vw, 224px);
+  height: clamp(190px, 24vh, 214px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1991,7 +1991,7 @@ html, body {
 
 .auth-mickey-cutout {
   position: relative;
-  height: clamp(182px, 23vh, 204px);
+  height: clamp(176px, 22.5vh, 198px);
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -2052,8 +2052,8 @@ html, body {
 /* Chat bubble fixed directly ON the Mickey asset */
 .auth-mickey-speech-bubble {
   position: absolute;
-  top: 8px;
-  right: -16px;
+  top: 6px;
+  right: -8px;
   display: inline-flex;
   align-items: center;
   gap: 6px;

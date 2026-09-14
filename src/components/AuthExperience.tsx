@@ -146,12 +146,12 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
             <div className="dudu-halo" />
           </div>
 
-          {/* Mickey Cutout Asset inside positioning wrapper */}
+          {/* Asset Cutout (solo.png) inside positioning wrapper */}
           <div className="auth-mickey-wrapper">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/mickey.png"
-              alt="Mickey Waving"
+              src="/assets/solo.png"
+              alt="Boosta Team"
               className="auth-mickey-cutout"
             />
           </div>
