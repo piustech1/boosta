@@ -121,6 +121,7 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
   const heroSpeech = mode === 'login' ? 'Ready to grow?' : "Let's grow together.";
 
   return (
+    <>
     <div className={`auth-experience-wrapper ${isStandalonePage ? 'auth-standalone' : ''}`}>
       <div className="auth-stage-container">
         
@@ -506,50 +507,58 @@ export const AuthExperience: React.FC<AuthExperienceProps> = ({
               </button>
             </div>
 
-            {/* Terms & Privacy Disclaimer below CTA */}
-            <p className="auth-legal-subtle">
-              By continuing, you accept our <a href="#terms" className="legal-link">Terms & Privacy</a>.
-            </p>
+            {/* Terms & Privacy — Login only */}
+            {mode === 'login' && (
+              <p className="auth-legal-subtle">
+                By continuing, you accept our <a href="#terms" className="legal-link">Terms &amp; Privacy</a>.
+              </p>
+            )}
 
           </form>
 
         </div>
 
       </div>
-
-      {/* Decorative Boosta Gradient Wave Footer — pointer-events none, behind all content */}
-      <div className="auth-bottom-wave" aria-hidden="true">
-        <svg
-          viewBox="0 0 390 100"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          className="auth-wave-svg"
-        >
-          <defs>
-            <linearGradient id="boostaWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#7357FF" stopOpacity="0.72" />
-              <stop offset="48%" stopColor="#ED5FC9" stopOpacity="0.68" />
-              <stop offset="100%" stopColor="#FF9B63" stopOpacity="0.65" />
-            </linearGradient>
-            <linearGradient id="boostaWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#A389FF" stopOpacity="0.45" />
-              <stop offset="55%" stopColor="#F48FD8" stopOpacity="0.40" />
-              <stop offset="100%" stopColor="#FFB89A" stopOpacity="0.38" />
-            </linearGradient>
-          </defs>
-          {/* Back wave layer */}
-          <path
-            d="M0,60 C60,28 130,80 195,50 C260,20 310,72 390,42 L390,100 L0,100 Z"
-            fill="url(#boostaWaveGrad2)"
-          />
-          {/* Front wave layer */}
-          <path
-            d="M0,74 C70,44 140,90 210,64 C280,38 330,82 390,58 L390,100 L0,100 Z"
-            fill="url(#boostaWaveGrad)"
-          />
-        </svg>
-        <span className="auth-copyright">© Boosta™ 2026</span>
-      </div>
     </div>
+
+    {/* =========================================================
+        VIEWPORT-LEVEL GRADIENT WAVE DECORATION
+        Fixed to the screen bottom — completely independent of
+        auth/form container width. Always spans 100vw.
+        ========================================================= */}
+    <div className="auth-bottom-wave" aria-hidden="true">
+      <svg
+        viewBox="0 0 1000 120"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        className="auth-wave-svg"
+        role="presentation"
+      >
+        <defs>
+          <linearGradient id="boostaWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#7357FF" stopOpacity="0.78" />
+            <stop offset="46%" stopColor="#ED5FC9" stopOpacity="0.72" />
+            <stop offset="100%" stopColor="#FF9B63" stopOpacity="0.68" />
+          </linearGradient>
+          <linearGradient id="boostaWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#A389FF" stopOpacity="0.48" />
+            <stop offset="52%" stopColor="#F48FD8" stopOpacity="0.42" />
+            <stop offset="100%" stopColor="#FFB89A" stopOpacity="0.40" />
+          </linearGradient>
+        </defs>
+        {/* Back wave — softer */}
+        <path
+          d="M0,72 C150,32 300,96 500,58 C700,22 850,88 1000,50 L1000,120 L0,120 Z"
+          fill="url(#boostaWaveGrad2)"
+        />
+        {/* Front wave — vivid */}
+        <path
+          d="M0,88 C180,52 360,108 540,76 C720,44 880,96 1000,68 L1000,120 L0,120 Z"
+          fill="url(#boostaWaveGrad)"
+        />
+      </svg>
+      <span className="auth-copyright">© Boosta™ 2026</span>
+    </div>
+    </>
   );
 };

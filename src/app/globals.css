@@ -1923,7 +1923,8 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding: 6px 22px 14px 22px;
+  /* Top/side padding + bottom clearance for fixed viewport wave */
+  padding: 6px 22px clamp(110px, 20vh, 190px) 22px;
 }
 
 .auth-stage-container {
@@ -2514,16 +2515,21 @@ html, body {
 
 /* =========================================================
    BOTTOM DECORATIVE GRADIENT WAVE FOOTER
+   VIEWPORT-LEVEL: fixed to the screen, never inherits auth/form width.
+   Always spans left edge → right edge of the device screen.
    ========================================================= */
 .auth-bottom-wave {
-  position: relative;
-  width: 100%;
-  height: 100px;
-  margin-top: auto;
-  flex-shrink: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: clamp(100px, 18vh, 180px);
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
+  /* Prevent 100vw from causing scrollbar-induced overflow */
+  max-width: 100%;
 }
 
 .auth-wave-svg {
@@ -2532,21 +2538,32 @@ html, body {
   width: 100%;
   height: 100%;
   display: block;
+  /* Slow, subtle drift animation for atmosphere */
+  animation: waveFloat 12s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+@keyframes waveFloat {
+  0%   { transform: translateX(0) scaleX(1); }
+  100% { transform: translateX(-1.5%) scaleX(1.03); }
 }
 
 .auth-copyright {
   position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  /* Respect safe area at the bottom on notched phones */
+  bottom: max(10px, env(safe-area-inset-bottom, 10px));
+  left: 0;
+  right: 0;
+  text-align: center;
   font-family: var(--font-syne), 'Syne', sans-serif;
   font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 1px 4px rgba(26, 10, 46, 0.18);
+  color: rgba(255, 255, 255, 0.90);
+  text-shadow: 0 1px 4px rgba(26, 10, 46, 0.22);
   white-space: nowrap;
   user-select: none;
+  pointer-events: none;
 }
 
 
@@ -2770,7 +2787,7 @@ html, body {
    ========================================================= */
 @media (min-width: 860px) {
   .auth-experience-wrapper {
-    padding: 24px 36px;
+    padding: 24px 36px clamp(110px, 18vh, 180px) 36px;
     justify-content: center;
     align-items: center;
   }
@@ -2830,7 +2847,7 @@ html, body {
 /* Compact Mobile Height Protection (Under 740px height) */
 @media (max-width: 859px) and (max-height: 740px) {
   .auth-experience-wrapper {
-    padding: 4px 14px 8px 14px;
+    padding: 4px 14px 105px 14px;
   }
 
   .auth-hero-stage {
