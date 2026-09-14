@@ -3050,717 +3050,404 @@ html, body {
 }
 
 /* =========================================================
-   BOOSTA AUTHENTICATED DASHBOARD LAYER (PHASE 1)
-   - Quick Actions (New Order, Deposit, Orders)
-   - Twin Modules: Your Balance + Your Growth (Side-by-Side on Mobile)
-   - Light iOS Liquid Glass Aesthetic with Subdued Specular Reflections
+   BOOSTA AUTHENTICATED CORE EXPERIENCE — "WHAT ARE YOU GROWING?"
+   - Unified 2x2 Interactive Surface (Followers, Likes, Views, Comments)
+   - Refined Liquid Glass Material (Anti-"Cardiness")
+   - In-Place Progressive Disclosure for Platform Selection
+   - Mobile-First Tactile Feedback & Semantic Color Accents
    ========================================================= */
 
-/* 1. Quick Actions Row */
-.dashboard-quick-actions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+.growth-discovery-section {
+  position: relative;
   width: 100%;
-  margin-top: 6px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   z-index: 10;
   box-sizing: border-box;
 }
 
-.quick-action-btn {
-  position: relative;
+.growth-discovery-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 48px;
-  padding: 0 10px;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  border-radius: 16px;
-  box-shadow: 
-    0 4px 16px -2px rgba(60, 50, 90, 0.06),
-    inset 0 1px 1px rgba(255, 255, 255, 0.95);
-  cursor: pointer;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  box-sizing: border-box;
+  flex-direction: column;
+  padding: 0 4px;
 }
 
-.quick-action-btn:hover {
-  background: rgba(255, 255, 255, 0.92);
-  transform: translateY(-1.5px);
-  box-shadow: 
-    0 8px 20px -2px rgba(60, 50, 90, 0.09),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
-}
-
-.quick-action-btn:active {
-  transform: scale(0.96);
-  background: rgba(255, 255, 255, 0.85);
-}
-
-.action-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 9px;
-  flex-shrink: 0;
-}
-
-.action-icon-order {
-  background: linear-gradient(135deg, rgba(115, 87, 255, 0.14), rgba(237, 95, 201, 0.12));
-  color: #7357FF;
-}
-
-.action-icon-deposit {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(0, 242, 254, 0.12));
-  color: #059669;
-}
-
-.action-icon-history {
-  background: linear-gradient(135deg, rgba(255, 107, 53, 0.14), rgba(237, 95, 201, 0.12));
-  color: #E8590C;
-}
-
-.action-btn-label {
-  font-family: inherit;
-  font-size: 0.82rem;
-  font-weight: 700;
+.growth-discovery-title {
+  font-family: var(--font-syne), var(--font-jakarta), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
   color: #182033;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
 }
 
-/* =========================================================
-   BOOSTA AUTHENTICATED DASHBOARD — UNIFIED SWITCHING MODULES
-   - Module A: Balance ↔ Growth (One Shared Surface)
-   - Module B: Active Orders ↔ Recent Activity (One Shared Surface)
-   - Native iOS Segmented Control with Liquid Glass Styling
-   - Direction-Aware Physical Transitions (Slide, Fade, Blur, Sharpen)
-   - Zero Layout Shift / Stationary Constant Height Container
-   ========================================================= */
-
-.switching-module-card {
+/* 2x2 Unified Cohesive Surface */
+.growth-goals-surface {
   position: relative;
-  width: 100%;
-  margin-top: 10px;
-  padding: 14px 16px 16px 16px;
-  background: rgba(255, 255, 255, 0.80);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.90);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1px;
+  background: rgba(0, 30, 60, 0.07); /* Hairline divider color between tiles */
   border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.90);
   box-shadow: 
     0 10px 30px -6px rgba(45, 30, 80, 0.06),
     0 2px 8px -2px rgba(45, 30, 80, 0.03),
     inset 0 1px 1.5px rgba(255, 255, 255, 0.98);
   overflow: hidden;
   box-sizing: border-box;
-  z-index: 10;
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
-/* Subtle Boosta brand specular corner highlights */
-.financial-switching-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 130px;
-  height: 110px;
-  background: radial-gradient(circle at 95% 5%, rgba(115, 87, 255, 0.08) 0%, rgba(237, 95, 201, 0.04) 40%, transparent 70%);
-  pointer-events: none;
-}
-
-.activity-switching-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 130px;
-  height: 110px;
-  background: radial-gradient(circle at 95% 5%, rgba(237, 95, 201, 0.07) 0%, rgba(255, 155, 99, 0.04) 45%, transparent 70%);
-  pointer-events: none;
-}
-
-/* Header Row: Segmented Control & Header Meta */
-.module-control-header {
+.growth-goal-tile {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 12px;
-}
-
-/* Native Mobile iOS-style Liquid Glass Segmented Switch */
-.module-segmented-control {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 3px;
-  background: rgba(115, 125, 150, 0.09);
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.60);
-  box-shadow: inset 0 1px 2px rgba(0, 20, 40, 0.05);
-}
-
-.segmented-tab-btn {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
-  font-family: inherit;
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: #717A8C;
-  background: transparent;
+  gap: 10px;
+  padding: 16px 14px;
+  background: rgba(255, 255, 255, 0.82);
   border: none;
-  border-radius: 999px;
   cursor: pointer;
-  transition: color 0.22s ease, transform 0.15s ease;
+  outline: none;
+  text-align: left;
+  transition: 
+    background 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.18s ease,
+    box-shadow 0.25s ease;
   user-select: none;
-  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
-.segmented-tab-btn:active {
-  transform: scale(0.96);
+.growth-goal-tile:hover {
+  background: rgba(255, 255, 255, 0.94);
 }
 
-.segmented-tab-btn.tab-active {
-  color: #182033;
-  font-weight: 700;
+.growth-goal-tile:active {
+  transform: scale(0.98);
 }
 
-/* Sliding active indicator thumb */
-.segmented-slider-thumb {
-  position: absolute;
-  top: 3px;
-  bottom: 3px;
-  left: 3px;
-  width: calc(50% - 3px);
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 999px;
+/* Tile Rounded Corner Shaping to match container */
+.growth-goal-tile:nth-child(1) {
+  border-top-left-radius: 21px;
+}
+.growth-goal-tile:nth-child(2) {
+  border-top-right-radius: 21px;
+}
+.growth-goal-tile:nth-child(3) {
+  border-bottom-left-radius: 21px;
+}
+.growth-goal-tile:nth-child(4) {
+  border-bottom-right-radius: 21px;
+}
+
+/* Active Selected State — soft internal Boosta gradient and lift */
+.growth-goal-tile.goal-tile-active {
+  background: rgba(255, 255, 255, 0.96);
   box-shadow: 
-    0 2px 6px rgba(15, 23, 42, 0.10),
-    0 1px 2px rgba(15, 23, 42, 0.06),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
-  z-index: 1;
+    inset 0 0 0 1.5px rgba(115, 87, 255, 0.30),
+    0 4px 14px -2px rgba(115, 87, 255, 0.12);
+  z-index: 2;
+}
+
+.growth-goal-tile.goal-tile-active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(115, 87, 255, 0.06) 0%, rgba(237, 95, 201, 0.04) 50%, rgba(255, 155, 99, 0.03) 100%);
   pointer-events: none;
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.segmented-slider-thumb.slide-left {
-  transform: translateX(0%);
-}
-
-.segmented-slider-thumb.slide-right {
-  transform: translateX(100%);
-}
-
-.segmented-counter-pill {
-  display: inline-flex;
+/* Goal Tile Icon Wrap */
+.goal-tile-icon-wrap {
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 15px;
-  height: 15px;
-  padding: 0 4px;
-  border-radius: 999px;
-  background: rgba(16, 185, 129, 0.16);
-  color: #059669;
-  font-size: 0.58rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-/* Header Meta & Status Chips */
-.module-header-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.module-status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(0, 20, 50, 0.05);
-  font-size: 0.64rem;
-  font-weight: 600;
-  color: #7B8296;
-}
-
-.status-chip-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-
-.status-chip-dot.dot-purple {
-  background: #7357FF;
-  box-shadow: 0 0 5px rgba(115, 87, 255, 0.4);
-}
-
-.status-chip-dot.dot-green {
-  background: #10B981;
-  box-shadow: 0 0 5px rgba(16, 185, 129, 0.4);
-}
-
-.view-all-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: none;
-  border: none;
-  padding: 4px 6px;
-  font-family: inherit;
-  font-size: 0.70rem;
-  font-weight: 600;
-  color: #7357FF;
-  cursor: pointer;
-  transition: transform 0.18s ease, color 0.18s ease;
-  user-select: none;
-}
-
-.view-all-link-btn:hover {
-  transform: translateX(2px);
-  color: #5D3FE8;
-}
-
-/* =========================================================
-   STACKED SWITCHING VIEWPORT ARCHITECTURE
-   - Views occupy the exact same CSS Grid cell (1 / 1 / 2 / 2)
-   - Guarantees zero height jump and smooth continuous canvas
-   ========================================================= */
-
-.switching-viewport {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  width: 100%;
-}
-
-.financial-viewport {
-  min-height: 68px;
-}
-
-.activity-viewport {
-  min-height: 126px;
-}
-
-.switch-pane {
-  grid-area: 1 / 1 / 2 / 2;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  will-change: opacity, transform, filter;
-  transition: 
-    opacity 0.36s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.36s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.36s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.36s ease;
-}
-
-/* Pane Active State (Sharpen, Settle, Full Opacity) */
-.switch-pane.pane-active {
-  opacity: 1;
-  transform: translateX(0) scale(1);
-  filter: blur(0px);
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Pane Inactive States (Directional Exit & Enter) */
-.switch-pane.pane-left.pane-inactive {
-  opacity: 0;
-  transform: translateX(-20px) scale(0.97);
-  filter: blur(4px);
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.switch-pane.pane-right.pane-inactive {
-  opacity: 0;
-  transform: translateX(20px) scale(0.97);
-  filter: blur(4px);
-  visibility: hidden;
-  pointer-events: none;
-}
-
-/* =========================================================
-   MODULE A: FINANCIAL CONTENT (Balance & Growth Views)
-   ========================================================= */
-
-.financial-pane-layout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 12px;
-}
-
-.financial-data-group {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.pane-kicker-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #8C93A4;
-  text-transform: uppercase;
-}
-
-.financial-value-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-}
-
-.financial-currency {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #7B8296;
-  letter-spacing: 0.02em;
-}
-
-.financial-number {
-  font-family: var(--font-syne), var(--font-jakarta), sans-serif;
-  font-size: 1.55rem;
-  font-weight: 800;
-  color: #182033;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
-}
-
-.financial-number.growth-text {
-  color: #059669;
-}
-
-.pane-secondary-label {
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: #8F95A6;
-}
-
-.financial-action-wrap {
-  display: flex;
-  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, color 0.25s ease;
 }
 
-.deposit-action-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 999px;
+/* Goal Icon Semantic Colors */
+.goal-followers .goal-tile-icon-wrap {
   background: rgba(115, 87, 255, 0.10);
   color: #7357FF;
-  font-family: inherit;
-  font-size: 0.76rem;
-  font-weight: 700;
-  border: 1px solid rgba(115, 87, 255, 0.20);
-  box-shadow: 0 2px 6px rgba(115, 87, 255, 0.08);
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
 }
 
-.deposit-action-pill:hover {
-  background: rgba(115, 87, 255, 0.16);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(115, 87, 255, 0.15);
+.goal-likes .goal-tile-icon-wrap {
+  background: rgba(237, 95, 201, 0.12);
+  color: #ED5FC9;
 }
 
-.deposit-action-pill:active {
-  transform: scale(0.96);
+.goal-views .goal-tile-icon-wrap {
+  background: rgba(0, 185, 255, 0.12);
+  color: #0099FF;
 }
 
-.growth-sparkline-box {
-  width: 115px;
-  height: 36px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: flex-end;
+.goal-comments .goal-tile-icon-wrap {
+  background: rgba(255, 155, 99, 0.14);
+  color: #FF8038;
 }
 
-.growth-sparkline-svg {
-  width: 100%;
-  height: 36px;
-  overflow: visible;
+/* Emphasis when active */
+.goal-tile-active .goal-tile-icon-wrap {
+  transform: scale(1.08);
 }
 
-/* =========================================================
-   MODULE B: ACTIVITY CONTENT (Orders & Timeline Views)
-   - Reduced Cardiness: Clean Rows & Elegant Separators
-   ========================================================= */
-
-.activity-pane-content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+.goal-followers.goal-tile-active .goal-tile-icon-wrap {
+  background: linear-gradient(135deg, #7357FF 0%, #8E77FF 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(115, 87, 255, 0.30);
 }
 
-/* Active Orders Product List */
-.orders-product-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
+.goal-likes.goal-tile-active .goal-tile-icon-wrap {
+  background: linear-gradient(135deg, #ED5FC9 0%, #F578D7 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(237, 95, 201, 0.30);
 }
 
-.order-product-row {
+.goal-views.goal-tile-active .goal-tile-icon-wrap {
+  background: linear-gradient(135deg, #0099FF 0%, #38B2FF 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0, 153, 255, 0.30);
+}
+
+.goal-comments.goal-tile-active .goal-tile-icon-wrap {
+  background: linear-gradient(135deg, #FF8038 0%, #FFA066 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 128, 56, 0.30);
+}
+
+/* Goal Tile Typography */
+.goal-tile-info {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba(0, 30, 60, 0.05);
-}
-
-.order-product-row:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.order-row-main {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.order-service-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.order-service-title {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #182033;
-  line-height: 1.25;
-}
-
-.order-live-status-pill {
-  font-size: 0.60rem;
-  font-weight: 700;
-  padding: 1.5px 6px;
-  border-radius: 999px;
-  background: rgba(115, 87, 255, 0.08);
-  color: #7357FF;
-  letter-spacing: 0.02em;
-  flex-shrink: 0;
-}
-
-.order-metric-line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.68rem;
-  color: #7B8296;
-}
-
-.order-fraction-text {
-  font-weight: 500;
-}
-
-.order-percent-tag {
-  font-weight: 700;
-  color: #182033;
-}
-
-/* Progress bar inside order */
-.order-progress-track {
-  width: 100%;
-  height: 5px;
-  background: rgba(115, 87, 255, 0.07);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.order-progress-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #7357FF 0%, #ED5FC9 55%, #FF9B63 100%);
-  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Recent Activity Product Timeline */
-.timeline-product-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.timeline-product-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  position: relative;
-}
-
-.timeline-spine-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 8px;
-  flex-shrink: 0;
-  padding-top: 4px;
-}
-
-.timeline-core-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #7357FF;
-}
-
-.timeline-core-dot.dot-deposit {
-  background: #10B981;
-  box-shadow: 0 0 5px rgba(16, 185, 129, 0.4);
-}
-
-.timeline-core-dot.dot-completed {
-  background: #7357FF;
-  box-shadow: 0 0 5px rgba(115, 87, 255, 0.4);
-}
-
-.timeline-core-dot.dot-started {
-  background: #FF9B63;
-  box-shadow: 0 0 5px rgba(255, 155, 99, 0.4);
-}
-
-.timeline-spine-line {
-  width: 1.5px;
-  height: 20px;
-  background: rgba(140, 150, 180, 0.18);
-  margin-top: 2px;
-}
-
-.timeline-body-col {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   min-width: 0;
 }
 
-.timeline-title-bar {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 6px;
-}
-
-.timeline-entry-title {
-  font-size: 0.74rem;
+.goal-tile-label {
+  font-family: inherit;
+  font-size: 0.92rem;
   font-weight: 700;
   color: #182033;
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
-.timeline-entry-time {
-  font-size: 0.64rem;
+.goal-tile-active .goal-tile-label {
+  font-weight: 800;
+  color: #0F172A;
+}
+
+/* Active Pip */
+.goal-selection-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.22s ease;
+}
+
+.goal-selection-indicator.indicator-active {
+  background: #7357FF;
+  box-shadow: 0 0 6px rgba(115, 87, 255, 0.6);
+}
+
+/* =========================================================
+   PROGRESSIVE DISCLOSURE: PLATFORM SELECTION ("WHERE?")
+   - Smooth unveil below the 2x2 goal surface
+   - Quick platform pills (Instagram, TikTok, YouTube, Facebook, X)
+   ========================================================= */
+
+.progressive-platform-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.90);
+  border-radius: 20px;
+  box-shadow: 
+    0 8px 24px -4px rgba(45, 30, 80, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  animation: progressiveUnveil 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-sizing: border-box;
+}
+
+@keyframes progressiveUnveil {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.progressive-panel-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.progressive-prompt-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #182033;
+  letter-spacing: -0.01em;
+}
+
+.progressive-context-tag {
+  font-size: 0.72rem;
   font-weight: 500;
-  color: #8F95A6;
+  color: #7B8296;
+}
+
+/* Platform Pills Row */
+.platform-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.platform-pills-row::-webkit-scrollbar {
+  display: none;
+}
+
+.platform-select-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(0, 30, 60, 0.07);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #182033;
+  transition: 
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   flex-shrink: 0;
 }
 
-.timeline-entry-sub {
-  font-size: 0.68rem;
-  font-weight: 500;
-  color: #7B8296;
-  margin-top: 1px;
+.platform-select-pill:hover {
+  background: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+  border-color: rgba(115, 87, 255, 0.25);
 }
 
-.timeline-entry-sub.deposit-highlight {
-  color: #059669;
-  font-weight: 700;
+.platform-select-pill:active {
+  transform: scale(0.96);
 }
 
-/* Empty States */
-.pane-empty-state {
+.platform-select-pill.pill-active {
+  background: #182033;
+  color: #FFFFFF;
+  border-color: #182033;
+  box-shadow: 0 4px 12px rgba(24, 32, 51, 0.25);
+}
+
+.platform-select-pill.pill-active .platform-pill-icon {
+  filter: brightness(1.2);
+}
+
+.platform-pill-icon {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 10px 0;
-  gap: 4px;
-}
-
-.empty-title {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #182033;
-}
-
-.empty-subtitle {
-  font-size: 0.68rem;
-  color: #8F95A6;
-}
-
-.empty-cta-pill {
-  margin-top: 6px;
-  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(115, 87, 255, 0.08);
-  color: #7357FF;
-  font-size: 0.68rem;
-  font-weight: 700;
-  border: 1px solid rgba(115, 87, 255, 0.16);
-  cursor: pointer;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-/* Responsive Scaling (<420px) */
+.platform-select-pill:hover .platform-pill-icon {
+  transform: scale(1.1);
+}
+
+.platform-pill-name {
+  line-height: 1;
+}
+
+/* Mobile Responsive Refinements */
 @media (max-width: 420px) {
-  .switching-module-card {
-    padding: 12px 14px 14px 14px;
-    border-radius: 20px;
+  .growth-discovery-title {
+    font-size: 1.05rem;
   }
-  .financial-number {
-    font-size: 1.35rem;
+  .growth-goal-tile {
+    padding: 13px 10px;
+    gap: 8px;
   }
-  .growth-sparkline-box {
-    width: 95px;
+  .goal-tile-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
   }
-  .deposit-action-pill {
-    padding: 6px 12px;
+  .goal-tile-label {
+    font-size: 0.84rem;
+  }
+  .progressive-platform-panel {
+    padding: 12px 12px;
+  }
+  .platform-select-pill {
+    padding: 7px 11px;
     font-size: 0.72rem;
+    gap: 5px;
+  }
+  .platform-pill-icon {
+    width: 16px;
+    height: 16px;
   }
 }
 
 @media (max-width: 350px) {
-  .switching-module-card {
-    padding: 10px 12px 12px 12px;
+  .growth-discovery-title {
+    font-size: 0.98rem;
   }
-  .segmented-tab-btn {
-    padding: 4px 8px;
+  .growth-goal-tile {
+    padding: 11px 8px;
+    gap: 6px;
+  }
+  .goal-tile-icon-wrap {
+    width: 32px;
+    height: 32px;
+  }
+  .goal-tile-label {
+    font-size: 0.78rem;
+  }
+  .platform-select-pill {
+    padding: 6px 9px;
     font-size: 0.68rem;
-  }
-  .financial-number {
-    font-size: 1.20rem;
-  }
-  .growth-sparkline-box {
-    width: 80px;
   }
 }
 
