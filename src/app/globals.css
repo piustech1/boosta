@@ -2169,10 +2169,10 @@ html, body {
 
 /* =========================================================
    3. SIGNATURE CURVED GAP HERO CAROUSEL LAYOUT
-   - Left Panel: High z-index (z: 2), radial concave mask on right edge
-   - Active Card: z-index 5, translates toward detail panel, trimmed by mask
+   - Left Panel: High z-index (z: 3), radial concave mask on right edge
+   - Active Card: z-index 10, translates toward detail panel, trimmed by mask
    - Right Panel: Lower z-index (z: 1), large convex border-radius (top/bottom left)
-   - Organic curved concentric gap where ambient background shines through
+   - Organic curved concentric gap where genuine background shines through
    - Smooth 0.6s cubic-bezier(0.25, 1, 0.5, 1) carousel physics
    - Zero horizontal overflow across ALL viewports (320px to 1440px+)
    ========================================================= */
@@ -2184,7 +2184,8 @@ html, body {
   --overlap: calc(var(--curve-radius) - var(--curve-gap));
   --card-height: 118px;
   --card-spacing: 132px;
-  --active-offset: 12px;
+  --active-offset: 16px;
+  --card-text-width: 220px;
 
   position: relative;
   display: flex;
@@ -2198,18 +2199,18 @@ html, body {
   user-select: none;
   outline: none;
   margin: 0 auto;
+  background: transparent;
 }
 
 /* --- PANEL A: LEFT VERTICAL SLIDING CAROUSEL --- */
 .vertical-carousel-panel {
   position: relative;
-  /* Left panel width includes overlap so card titles remain 100% visible on the left */
   flex: 0 0 calc(46% + var(--overlap));
   width: calc(46% + var(--overlap));
   height: 100%;
-  z-index: 2;
+  z-index: 3;
   overflow: visible;
-  /* Concave circular cut on the right edge */
+  /* Concave circular cut on the right edge revealing the genuine background */
   -webkit-mask-image: radial-gradient(
     ellipse var(--curve-radius) 50% at 100% 50%,
     transparent calc(var(--curve-radius) - 1px),
@@ -2238,8 +2239,8 @@ html, body {
   border-radius: 20px;
   overflow: hidden;
   background: #111827;
-  border: 1.2px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 24px -4px rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
               opacity 0.6s ease,
@@ -2256,62 +2257,64 @@ html, body {
 /* --- Card Stack Hierarchy (Active, Previous, Next, Hidden) --- */
 
 /* ACTIVE CARD:
-   - Full scale, normal brightness/saturation
-   - Highest z-index
-   - Moves slightly toward the detail panel
-   - Connects visually to the detail area */
+   - Elevated z-index (z: 10)
+   - Bridges the gap by translating to the right toward the right panel
+   - Right edge is trimmed cleanly by the concave mask
+   - Lit & crisp with scale(1.04) and subtle accent aura (NO harsh white border) */
 .vertical-carousel-card.card-active {
-  transform: translateY(-50%) translateX(var(--active-offset)) scale(1);
+  transform: translateY(-50%) translateX(var(--active-offset)) scale(1.04);
   opacity: 1;
   filter: brightness(1) saturate(1);
-  z-index: 5;
+  z-index: 10;
   cursor: default;
-  border-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 16px 36px -4px rgba(115, 87, 255, 0.4),
-              0 0 0 1.5px rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.55),
+              0 0 24px -4px rgba(115, 87, 255, 0.35);
 }
 
 /* PREVIOUS CARD:
-   - Scaled down, reduced brightness/saturation, lower z-index */
+   - Scaled down, reduced brightness/saturation, lower z-index for depth */
 .vertical-carousel-card.card-prev {
-  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.86);
-  opacity: 0.65;
-  filter: brightness(0.65) saturate(0.8);
-  z-index: 3;
+  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.85);
+  opacity: 0.58;
+  filter: brightness(0.62) saturate(0.8);
+  z-index: 2;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .vertical-carousel-card.card-prev:hover {
   opacity: 0.88;
   filter: brightness(0.85) saturate(0.95);
-  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.89);
+  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.88);
 }
 
 /* NEXT CARD:
-   - Scaled down, reduced brightness/saturation, lower z-index */
+   - Scaled down, reduced brightness/saturation, lower z-index for depth */
 .vertical-carousel-card.card-next {
-  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.86);
-  opacity: 0.65;
-  filter: brightness(0.65) saturate(0.8);
-  z-index: 3;
+  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.85);
+  opacity: 0.58;
+  filter: brightness(0.62) saturate(0.8);
+  z-index: 2;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .vertical-carousel-card.card-next:hover {
   opacity: 0.88;
   filter: brightness(0.85) saturate(0.95);
-  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.89);
+  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.88);
 }
 
 /* HIDDEN CARDS:
    - Move farther upward/downward, scale smaller, fade to opacity 0 */
 .vertical-carousel-card.card-hidden-top {
-  transform: translateY(calc(-50% - var(--card-spacing) * 1.85)) scale(0.72);
+  transform: translateY(calc(-50% - var(--card-spacing) * 1.85)) scale(0.70);
   opacity: 0;
   pointer-events: none;
   z-index: 1;
 }
 
 .vertical-carousel-card.card-hidden-bottom {
-  transform: translateY(calc(-50% + var(--card-spacing) * 1.85)) scale(0.72);
+  transform: translateY(calc(-50% + var(--card-spacing) * 1.85)) scale(0.70);
   opacity: 0;
   pointer-events: none;
   z-index: 1;
@@ -2347,12 +2350,14 @@ html, body {
   position: absolute;
   left: 14px;
   bottom: 12px;
+  max-width: var(--card-text-width, 220px);
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
   line-height: 1.15;
+  pointer-events: none;
 }
 
 .card-platform-tag {
@@ -2367,7 +2372,7 @@ html, body {
   font-size: 0.82rem;
   font-weight: 700;
   color: #FFFFFF;
-  max-width: 150px;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2376,18 +2381,10 @@ html, body {
 .card-subtitle-text {
   font-size: 0.66rem;
   color: rgba(255, 255, 255, 0.72);
-  max-width: 150px;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.card-active-indicator {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
-  pointer-events: none;
 }
 
 /* --- PANEL B: RIGHT EXPANDED ACTIVE DETAIL PANEL --- */
@@ -2397,18 +2394,17 @@ html, body {
   width: 54%;
   height: 100%;
   z-index: 1;
-  /* Continuous convex left arc (horizontal radius var(--curve-radius), vertical 50%) */
+  /* Matching convex left arc (horizontal radius var(--curve-radius), vertical 50%) */
   border-top-left-radius: var(--curve-radius) 50%;
   border-bottom-left-radius: var(--curve-radius) 50%;
   border-top-right-radius: 28px;
   border-bottom-right-radius: 28px;
-  /* Negative margin pulls panel into the concave hollow, creating the curved gap */
+  /* Negative margin pulls panel into the concave hollow, forming the visible curved background gap */
   margin-left: calc(-1 * var(--overlap));
   background: #0B1120;
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 60px -12px rgba(11, 17, 32, 0.45),
-              0 8px 24px -4px rgba(115, 87, 255, 0.20),
-              inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  border: none;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55),
+              0 8px 24px -4px rgba(0, 0, 0, 0.35);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2466,16 +2462,6 @@ html, body {
   z-index: 2;
   background: linear-gradient(90deg, rgba(11, 17, 32, 0.96) 0%, rgba(11, 17, 32, 0.85) 45%, rgba(11, 17, 32, 0.32) 75%, transparent 100%);
   pointer-events: none;
-}
-
-.detail-glass-rim {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
-  pointer-events: none;
-  z-index: 3;
 }
 
 /* Floating Metric Pill */
@@ -2688,9 +2674,11 @@ html, body {
     --hero-height: 400px;
     --curve-radius: 160px;
     --curve-gap: 12px;
+    --overlap: calc(var(--curve-radius) - var(--curve-gap));
     --card-height: 96px;
     --card-spacing: 110px;
-    --active-offset: 10px;
+    --active-offset: 12px;
+    --card-text-width: 160px;
     height: var(--hero-height);
   }
 
@@ -2716,9 +2704,11 @@ html, body {
     --hero-height: 336px;
     --curve-radius: clamp(70px, 21vw, 84px);
     --curve-gap: 8px;
+    --overlap: calc(var(--curve-radius) - var(--curve-gap));
     --card-height: 72px;
     --card-spacing: 82px;
-    --active-offset: 6px;
+    --active-offset: 8px;
+    --card-text-width: 110px;
     height: var(--hero-height);
     border-radius: 22px;
   }
@@ -2746,12 +2736,10 @@ html, body {
 
   .card-title-text {
     font-size: 0.70rem;
-    max-width: 110px;
   }
 
   .card-subtitle-text {
     font-size: 0.58rem;
-    max-width: 110px;
   }
 
   .active-detail-panel {

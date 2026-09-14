@@ -314,9 +314,6 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
                   <span className="card-title-text">{slide.title}</span>
                   <span className="card-subtitle-text">{slide.subtitle}</span>
                 </div>
-
-                {/* Subtle active border indicator */}
-                {isCurrent && <div className="card-active-indicator" aria-hidden="true" />}
               </div>
             );
           })}
@@ -325,8 +322,8 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
 
       {/* =========================================================
           PANEL B: RIGHT EXPANDED ACTIVE DETAIL PANEL
-          Features CONVEX curved left edge with large radius,
-          pulled toward left panel creating the concentric curved gap!
+          Features CONVEX curved left edge with matching radius,
+          pulled toward left panel creating the visible background gap!
           ========================================================= */}
       <div 
         className="active-detail-panel"
@@ -371,9 +368,6 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
           {/* Dark left-to-right gradient overlay for text readability */}
           <div className="detail-gradient-overlay" />
         </div>
-
-        {/* Liquid Glass Highlight Rim */}
-        <div className="detail-glass-rim" aria-hidden="true" />
 
         {/* Floating Stat Pill on Detail */}
         <div className="detail-floating-stat glass-pill" aria-hidden="true">
