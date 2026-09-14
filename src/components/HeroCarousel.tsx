@@ -237,18 +237,40 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
   const currentSlide = SLIDES[activeIndex];
   const previousSlide = SLIDES[prevSlideIndex];
 
-  // Helper to calculate wrapping circular card state
-  const getCardState = (index: number) => {
+  const previousActiveIndex = useRef<number>(0);
+
+  useEffect(() => {
+    previousActiveIndex.current = activeIndex;
+  }, [activeIndex]);
+
+  // Helper to calculate wrapping circular card state and detect offstage wrap
+  const getCardInfo = (index: number) => {
     let diff = (index - activeIndex + totalSlides) % totalSlides;
     if (diff > totalSlides / 2) {
       diff -= totalSlides;
     }
 
-    if (diff === 0) return 'card-active';
-    if (diff === -1) return 'card-prev';
-    if (diff === 1) return 'card-next';
-    if (diff < -1) return 'card-hidden-top';
-    return 'card-hidden-bottom';
+    let stateClass = '';
+    if (diff === 0) stateClass = 'card-active active';
+    else if (diff === -1) stateClass = 'card-prev prev';
+    else if (diff === 1) stateClass = 'card-next next';
+    else if (diff < -1) stateClass = 'card-hidden-top hidden-above';
+    else stateClass = 'card-hidden-bottom hidden-below';
+
+    let prevDiff = (index - previousActiveIndex.current + totalSlides) % totalSlides;
+    if (prevDiff > totalSlides / 2) {
+      prevDiff -= totalSlides;
+    }
+
+    // Only suppress transition if the card is leaping across the circular seam while offstage
+    const isWrapping = Math.abs(diff - prevDiff) > 2;
+
+    return {
+      stateClass,
+      isCurrent: diff === 0,
+      isClickable: diff === -1 || diff === 1,
+      isWrapping,
+    };
   };
 
   return (
@@ -269,20 +291,21 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
       <div className="vertical-carousel-panel" aria-label="Platform Slider">
         <div className="vertical-carousel-track">
           {SLIDES.map((slide, index) => {
-            const cardState = getCardState(index);
-            const isCurrent = cardState === 'card-active';
-            const isClickable = cardState === 'card-prev' || cardState === 'card-next';
+            const cardInfo = getCardInfo(index);
+            const isCurrent = cardInfo.isCurrent;
+            const isClickable = cardInfo.isClickable;
 
             return (
               <div
                 key={slide.id}
-                className={`vertical-carousel-card ${cardState}`}
+                className={`vertical-carousel-card card ${cardInfo.stateClass}`}
                 onClick={() => {
                   if (isClickable) goToIndex(index);
                 }}
                 style={{
                   ['--card-accent' as string]: slide.accentColor,
                   ['--card-secondary' as string]: slide.secondaryColor,
+                  transition: cardInfo.isWrapping ? 'none' : undefined,
                 }}
                 role="button"
                 tabIndex={isClickable || isCurrent ? 0 : -1}
@@ -305,6 +328,9 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
                   />
                   <div className="card-gradient-overlay" />
                 </div>
+
+                {/* Active white liquid-glass surface with smooth 0.6s crossfade */}
+                <div className="card-active-surface" aria-hidden="true" />
 
                 {/* Platform Icon Capsule + Card Title/Subtitle Layout */}
                 <div className="card-content-layout">

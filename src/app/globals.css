@@ -2186,7 +2186,7 @@ html, body {
   --curve-gap: 16px;
   --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 224px */
   --card-height: 120px;
-  --card-spacing: 136px;
+  --card-spacing: 110px;
   --active-bridge: 22px;
   --card-text-max-width: 200px;
   --detail-panel-bg: #F8F9FD;
@@ -2240,8 +2240,11 @@ html, body {
   overflow: visible;
 }
 
-/* Light iOS Liquid Glass Cards with Neumorphic Depth */
-.vertical-carousel-card {
+/* =========================================================
+   CAROUSEL CARD UNIVERSAL TRANSITION & BASE STYLING
+   ========================================================= */
+.vertical-carousel-card,
+.card {
   position: absolute;
   left: 14px;
   width: calc(100% - 24px);
@@ -2249,13 +2252,7 @@ html, body {
   top: 50%;
   border-radius: 20px;
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.85) 0%,
-    rgba(246, 243, 255, 0.72) 45%,
-    rgba(255, 245, 250, 0.68) 75%,
-    rgba(255, 248, 242, 0.75) 100%
-  );
+  background: var(--detail-panel-bg);
   backdrop-filter: blur(20px) saturate(145%);
   -webkit-backdrop-filter: blur(20px) saturate(145%);
   border: 1px solid rgba(255, 255, 255, 0.85);
@@ -2264,16 +2261,16 @@ html, body {
     -4px -4px 14px rgba(255, 255, 255, 0.80),
     inset 0 1px 1px rgba(255, 255, 255, 0.70);
   cursor: pointer;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-              opacity 0.6s ease,
-              filter 0.6s ease,
-              box-shadow 0.6s ease,
-              background-color 0.6s ease;
+  transform-origin: center center !important;
+  transition:
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.6s ease !important;
   will-change: transform, opacity;
 }
 
 /* Specular curved reflection highlight on top edge of card */
-.vertical-carousel-card::before {
+.vertical-carousel-card::before,
+.card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -2284,102 +2281,92 @@ html, body {
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
 }
 
-.vertical-carousel-card:focus-visible {
+.vertical-carousel-card:focus-visible,
+.card:focus-visible {
   outline: 2px solid #7357FF;
   outline-offset: 2px;
 }
 
 /* --- Card Stack Hierarchy (Active, Previous, Next, Hidden) --- */
 
-/* ACTIVE CARD:
-   - Highest z-index (z: 20)
-   - Bridges into detail panel with translateX(var(--active-bridge)) scale(1.04)
-   - Light premium liquid glass matching --detail-panel-bg (#F8F9FD)
-   - border-right: none !important, outline: none !important
-   - box-shadow strictly on left/bottom only, ZERO right seam shadow
-   - Visually melts seamlessly into the right detail panel */
+/* ACTIVE:
+   - translateY(-50%) scale(1)
+   - opacity: 1
+   - z-index: 10 */
 .vertical-carousel-card.card-active,
 .card.active {
-  width: min(380px, calc(100% - 24px));
-  transform: translateY(-50%) translateX(var(--active-bridge)) scale(1.04) !important;
+  transform: translateY(-50%) scale(1) !important;
   opacity: 1 !important;
-  filter: brightness(1) saturate(1) !important;
-  z-index: 20 !important;
+  z-index: 10 !important;
   cursor: default;
-  background-color: var(--detail-panel-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.95);
   border-right: none !important;
   outline: none !important;
-  box-shadow: -6px 16px 36px rgba(60, 50, 90, 0.12), -2px 4px 10px rgba(60, 50, 90, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    -6px 16px 36px rgba(60, 50, 90, 0.12),
+    -2px 4px 10px rgba(60, 50, 90, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
 }
 
-.vertical-carousel-card.card-active .card-bg-layer {
-  background: var(--detail-panel-bg) !important;
-}
-
-.vertical-carousel-card.card-active .card-gradient-overlay {
-  background: linear-gradient(90deg, rgba(248, 249, 253, 0.98) 25%, rgba(248, 249, 253, 0.85) 60%, var(--detail-panel-bg) 100%) !important;
-}
-
-/* PREVIOUS CARD:
-   - Scaled down to 0.85, center-left origin, light liquid glass */
+/* PREVIOUS:
+   - translateY(calc(-50% - var(--card-spacing, 110px))) scale(0.85)
+   - opacity: 0.5
+   - z-index: 5 */
 .vertical-carousel-card.card-prev,
 .card.prev {
-  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.85) !important;
-  transform-origin: center left !important;
-  opacity: 0.65 !important;
-  filter: brightness(0.96) saturate(0.90) !important;
-  z-index: 3 !important;
-  border: 1px solid rgba(255, 255, 255, 0.70);
+  transform: translateY(calc(-50% - var(--card-spacing, 110px))) scale(0.85) !important;
+  opacity: 0.5 !important;
+  z-index: 5 !important;
 }
 
 .vertical-carousel-card.card-prev:hover,
 .card.prev:hover {
-  opacity: 0.90 !important;
-  filter: brightness(1) saturate(1) !important;
-  transform: translateY(calc(-50% - var(--card-spacing))) scale(0.88) !important;
-  transform-origin: center left !important;
+  opacity: 0.80 !important;
+  transform: translateY(calc(-50% - var(--card-spacing, 110px))) scale(0.88) !important;
 }
 
-/* NEXT CARD:
-   - Scaled down to 0.85, center-left origin, light liquid glass */
+/* NEXT:
+   - translateY(calc(-50% + var(--card-spacing, 110px))) scale(0.85)
+   - opacity: 0.5
+   - z-index: 5 */
 .vertical-carousel-card.card-next,
 .card.next {
-  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.85) !important;
-  transform-origin: center left !important;
-  opacity: 0.65 !important;
-  filter: brightness(0.96) saturate(0.90) !important;
-  z-index: 3 !important;
-  border: 1px solid rgba(255, 255, 255, 0.70);
+  transform: translateY(calc(-50% + var(--card-spacing, 110px))) scale(0.85) !important;
+  opacity: 0.5 !important;
+  z-index: 5 !important;
 }
 
 .vertical-carousel-card.card-next:hover,
 .card.next:hover {
-  opacity: 0.90 !important;
-  filter: brightness(1) saturate(1) !important;
-  transform: translateY(calc(-50% + var(--card-spacing))) scale(0.88) !important;
-  transform-origin: center left !important;
+  opacity: 0.80 !important;
+  transform: translateY(calc(-50% + var(--card-spacing, 110px))) scale(0.88) !important;
 }
 
-/* HIDDEN CARDS:
-   - Displaced farther, scaled down, faded to 0 */
-.vertical-carousel-card.card-hidden-top {
-  transform: translateY(calc(-50% - var(--card-spacing) * 1.85)) scale(0.70) !important;
-  transform-origin: center left !important;
+/* HIDDEN ABOVE:
+   - translateY(calc(-50% - var(--card-spacing, 110px) * 2)) scale(0.8)
+   - opacity: 0
+   - z-index: 1 */
+.vertical-carousel-card.card-hidden-top,
+.card.hidden-above {
+  transform: translateY(calc(-50% - var(--card-spacing, 110px) * 2)) scale(0.8) !important;
   opacity: 0 !important;
+  z-index: 1 !important;
   pointer-events: none;
-  z-index: 1;
 }
 
-.vertical-carousel-card.card-hidden-bottom {
-  transform: translateY(calc(-50% + var(--card-spacing) * 1.85)) scale(0.70) !important;
-  transform-origin: center left !important;
+/* HIDDEN BELOW:
+   - translateY(calc(-50% + var(--card-spacing, 110px) * 2)) scale(0.8)
+   - opacity: 0
+   - z-index: 1 */
+.vertical-carousel-card.card-hidden-bottom,
+.card.hidden-below {
+  transform: translateY(calc(-50% + var(--card-spacing, 110px) * 2)) scale(0.8) !important;
   opacity: 0 !important;
+  z-index: 1 !important;
   pointer-events: none;
-  z-index: 1;
 }
 
 /* Card Inner Elements */
@@ -2409,6 +2396,22 @@ html, body {
   pointer-events: none;
 }
 
+/* Seamless white liquid-glass surface on active card (crossfades via opacity over 0.6s) */
+.card-active-surface {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(248, 249, 253, 0.98) 25%, rgba(248, 249, 253, 0.85) 60%, var(--detail-panel-bg) 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 1;
+}
+
+.vertical-carousel-card.card-active .card-active-surface,
+.card.active .card-active-surface {
+  opacity: 1;
+}
+
 /* Card Content Layout (Icon Capsule + Label Group) */
 .card-content-layout {
   position: absolute;
@@ -2418,7 +2421,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
-  z-index: 2;
+  z-index: 3;
   max-width: calc(100% - 24px);
   pointer-events: none;
 }
@@ -2445,7 +2448,8 @@ html, body {
   height: 20px;
 }
 
-.vertical-carousel-card.card-active .card-icon-capsule {
+.vertical-carousel-card.card-active .card-icon-capsule,
+.card.active .card-icon-capsule {
   background: rgba(255, 255, 255, 0.90);
   border: 1px solid rgba(255, 255, 255, 1);
   box-shadow: 0 4px 14px rgba(60, 50, 90, 0.10), inset 0 1px 1px rgba(255, 255, 255, 1);
@@ -2485,31 +2489,6 @@ html, body {
   color: #475569;
   white-space: normal !important;
   line-height: 1.2;
-}
-
-/* Fully visible title text on active card (No ellipsis / no truncation) */
-.vertical-carousel-card.card-active .card-content-layout {
-  max-width: min(320px, calc(100% - 30px)) !important;
-}
-
-.vertical-carousel-card.card-active .card-title-text,
-.card.active .title-text {
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: #0F172A;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  max-width: none !important;
-  line-height: 1.2 !important;
-}
-
-.vertical-carousel-card.card-active .card-subtitle-text {
-  color: #334155;
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: clip !important;
-  max-width: none !important;
 }
 
 /* --- PANEL B: RIGHT EXPANDED ACTIVE DETAIL PANEL --- */
@@ -2810,7 +2789,7 @@ html, body {
     --curve-gap: 12px;
     --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 198px */
     --card-height: 102px;
-    --card-spacing: 116px;
+    --card-spacing: 96px;
     --active-bridge: 16px;
     --card-text-max-width: 150px;
     height: var(--hero-height);
@@ -2862,7 +2841,7 @@ html, body {
     --curve-gap: 8px;
     --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 167px */
     --card-height: 76px;
-    --card-spacing: 86px;
+    --card-spacing: 80px;
     --active-bridge: 12px;
     --card-text-max-width: 110px;
     width: 100% !important;
@@ -2884,7 +2863,8 @@ html, body {
     border-bottom-left-radius: 20px;
   }
 
-  .vertical-carousel-card {
+  .vertical-carousel-card,
+  .card {
     left: 8px;
     width: calc(100% - 14px);
     height: var(--card-height);
@@ -2921,10 +2901,6 @@ html, body {
   .card-subtitle-text {
     font-size: 0.56rem;
     line-height: 1.15;
-  }
-
-  .vertical-carousel-card.card-active .card-content-layout {
-    max-width: min(240px, calc(100% - 20px)) !important;
   }
 
   .card-asset-img {
@@ -3000,7 +2976,7 @@ html, body {
     --curve-gap: 8px;
     --overlap: calc(var(--curve-radius) - var(--curve-gap)); /* 157px */
     --card-height: 68px;
-    --card-spacing: 78px;
+    --card-spacing: 70px;
     --active-bridge: 10px;
     --card-text-max-width: 95px;
     height: var(--hero-height);
@@ -3035,10 +3011,6 @@ html, body {
 
   .card-subtitle-text {
     font-size: 0.52rem;
-  }
-
-  .vertical-carousel-card.card-active .card-content-layout {
-    max-width: min(180px, calc(100% - 16px)) !important;
   }
 
   .vertical-carousel-panel {
