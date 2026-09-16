@@ -98,7 +98,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|vm\.|vt\.)?tiktok\.com\/(@[\w.-]+(\/(video|photo)\/\d+)?|[\w.-]+)/i,
     exampleUrl: 'https://www.tiktok.com/@creator/video/1234567890',
     icon: (
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
       </svg>
     ),
@@ -112,7 +112,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?instagram\.com\/([a-zA-Z0-9_.]+(\/(p|reel|tv)\/[a-zA-Z0-9_-]+)?)/i,
     exampleUrl: 'https://www.instagram.com/creator',
     icon: (
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -128,7 +128,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/|@|c\/|channel\/)[\w.-]+|youtu\.be\/[\w.-]+)/i,
     exampleUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     icon: (
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
       </svg>
     ),
@@ -142,7 +142,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|m\.)?(facebook\.com|fb\.watch)\/[\w.-]+/i,
     exampleUrl: 'https://www.facebook.com/creatorpage',
     icon: (
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     ),
@@ -156,14 +156,14 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(x\.com|twitter\.com)\/[\w.-]+/i,
     exampleUrl: 'https://x.com/creator/status/123456789',
     icon: (
-      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
 ];
 
-// Marquee platform icons (Compact, decorative, non-clickable, slow continuous animation)
+// Marquee platform icons (Visually confident, decorative, non-clickable, smooth continuous animation)
 const MARQUEE_PLATFORMS = [
   ...PLATFORMS_CONFIG,
   {
@@ -175,7 +175,7 @@ const MARQUEE_PLATFORMS = [
     urlPattern: /^(https?:\/\/)?t\.me\/[\w.-]+/i,
     exampleUrl: 'https://t.me/channel',
     icon: (
-      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
         <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
       </svg>
     ),
@@ -612,306 +612,315 @@ function BoostSetupContent() {
           </div>
         )}
 
-        {/* 3. CONNECTED BOOST FLOW CARD (Single unified iOS liquid-glass component) */}
-        <div className="connected-boost-flow-card" role="region" aria-label="Connected Boost Flow">
-
-          {/* =========================================================
-              01 — GOAL
-              Starts resolved as compact summary row from Home
-              ========================================================= */}
-          <div className="flow-step-item flow-step-resolved">
-            <div className="flow-step-marker-col" aria-hidden="true">
-              <span className="flow-step-dot dot-resolved">01</span>
-              <div className="flow-step-track-line" />
-            </div>
-            <div className="flow-step-body">
-              <div className="flow-step-summary-bar">
-                <div className="step-summary-info">
-                  <span className="step-micro-tag">GOAL</span>
-                  <span className="step-summary-val">
-                    {currentBoostConfig.label} <span className="check-pip" aria-hidden="true">✓</span>
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className="step-edit-link"
-                  onClick={() => setIsEditingType((prev) => !prev)}
-                  aria-label="Change boost goal"
-                >
-                  {isEditingType ? 'Done' : 'Change'}
-                </button>
+        {/* =========================================================
+            CARD 1 — GOAL
+            "What do you want to boost?"
+            ========================================================= */}
+        <section 
+          className={`boost-step-card ${!isEditingType ? 'card-resolved' : ''}`}
+          aria-label="Step 1: Boost Goal"
+        >
+          {isEditingType ? (
+            <div className="card-active-content step-reveal-anim">
+              <div className="card-header-row">
+                <span className="card-step-badge">01</span>
+                <span className="card-micro-tag">GOAL</span>
               </div>
-
-              {/* Step 1 Goal Switcher (Only if user taps Change) */}
-              {isEditingType && (
-                <div className="inline-goal-grid step-reveal-anim" role="radiogroup">
-                  {(Object.keys(BOOST_TYPES) as BoostTypeId[]).map((typeKey) => {
-                    const cfg = BOOST_TYPES[typeKey];
-                    const isActive = selectedType === typeKey;
-                    return (
-                      <button
-                        key={typeKey}
-                        type="button"
-                        role="radio"
-                        aria-checked={isActive}
-                        className={`inline-goal-tile ${isActive ? 'tile-active' : ''}`}
-                        onClick={() => handleSelectType(typeKey)}
-                      >
-                        <span className="goal-tile-icon">{cfg.icon}</span>
-                        <span className="goal-tile-name">{cfg.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* =========================================================
-              02 — PLATFORM
-              Active Question OR Compact Summary Row
-              ========================================================= */}
-          <div className={`flow-step-item ${isPlatformConfirmed ? 'flow-step-resolved' : 'flow-step-active'}`} ref={step2Ref}>
-            <div className="flow-step-marker-col" aria-hidden="true">
-              <span className={`flow-step-dot ${isPlatformConfirmed ? 'dot-resolved' : 'dot-active'}`}>02</span>
-              {(isPlatformConfirmed || isQuantityConfirmed) && <div className="flow-step-track-line" />}
-            </div>
-            <div className="flow-step-body">
-              {isPlatformConfirmed && currentPlatformConfig ? (
-                <div className="flow-step-summary-bar step-reveal-anim">
-                  <div className="step-summary-info">
-                    <span className="step-micro-tag">PLATFORM</span>
-                    <span className="step-summary-val" style={{ color: currentPlatformConfig.brandColor }}>
-                      {currentPlatformConfig.name} <span className="check-pip" aria-hidden="true">✓</span>
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className="step-edit-link"
-                    onClick={handleEditPlatform}
-                    aria-label="Change platform"
-                  >
-                    Change
-                  </button>
-                </div>
-              ) : (
-                <div className="flow-step-active-content step-reveal-anim">
-                  <span className="step-micro-tag">PLATFORM</span>
-                  <h2 className="step-active-heading">Which platform do you want to boost?</h2>
-                  <div className="platform-options-grid" role="radiogroup" aria-label="Select platform">
-                    {PLATFORMS_CONFIG.map((plat) => {
-                      const isSelected = selectedPlatform === plat.id;
-                      return (
-                        <button
-                          key={plat.id}
-                          type="button"
-                          role="radio"
-                          aria-checked={isSelected}
-                          className={`platform-flow-btn ${isSelected ? 'btn-selected' : ''}`}
-                          onClick={() => handleSelectPlatform(plat.id)}
-                          style={{ '--plat-theme': plat.brandColor } as React.CSSProperties}
-                        >
-                          <span className="plat-btn-icon" style={{ color: plat.brandColor }}>
-                            {plat.icon}
-                          </span>
-                          <span className="plat-btn-label">{plat.name}</span>
-                          {isSelected && <span className="plat-btn-check">✓</span>}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* =========================================================
-              03 — QUANTITY
-              Only rendered after Step 2 is confirmed
-              ========================================================= */}
-          {isPlatformConfirmed && selectedPlatform && (
-            <div className={`flow-step-item step-reveal-anim ${isQuantityConfirmed ? 'flow-step-resolved' : 'flow-step-active'}`} ref={step3Ref}>
-              <div className="flow-step-marker-col" aria-hidden="true">
-                <span className={`flow-step-dot ${isQuantityConfirmed ? 'dot-resolved' : 'dot-active'}`}>03</span>
-                {(isQuantityConfirmed || isDestinationConfirmed) && <div className="flow-step-track-line" />}
-              </div>
-              <div className="flow-step-body">
-                {isQuantityConfirmed && selectedQuantity ? (
-                  <div className="flow-step-summary-bar step-reveal-anim">
-                    <div className="step-summary-info">
-                      <span className="step-micro-tag">QUANTITY</span>
-                      <span className="step-summary-val">
-                        {selectedQuantity.toLocaleString()} {currentBoostConfig.label}{' '}
-                        <span className="check-pip" aria-hidden="true">✓</span>
-                      </span>
-                    </div>
+              <h2 className="card-question-heading">What do you want to boost?</h2>
+              <div className="goal-options-grid" role="radiogroup" aria-label="Select boost goal">
+                {(Object.keys(BOOST_TYPES) as BoostTypeId[]).map((typeKey) => {
+                  const cfg = BOOST_TYPES[typeKey];
+                  const isActive = selectedType === typeKey;
+                  return (
                     <button
+                      key={typeKey}
                       type="button"
-                      className="step-edit-link"
-                      onClick={handleEditQuantity}
-                      aria-label="Change quantity"
+                      role="radio"
+                      aria-checked={isActive}
+                      className={`goal-option-tile ${isActive ? 'tile-active' : ''}`}
+                      onClick={() => handleSelectType(typeKey)}
                     >
-                      Change
+                      <span className="goal-tile-icon">{cfg.icon}</span>
+                      <span className="goal-tile-name">{cfg.label}</span>
                     </button>
-                  </div>
-                ) : (
-                  <div className="flow-step-active-content step-reveal-anim">
-                    <span className="step-micro-tag">QUANTITY</span>
-                    <h2 className="step-active-heading">How many would you like?</h2>
-                    
-                    {/* Presets + Custom Button */}
-                    <div className="quantity-packages-grid" role="group" aria-label="Available quantities">
-                      {currentBoostConfig.presetQuantities.map((qty) => {
-                        const isSelected = !isCustomMode && selectedQuantity === qty;
-                        return (
-                          <button
-                            key={qty}
-                            type="button"
-                            className={`quantity-pkg-tile ${isSelected ? 'tile-selected' : ''}`}
-                            onClick={() => handleSelectPresetQuantity(qty)}
-                          >
-                            <span className="pkg-short-text">{formatQtyShort(qty)}</span>
-                            <span className="pkg-full-text">{qty.toLocaleString()}</span>
-                            {isSelected && <span className="pkg-check-pip">✓</span>}
-                          </button>
-                        );
-                      })}
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className="card-summary-row">
+              <div className="card-summary-meta">
+                <span className="card-step-badge badge-done">01</span>
+                <span className="card-micro-tag">GOAL</span>
+                <span className="card-summary-value">{currentBoostConfig.label}</span>
+                <span className="summary-check-pip" aria-hidden="true">✓</span>
+              </div>
+              <button
+                type="button"
+                className="card-change-action"
+                onClick={() => setIsEditingType(true)}
+                aria-label="Change boost goal"
+              >
+                Change
+              </button>
+            </div>
+          )}
+        </section>
 
-                      <button
-                        type="button"
-                        className={`quantity-pkg-tile custom-pkg-tile ${isCustomMode ? 'tile-selected' : ''}`}
-                        onClick={handleActivateCustomMode}
-                      >
-                        <span className="pkg-short-text custom-text">Custom</span>
-                        <span className="pkg-full-text">Enter amount</span>
-                        {isCustomMode && <span className="pkg-check-pip">●</span>}
-                      </button>
-                    </div>
-
-                    {/* Compact Custom Input Shell */}
-                    {isCustomMode && (
-                      <div className="custom-qty-shell step-reveal-anim">
-                        <div className="custom-qty-input-row">
-                          <input
-                            ref={customInputRef}
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            placeholder={`e.g. ${currentBoostConfig.presetQuantities[1] || 1000}`}
-                            value={customQtyInput}
-                            onChange={handleCustomQtyChange}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                e.preventDefault();
-                                handleConfirmCustomQuantity();
-                              }
-                            }}
-                            className={`custom-qty-field ${customQtyError ? 'field-error' : ''}`}
-                            aria-label="Custom quantity"
-                          />
-                          <button
-                            type="button"
-                            onClick={handleConfirmCustomQuantity}
-                            className="custom-qty-confirm-btn"
-                          >
-                            Confirm
-                          </button>
-                        </div>
-                        <div className="custom-qty-limits">
-                          <span>Min: <strong>{currentBoostConfig.minQuantity.toLocaleString()}</strong></span>
-                          <span>•</span>
-                          <span>Max: <strong>{currentBoostConfig.maxQuantity.toLocaleString()}</strong></span>
-                        </div>
-                        {customQtyError && (
-                          <p className="custom-qty-error" role="alert">
-                            {customQtyError}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
+        {/* =========================================================
+            CARD 2 — PLATFORM
+            "Which platform do you want to boost?"
+            ========================================================= */}
+        <section 
+          className={`boost-step-card ${isPlatformConfirmed && currentPlatformConfig ? 'card-resolved' : ''}`} 
+          ref={step2Ref} 
+          aria-label="Step 2: Platform"
+        >
+          {isPlatformConfirmed && currentPlatformConfig ? (
+            <div className="card-summary-row">
+              <div className="card-summary-meta">
+                <span className="card-step-badge badge-done">02</span>
+                <span className="card-micro-tag">PLATFORM</span>
+                <span className="card-summary-value" style={{ color: currentPlatformConfig.brandColor }}>
+                  {currentPlatformConfig.name}
+                </span>
+                <span className="summary-check-pip" aria-hidden="true">✓</span>
+              </div>
+              <button
+                type="button"
+                className="card-change-action"
+                onClick={handleEditPlatform}
+                aria-label="Change platform"
+              >
+                Change
+              </button>
+            </div>
+          ) : (
+            <div className="card-active-content step-reveal-anim">
+              <div className="card-header-row">
+                <span className="card-step-badge">02</span>
+                <span className="card-micro-tag">PLATFORM</span>
+              </div>
+              <h2 className="card-question-heading">Which platform do you want to boost?</h2>
+              <div className="platform-options-grid" role="radiogroup" aria-label="Select platform">
+                {PLATFORMS_CONFIG.map((plat) => {
+                  const isSelected = selectedPlatform === plat.id;
+                  return (
+                    <button
+                      key={plat.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={isSelected}
+                      className={`platform-flow-btn ${isSelected ? 'btn-selected' : ''}`}
+                      onClick={() => handleSelectPlatform(plat.id)}
+                      style={{ '--plat-theme': plat.brandColor } as React.CSSProperties}
+                    >
+                      <span className="plat-btn-icon" style={{ color: plat.brandColor }}>
+                        {plat.icon}
+                      </span>
+                      <span className="plat-btn-label">{plat.name}</span>
+                      {isSelected && <span className="plat-btn-check">✓</span>}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
+        </section>
 
-          {/* =========================================================
-              04 — DESTINATION
-              Only rendered after Step 3 is confirmed
-              ========================================================= */}
-          {isQuantityConfirmed && selectedQuantity && (
-            <div className={`flow-step-item step-reveal-anim ${isDestinationConfirmed && isLinkValid ? 'flow-step-resolved' : 'flow-step-active'}`} ref={step4Ref}>
-              <div className="flow-step-marker-col" aria-hidden="true">
-                <span className={`flow-step-dot ${isDestinationConfirmed && isLinkValid ? 'dot-resolved' : 'dot-active'}`}>04</span>
+        {/* =========================================================
+            CARD 3 — QUANTITY
+            "How many do you want?"
+            ========================================================= */}
+        {isPlatformConfirmed && selectedPlatform && (
+          <section 
+            className={`boost-step-card step-reveal-anim ${isQuantityConfirmed && selectedQuantity ? 'card-resolved' : ''}`} 
+            ref={step3Ref} 
+            aria-label="Step 3: Quantity"
+          >
+            {isQuantityConfirmed && selectedQuantity ? (
+              <div className="card-summary-row">
+                <div className="card-summary-meta">
+                  <span className="card-step-badge badge-done">03</span>
+                  <span className="card-micro-tag">QUANTITY</span>
+                  <span className="card-summary-value">
+                    {selectedQuantity.toLocaleString()} {currentBoostConfig.label}
+                  </span>
+                  <span className="summary-check-pip" aria-hidden="true">✓</span>
+                </div>
+                <button
+                  type="button"
+                  className="card-change-action"
+                  onClick={handleEditQuantity}
+                  aria-label="Change quantity"
+                >
+                  Change
+                </button>
               </div>
-              <div className="flow-step-body">
-                {isDestinationConfirmed && isLinkValid ? (
-                  <div className="flow-step-summary-bar step-reveal-anim">
-                    <div className="step-summary-info">
-                      <span className="step-micro-tag">DESTINATION</span>
-                      <span className="step-summary-val truncate-url">
-                        {destinationUrl.replace(/^https?:\/\/(www\.)?/, '')}{' '}
-                        <span className="check-pip" aria-hidden="true">✓</span>
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      className="step-edit-link"
-                      onClick={handleEditDestination}
-                      aria-label="Change destination link"
-                    >
-                      Change
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flow-step-active-content step-reveal-anim">
-                    <span className="step-micro-tag">DESTINATION</span>
-                    <h2 className="step-active-heading">Where should we send them?</h2>
+            ) : (
+              <div className="card-active-content step-reveal-anim">
+                <div className="card-header-row">
+                  <span className="card-step-badge">03</span>
+                  <span className="card-micro-tag">QUANTITY</span>
+                </div>
+                <h2 className="card-question-heading">How many would you like?</h2>
+                
+                {/* Presets + Custom Button */}
+                <div className="quantity-packages-grid" role="group" aria-label="Available quantities">
+                  {currentBoostConfig.presetQuantities.map((qty) => {
+                    const isSelected = !isCustomMode && selectedQuantity === qty;
+                    return (
+                      <button
+                        key={qty}
+                        type="button"
+                        className={`quantity-pkg-tile ${isSelected ? 'tile-selected' : ''}`}
+                        onClick={() => handleSelectPresetQuantity(qty)}
+                      >
+                        <span className="pkg-short-text">{formatQtyShort(qty)}</span>
+                        <span className="pkg-full-text">{qty.toLocaleString()}</span>
+                        {isSelected && <span className="pkg-check-pip">✓</span>}
+                      </button>
+                    );
+                  })}
 
-                    <div className="destination-input-shell">
-                      <span className="destination-field-icon" aria-hidden="true">🔗</span>
+                  <button
+                    type="button"
+                    className={`quantity-pkg-tile custom-pkg-tile ${isCustomMode ? 'tile-selected' : ''}`}
+                    onClick={handleActivateCustomMode}
+                  >
+                    <span className="pkg-short-text custom-text">Custom</span>
+                    <span className="pkg-full-text">Enter amount</span>
+                    {isCustomMode && <span className="pkg-check-pip">●</span>}
+                  </button>
+                </div>
+
+                {/* Custom Numeric Input Shell */}
+                {isCustomMode && (
+                  <div className="custom-qty-shell step-reveal-anim">
+                    <div className="custom-qty-input-row">
                       <input
-                        type="url"
-                        inputMode="url"
-                        placeholder={currentPlatformConfig?.urlPlaceholder || 'https://...'}
-                        value={destinationUrl}
-                        onChange={handleUrlChange}
-                        className={`destination-field-input ${isLinkValid ? 'field-valid' : linkError ? 'field-error' : ''}`}
-                        aria-label="Destination profile or video link"
-                        aria-invalid={!isLinkValid && linkError !== null}
+                        ref={customInputRef}
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        placeholder={`e.g. ${currentBoostConfig.presetQuantities[1] || 1000}`}
+                        value={customQtyInput}
+                        onChange={handleCustomQtyChange}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleConfirmCustomQuantity();
+                          }
+                        }}
+                        className={`custom-qty-field ${customQtyError ? 'field-error' : ''}`}
+                        aria-label="Custom quantity"
                       />
-                      {isLinkValid && (
-                        <span className="destination-inline-verified" role="status">
-                          ✓ Verified
-                        </span>
-                      )}
+                      <button
+                        type="button"
+                        onClick={handleConfirmCustomQuantity}
+                        className="custom-qty-confirm-btn"
+                      >
+                        Confirm
+                      </button>
                     </div>
-
-                    {linkError && (
-                      <p className="destination-field-error-hint" role="alert">
-                        {linkError}
+                    <div className="custom-qty-limits">
+                      <span>Min: <strong>{currentBoostConfig.minQuantity.toLocaleString()}</strong></span>
+                      <span>•</span>
+                      <span>Max: <strong>{currentBoostConfig.maxQuantity.toLocaleString()}</strong></span>
+                    </div>
+                    {customQtyError && (
+                      <p className="custom-qty-error" role="alert">
+                        {customQtyError}
                       </p>
                     )}
                   </div>
                 )}
               </div>
-            </div>
-          )}
-
-        </div>
+            )}
+          </section>
+        )}
 
         {/* =========================================================
-            4. FINAL PAYMENT SUMMARY (Connected iOS Liquid-Glass Surface)
-            Appears seamlessly once destination is verified
+            CARD 4 — DESTINATION
+            "Where should we deliver the boost?"
+            ========================================================= */}
+        {isQuantityConfirmed && selectedQuantity && (
+          <section 
+            className={`boost-step-card step-reveal-anim ${isDestinationConfirmed && isLinkValid ? 'card-resolved' : ''}`} 
+            ref={step4Ref} 
+            aria-label="Step 4: Destination Link"
+          >
+            {isDestinationConfirmed && isLinkValid ? (
+              <div className="card-summary-row">
+                <div className="card-summary-meta">
+                  <span className="card-step-badge badge-done">04</span>
+                  <span className="card-micro-tag">DESTINATION</span>
+                  <span className="card-summary-value truncate-url">
+                    {destinationUrl.replace(/^https?:\/\/(www\.)?/, '')}
+                  </span>
+                  <span className="summary-check-pip" aria-hidden="true">✓</span>
+                </div>
+                <button
+                  type="button"
+                  className="card-change-action"
+                  onClick={handleEditDestination}
+                  aria-label="Change destination link"
+                >
+                  Change
+                </button>
+              </div>
+            ) : (
+              <div className="card-active-content step-reveal-anim">
+                <div className="card-header-row">
+                  <span className="card-step-badge">04</span>
+                  <span className="card-micro-tag">DESTINATION</span>
+                </div>
+                <h2 className="card-question-heading">Where should we deliver the boost?</h2>
+
+                <div className="destination-input-shell">
+                  <input
+                    type="url"
+                    inputMode="url"
+                    placeholder={currentPlatformConfig?.urlPlaceholder || 'https://...'}
+                    value={destinationUrl}
+                    onChange={handleUrlChange}
+                    className={`destination-field-input ${isLinkValid ? 'field-valid' : linkError ? 'field-error' : ''}`}
+                    aria-label="Destination profile or video link"
+                    aria-invalid={!isLinkValid && linkError !== null}
+                  />
+                  {isLinkValid && (
+                    <span className="destination-inline-verified" role="status">
+                      ✓ Verified
+                    </span>
+                  )}
+                </div>
+
+                {linkError && (
+                  <p className="destination-field-error-hint" role="alert">
+                    {linkError}
+                  </p>
+                )}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* =========================================================
+            CARD 5 — PAYMENT SUMMARY & ACTION
+            Appears once destination is verified
             ========================================================= */}
         {isQuantityConfirmed && selectedQuantity && isLinkValid && (
-          <div className="connected-payment-surface step-reveal-anim" ref={paymentRef} aria-label="Payment Summary">
+          <section className="boost-step-card payment-summary-card step-reveal-anim" ref={paymentRef} aria-label="Step 5: Review and Pay">
+            <div className="card-header-row">
+              <span className="card-step-badge">05</span>
+              <span className="card-micro-tag">REVIEW & PAY</span>
+            </div>
+
             {/* Header: Service identification */}
             <div className="payment-summary-header">
               <span className="payment-tag-micro">YOUR BOOST</span>
               <div className="payment-service-pill">
                 <span className="service-name-bold">{selectedPlatform} {currentBoostConfig.label}</span>
-                <span className="service-qty-dot">·</span>
                 <span className="service-qty-highlight">{activeQuantity.toLocaleString()}</span>
               </div>
             </div>
@@ -972,7 +981,7 @@ function BoostSetupContent() {
                 {isSubmittingOrder ? 'Processing...' : 'Pay securely →'}
               </span>
             </button>
-          </div>
+          </section>
         )}
 
         {/* TOP UP MODAL */}
