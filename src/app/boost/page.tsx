@@ -22,7 +22,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     ratePerUnit: 8.5,
     presetQuantities: [500, 1000, 2500, 5000, 10000],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -36,7 +36,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     ratePerUnit: 4.5,
     presetQuantities: [500, 1000, 2500, 5000, 10000],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
@@ -47,7 +47,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     ratePerUnit: 1.2,
     presetQuantities: [1000, 5000, 10000, 50000, 100000],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
         <circle cx="12" cy="12" r="3" />
       </svg>
@@ -59,7 +59,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     ratePerUnit: 45,
     presetQuantities: [50, 100, 250, 500, 1000],
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
       </svg>
     ),
@@ -88,7 +88,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|vm\.|vt\.)?tiktok\.com\/(@[\w.-]+(\/(video|photo)\/\d+)?|[\w.-]+)/i,
     exampleUrl: 'https://www.tiktok.com/@creator/video/1234567890',
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
       </svg>
     ),
@@ -102,7 +102,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?instagram\.com\/([a-zA-Z0-9_.]+(\/(p|reel|tv)\/[a-zA-Z0-9_-]+)?)/i,
     exampleUrl: 'https://www.instagram.com/creator',
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -118,7 +118,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/|@|c\/|channel\/)[\w.-]+|youtu\.be\/[\w.-]+)/i,
     exampleUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
       </svg>
     ),
@@ -132,7 +132,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|m\.)?(facebook\.com|fb\.watch)\/[\w.-]+/i,
     exampleUrl: 'https://www.facebook.com/creatorpage',
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     ),
@@ -146,14 +146,14 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(x\.com|twitter\.com)\/[\w.-]+/i,
     exampleUrl: 'https://x.com/creator/status/123456789',
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
 ];
 
-// Marquee platform icons (Display-only, enlarged, slow continuous horizontal scrolling)
+// Marquee platform icons (Display-only, refined compact height, slow continuous glide)
 const MARQUEE_PLATFORMS = [
   ...PLATFORMS_CONFIG,
   {
@@ -165,7 +165,7 @@ const MARQUEE_PLATFORMS = [
     urlPattern: /^(https?:\/\/)?t\.me\/[\w.-]+/i,
     exampleUrl: 'https://t.me/channel',
     icon: (
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
         <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
       </svg>
     ),
@@ -184,15 +184,11 @@ function formatQtyShort(qty: number): string {
   return qty.toLocaleString();
 }
 
-// Flowchart vertical connector component
-function FlowConnector() {
+// Compact vertical timeline connector
+function CompactFlowConnector() {
   return (
-    <div className="flow-vertical-connector" aria-hidden="true">
-      <div className="connector-line" />
-      <div className="connector-node">
-        <div className="connector-dot" />
-      </div>
-      <div className="connector-line" />
+    <div className="flow-compact-connector" aria-hidden="true">
+      <div className="compact-connector-line" />
     </div>
   );
 }
@@ -205,11 +201,11 @@ function BoostSetupContent() {
   const [user, setUser] = useState<UserSession | null>(null);
   const [balance, setBalance] = useState<number>(48500);
 
-  // Progressive Order State
+  // Initial parameters
   const initialTypeParam = (searchParams.get('type') as BoostTypeId) || 'followers';
   const initialPlatformParam = searchParams.get('platform') || null;
 
-  // Step 1: Boost Type (arrives pre-selected & confirmed from Home)
+  // Step 1: Boost Type (Pre-selected from Home, starts completed)
   const [selectedType, setSelectedType] = useState<BoostTypeId>(
     BOOST_TYPES[initialTypeParam] ? initialTypeParam : 'followers'
   );
@@ -227,6 +223,7 @@ function BoostSetupContent() {
   const [destinationUrl, setDestinationUrl] = useState<string>('');
   const [isLinkValid, setIsLinkValid] = useState<boolean>(false);
   const [linkError, setLinkError] = useState<string | null>(null);
+  const [isDestinationConfirmed, setIsDestinationConfirmed] = useState<boolean>(false);
 
   // Step 5: Payment & Order submission
   const [isSubmittingOrder, setIsSubmittingOrder] = useState<boolean>(false);
@@ -234,7 +231,7 @@ function BoostSetupContent() {
   const [showTopUpModal, setShowTopUpModal] = useState<boolean>(false);
   const [createdOrder, setCreatedOrder] = useState<{ id: string; amount: number; platform: string; type: string } | null>(null);
 
-  // Section references for intelligent auto-scroll
+  // Section references for smooth auto-scroll
   const step2Ref = useRef<HTMLDivElement>(null);
   const step3Ref = useRef<HTMLDivElement>(null);
   const step4Ref = useRef<HTMLDivElement>(null);
@@ -293,22 +290,22 @@ function BoostSetupContent() {
     setIsQuantityConfirmed(false);
     setDestinationUrl('');
     setIsLinkValid(false);
+    setIsDestinationConfirmed(false);
     setLinkError(null);
   };
 
-  // Step 2: Select Platform with instant feedback & collapse
+  // Step 2: Select Platform with tactile feedback & collapse
   const handleSelectPlatform = (platformId: string) => {
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
     setSelectedPlatform(platformId);
 
-    // Smooth 250ms transition before collapsing unselected options
+    // Smooth transition before collapsing into summary row
     setTimeout(() => {
       setIsPlatformConfirmed(true);
-      // Auto-scroll to Step 3
       setTimeout(() => {
         step3Ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100);
-    }, 240);
+      }, 60);
+    }, 220);
   };
 
   const handleEditPlatform = () => {
@@ -318,22 +315,22 @@ function BoostSetupContent() {
     setIsQuantityConfirmed(false);
     setDestinationUrl('');
     setIsLinkValid(false);
+    setIsDestinationConfirmed(false);
     setLinkError(null);
   };
 
-  // Step 3: Select Quantity Package with instant feedback & collapse
+  // Step 3: Select Quantity Package with tactile feedback & collapse
   const handleSelectQuantity = (qty: number) => {
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
     setSelectedQuantity(qty);
 
-    // Smooth 250ms transition before collapsing unselected options
+    // Smooth transition before collapsing into summary row
     setTimeout(() => {
       setIsQuantityConfirmed(true);
-      // Auto-scroll to Step 4
       setTimeout(() => {
         step4Ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100);
-    }, 240);
+      }, 60);
+    }, 220);
   };
 
   const handleEditQuantity = () => {
@@ -341,6 +338,7 @@ function BoostSetupContent() {
     setIsQuantityConfirmed(false);
     setDestinationUrl('');
     setIsLinkValid(false);
+    setIsDestinationConfirmed(false);
     setLinkError(null);
   };
 
@@ -351,12 +349,14 @@ function BoostSetupContent() {
 
     if (!val) {
       setIsLinkValid(false);
+      setIsDestinationConfirmed(false);
       setLinkError(null);
       return;
     }
 
     if (!currentPlatformConfig) {
       setIsLinkValid(false);
+      setIsDestinationConfirmed(false);
       return;
     }
 
@@ -368,13 +368,23 @@ function BoostSetupContent() {
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
         navigator.vibrate(15);
       }
+      // Collapse into summary row after verification and reveal payment checkout
       setTimeout(() => {
-        paymentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 180);
+        setIsDestinationConfirmed(true);
+        setTimeout(() => {
+          paymentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
+      }, 360);
     } else {
       setIsLinkValid(false);
+      setIsDestinationConfirmed(false);
       setLinkError(`Enter a valid ${currentPlatformConfig.name} link (e.g. ${currentPlatformConfig.exampleUrl})`);
     }
+  };
+
+  const handleEditDestination = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
+    setIsDestinationConfirmed(false);
   };
 
   // Step 5: Pay Order execution
@@ -463,7 +473,7 @@ function BoostSetupContent() {
           onNavigateService={(p) => handleSelectPlatform(p)} 
         />
 
-        {/* 2. PLATFORM MARQUEE (Enlarged visual scale, slow continuous animation) */}
+        {/* 2. PLATFORM MARQUEE (Refined compact height, non-clickable, slow continuous animation) */}
         <section className="platform-marquee-strip" aria-hidden="true">
           <div className="platform-marquee-track">
             {[...MARQUEE_PLATFORMS, ...MARQUEE_PLATFORMS].map((item, idx) => (
@@ -489,108 +499,98 @@ function BoostSetupContent() {
           </div>
         )}
 
-        {/* 3. VERTICAL GUIDED FLOWCHART JOURNEY */}
-        <div className="flow-journey" role="region" aria-label="Guided Boost Journey">
+        {/* 3. COMPACT VERTICAL TIMELINE FLOW */}
+        <div className="flow-journey" role="region" aria-label="Guided Boost Checkout">
 
           {/* =========================================================
-              STEP 01: What do you want to boost?
-              (Pre-selected from Home & Resolved as Confirmed Answer)
+              STEP 01: GOAL (Compact completed summary row from Home)
               ========================================================= */}
-          <div className="flow-card flow-card-completed" aria-label="Step 1: What do you want to boost?">
-            <div className="flow-card-header">
-              <div className="flow-step-meta">
-                <span className="flow-step-badge badge-resolved">01</span>
-                <span className="flow-step-tag">Goal</span>
+          <div className="flow-step-compact-row flow-step-completed" aria-label="Step 1: Goal">
+            <div className="flow-step-left">
+              <span className="flow-node-badge badge-resolved">01</span>
+              <div className="flow-step-summary-text">
+                <span className="flow-step-cat">GOAL</span>
+                <span className="flow-step-value">
+                  {currentBoostConfig.label} <span className="val-check" aria-hidden="true">✓</span>
+                </span>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="flow-step-edit-btn"
+              onClick={() => setIsEditingType((prev) => !prev)}
+              aria-label="Change boost goal"
+            >
+              {isEditingType ? 'Done' : 'Change'}
+            </button>
+          </div>
+
+          {/* Step 1 Goal Switcher (Only if explicitly editing) */}
+          {isEditingType && (
+            <div className="inline-goal-grid step-entry-anim" role="radiogroup">
+              {(Object.keys(BOOST_TYPES) as BoostTypeId[]).map((typeKey) => {
+                const cfg = BOOST_TYPES[typeKey];
+                const isActive = selectedType === typeKey;
+                return (
+                  <button
+                    key={typeKey}
+                    type="button"
+                    role="radio"
+                    aria-checked={isActive}
+                    className={`inline-goal-tile ${isActive ? 'tile-active' : ''}`}
+                    onClick={() => handleSelectType(typeKey)}
+                  >
+                    <span className="goal-tile-icon">{cfg.icon}</span>
+                    <span className="goal-tile-name">{cfg.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* VERTICAL CONNECTOR 1 -> 2 */}
+          <CompactFlowConnector />
+
+          {/* =========================================================
+              STEP 02: PLATFORM
+              Active expanded card OR Compact completed summary row
+              ========================================================= */}
+          {isPlatformConfirmed && currentPlatformConfig ? (
+            /* Compact Completed Summary Row */
+            <div className="flow-step-compact-row flow-step-completed step-entry-anim" aria-label="Step 2: Platform">
+              <div className="flow-step-left">
+                <span className="flow-node-badge badge-resolved">02</span>
+                <div className="flow-step-summary-text">
+                  <span className="flow-step-cat">PLATFORM</span>
+                  <span className="flow-step-value" style={{ color: currentPlatformConfig.brandColor }}>
+                    {currentPlatformConfig.name} <span className="val-check" aria-hidden="true">✓</span>
+                  </span>
+                </div>
               </div>
               <button
                 type="button"
-                className="flow-edit-trigger"
-                onClick={() => setIsEditingType((prev) => !prev)}
-                aria-label="Change boost goal"
+                className="flow-step-edit-btn"
+                onClick={handleEditPlatform}
+                aria-label="Change platform"
               >
-                {isEditingType ? 'Done' : 'Change'}
+                Change
               </button>
             </div>
-
-            <h2 className="flow-question-title">What do you want to boost?</h2>
-
-            {!isEditingType ? (
-              /* Resolved Confirmed Answer */
-              <div className="flow-confirmed-decision">
-                <span className="decision-icon-bubble">{currentBoostConfig.icon}</span>
-                <span className="decision-name">{currentBoostConfig.label}</span>
-                <span className="decision-check-mark" aria-hidden="true">✓</span>
+          ) : (
+            /* Active Expanded Card */
+            <div
+              ref={step2Ref}
+              className="flow-step-card flow-step-active step-entry-anim"
+              aria-label="Step 2: Which platform do you want to boost?"
+            >
+              <div className="flow-active-header">
+                <div className="flow-active-badge-row">
+                  <span className="flow-node-badge badge-active">02</span>
+                  <span className="flow-step-cat">PLATFORM</span>
+                </div>
+                <h2 className="flow-active-question">Which platform do you want to boost?</h2>
               </div>
-            ) : (
-              /* Inline Goal Switcher if user requests edit */
-              <div className="inline-goal-grid" role="radiogroup">
-                {(Object.keys(BOOST_TYPES) as BoostTypeId[]).map((typeKey) => {
-                  const cfg = BOOST_TYPES[typeKey];
-                  const isActive = selectedType === typeKey;
-                  return (
-                    <button
-                      key={typeKey}
-                      type="button"
-                      role="radio"
-                      aria-checked={isActive}
-                      className={`inline-goal-tile ${isActive ? 'tile-active' : ''}`}
-                      onClick={() => handleSelectType(typeKey)}
-                    >
-                      <span className="goal-tile-icon">{cfg.icon}</span>
-                      <span className="goal-tile-name">{cfg.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
 
-          {/* VERTICAL CONNECTOR 1 -> 2 */}
-          <FlowConnector />
-
-          {/* =========================================================
-              STEP 02: Which platform do you want to boost?
-              (Active options -> Smooth collapse into selected answer)
-              ========================================================= */}
-          <div
-            ref={step2Ref}
-            className={`flow-card ${isPlatformConfirmed ? 'flow-card-completed' : 'flow-card-active'}`}
-            aria-label="Step 2: Which platform do you want to boost?"
-          >
-            <div className="flow-card-header">
-              <div className="flow-step-meta">
-                <span className={`flow-step-badge ${isPlatformConfirmed ? 'badge-resolved' : 'badge-active'}`}>
-                  02
-                </span>
-                <span className="flow-step-tag">Platform</span>
-              </div>
-              {isPlatformConfirmed && (
-                <button
-                  type="button"
-                  className="flow-edit-trigger"
-                  onClick={handleEditPlatform}
-                  aria-label="Change platform"
-                >
-                  Change
-                </button>
-              )}
-            </div>
-
-            <h2 className="flow-question-title">Which platform do you want to boost?</h2>
-
-            {isPlatformConfirmed && currentPlatformConfig ? (
-              /* Collapsed State: Only selected platform remains visible */
-              <div className="flow-confirmed-decision">
-                <span className="decision-icon-bubble" style={{ color: currentPlatformConfig.brandColor }}>
-                  {currentPlatformConfig.icon}
-                </span>
-                <span className="decision-name">{currentPlatformConfig.name}</span>
-                <span className="decision-check-mark" style={{ color: currentPlatformConfig.brandColor }} aria-hidden="true">
-                  ✓
-                </span>
-              </div>
-            ) : (
-              /* Active State: Selectable platform pills */
               <div className="platform-pills-flow-grid" role="radiogroup" aria-label="Select platform">
                 {PLATFORMS_CONFIG.map((plat) => {
                   const isSelected = selectedPlatform === plat.id;
@@ -613,53 +613,55 @@ function BoostSetupContent() {
                   );
                 })}
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* =========================================================
-              STEP 03: How many would you like?
-              (Progressively revealed only after platform is chosen)
+              STEP 03: QUANTITY
+              Only rendered after Step 2 is confirmed!
               ========================================================= */}
           {isPlatformConfirmed && selectedPlatform && (
             <>
               {/* VERTICAL CONNECTOR 2 -> 3 */}
-              <FlowConnector />
+              <CompactFlowConnector />
 
-              <div
-                ref={step3Ref}
-                className={`flow-card step-entry-anim ${isQuantityConfirmed ? 'flow-card-completed' : 'flow-card-active'}`}
-                aria-label="Step 3: How many would you like?"
-              >
-                <div className="flow-card-header">
-                  <div className="flow-step-meta">
-                    <span className={`flow-step-badge ${isQuantityConfirmed ? 'badge-resolved' : 'badge-active'}`}>
-                      03
-                    </span>
-                    <span className="flow-step-tag">Quantity</span>
+              {isQuantityConfirmed && selectedQuantity ? (
+                /* Compact Completed Summary Row */
+                <div className="flow-step-compact-row flow-step-completed step-entry-anim" aria-label="Step 3: Quantity">
+                  <div className="flow-step-left">
+                    <span className="flow-node-badge badge-resolved">03</span>
+                    <div className="flow-step-summary-text">
+                      <span className="flow-step-cat">QUANTITY</span>
+                      <span className="flow-step-value">
+                        {selectedQuantity.toLocaleString()} {currentBoostConfig.label}{' '}
+                        <span className="val-check" aria-hidden="true">✓</span>
+                      </span>
+                    </div>
                   </div>
-                  {isQuantityConfirmed && (
-                    <button
-                      type="button"
-                      className="flow-edit-trigger"
-                      onClick={handleEditQuantity}
-                      aria-label="Change quantity"
-                    >
-                      Change
-                    </button>
-                  )}
+                  <button
+                    type="button"
+                    className="flow-step-edit-btn"
+                    onClick={handleEditQuantity}
+                    aria-label="Change quantity"
+                  >
+                    Change
+                  </button>
                 </div>
-
-                <h2 className="flow-question-title">How many would you like?</h2>
-
-                {isQuantityConfirmed && selectedQuantity ? (
-                  /* Collapsed State: Only selected package amount remains visible */
-                  <div className="flow-confirmed-decision">
-                    <span className="decision-figure-large">{selectedQuantity.toLocaleString()}</span>
-                    <span className="decision-unit-label">{currentBoostConfig.label}</span>
-                    <span className="decision-check-mark" aria-hidden="true">✓</span>
+              ) : (
+                /* Active Expanded Card */
+                <div
+                  ref={step3Ref}
+                  className="flow-step-card flow-step-active step-entry-anim"
+                  aria-label="Step 3: How many would you like?"
+                >
+                  <div className="flow-active-header">
+                    <div className="flow-active-badge-row">
+                      <span className="flow-node-badge badge-active">03</span>
+                      <span className="flow-step-cat">QUANTITY</span>
+                    </div>
+                    <h2 className="flow-active-question">How many would you like?</h2>
                   </div>
-                ) : (
-                  /* Active State: Selectable package choices (NO custom amount) */
+
                   <div className="quantity-packages-flow-grid" role="group" aria-label="Available quantity packages">
                     {currentBoostConfig.presetQuantities.map((qty) => {
                       const isSelected = selectedQuantity === qty;
@@ -677,114 +679,144 @@ function BoostSetupContent() {
                       );
                     })}
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </>
           )}
 
           {/* =========================================================
-              STEP 04: Where should we send them?
-              (Progressively revealed only after quantity is chosen)
+              STEP 04: DESTINATION
+              Only rendered after Step 3 is confirmed!
               ========================================================= */}
           {isQuantityConfirmed && selectedQuantity && (
             <>
               {/* VERTICAL CONNECTOR 3 -> 4 */}
-              <FlowConnector />
+              <CompactFlowConnector />
 
-              <div
-                ref={step4Ref}
-                className={`flow-card step-entry-anim ${isLinkValid ? 'flow-card-completed' : 'flow-card-active'}`}
-                aria-label="Step 4: Where should we send them?"
-              >
-                <div className="flow-card-header">
-                  <div className="flow-step-meta">
-                    <span className={`flow-step-badge ${isLinkValid ? 'badge-resolved' : 'badge-active'}`}>
-                      04
-                    </span>
-                    <span className="flow-step-tag">Destination</span>
+              {isDestinationConfirmed && isLinkValid ? (
+                /* Compact Completed Summary Row */
+                <div className="flow-step-compact-row flow-step-completed step-entry-anim" aria-label="Step 4: Destination">
+                  <div className="flow-step-left">
+                    <span className="flow-node-badge badge-resolved">04</span>
+                    <div className="flow-step-summary-text">
+                      <span className="flow-step-cat">DESTINATION</span>
+                      <span className="flow-step-value flow-step-link-truncate">
+                        {destinationUrl.replace(/^https?:\/\/(www\.)?/, '')}{' '}
+                        <span className="val-check" aria-hidden="true">✓</span>
+                      </span>
+                    </div>
                   </div>
-                  {isLinkValid && (
-                    <span className="destination-inline-verified" role="status">
-                      ✓ Verified
-                    </span>
-                  )}
+                  <button
+                    type="button"
+                    className="flow-step-edit-btn"
+                    onClick={handleEditDestination}
+                    aria-label="Change destination link"
+                  >
+                    Change
+                  </button>
                 </div>
-
-                <h2 className="flow-question-title">Where should we send them?</h2>
-
-                <div className="destination-input-container">
-                  <div className="destination-input-shell">
-                    <span className="destination-field-icon" aria-hidden="true">
-                      🔗
-                    </span>
-                    <input
-                      type="url"
-                      inputMode="url"
-                      placeholder={currentPlatformConfig?.urlPlaceholder || 'https://...'}
-                      value={destinationUrl}
-                      onChange={handleUrlChange}
-                      className={`destination-field-input ${isLinkValid ? 'field-valid' : linkError ? 'field-error' : ''}`}
-                      aria-label="Target link or username"
-                      aria-invalid={!isLinkValid && linkError !== null}
-                    />
+              ) : (
+                /* Active Expanded Card */
+                <div
+                  ref={step4Ref}
+                  className="flow-step-card flow-step-active step-entry-anim"
+                  aria-label="Step 4: Where should we send them?"
+                >
+                  <div className="flow-active-header">
+                    <div className="flow-active-badge-row">
+                      <span className="flow-node-badge badge-active">04</span>
+                      <span className="flow-step-cat">DESTINATION</span>
+                    </div>
+                    <h2 className="flow-active-question">Where should we send them?</h2>
                   </div>
 
-                  {linkError && (
-                    <p className="destination-field-error-hint" role="alert">
-                      {linkError}
-                    </p>
-                  )}
+                  <div className="destination-input-container">
+                    <div className="destination-input-shell">
+                      <span className="destination-field-icon" aria-hidden="true">🔗</span>
+                      <input
+                        type="url"
+                        inputMode="url"
+                        placeholder={currentPlatformConfig?.urlPlaceholder || 'https://...'}
+                        value={destinationUrl}
+                        onChange={handleUrlChange}
+                        className={`destination-field-input ${isLinkValid ? 'field-valid' : linkError ? 'field-error' : ''}`}
+                        aria-label="Target link or username"
+                        aria-invalid={!isLinkValid && linkError !== null}
+                      />
+                      {isLinkValid && (
+                        <span className="destination-inline-verified" role="status">
+                          ✓ Verified
+                        </span>
+                      )}
+                    </div>
+
+                    {linkError && (
+                      <p className="destination-field-error-hint" role="alert">
+                        {linkError}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </>
           )}
 
           {/* =========================================================
-              STEP 05: Total & Payment (The Natural Conclusion)
-              (Progressively revealed only after link is verified)
+              STEP 05: TOTAL & PAYMENT CHECKOUT SURFACE
+              The natural, space-efficient conclusion of the flow
               ========================================================= */}
           {isQuantityConfirmed && selectedQuantity && isLinkValid && (
             <>
               {/* VERTICAL CONNECTOR 4 -> TOTAL */}
-              <FlowConnector />
+              <CompactFlowConnector />
 
               <div
                 ref={paymentRef}
-                className="flow-card flow-card-active payment-summary-card step-entry-anim"
+                className="flow-card flow-payment-checkout step-entry-anim"
                 aria-label="Order Total and Pay"
               >
-                <span className="payment-summary-eyebrow">Your boost</span>
-                <div className="payment-summary-headline">
-                  <strong>{activeQuantity.toLocaleString()}</strong> {selectedPlatform} {currentBoostConfig.label}
+                <div className="payment-checkout-header">
+                  <span className="payment-checkout-eyebrow">YOUR BOOST</span>
+                  <div className="payment-checkout-details">
+                    <span className="checkout-title">
+                      {selectedPlatform} {currentBoostConfig.label}
+                    </span>
+                    <span className="checkout-qty-badge">
+                      {activeQuantity.toLocaleString()}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="payment-meta-row">
-                  <span className="payment-meta-label">Rate</span>
-                  <span className="payment-meta-value">UGX {currentBoostConfig.ratePerUnit} / unit</span>
+                <div className="payment-checkout-divider" />
+
+                <div className="payment-checkout-prices">
+                  <div className="checkout-price-row total-row">
+                    <span className="checkout-price-label">Total</span>
+                    <span className="checkout-price-amount">UGX {calculatedPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="checkout-price-row balance-row">
+                    <span className="checkout-balance-label">Your balance</span>
+                    <span className={`checkout-balance-amount ${balance < calculatedPrice ? 'insufficient-balance' : ''}`}>
+                      UGX {balance.toLocaleString()}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="payment-card-divider" />
-
-                <div className="payment-total-row">
-                  <span className="payment-total-label">Total</span>
-                  <span className="payment-total-amount">UGX {calculatedPrice.toLocaleString()}</span>
-                </div>
-
-                <div className="payment-balance-row">
-                  <span className="balance-indicator-label">Your balance:</span>
-                  <span className={`balance-indicator-value ${balance < calculatedPrice ? 'insufficient-balance' : ''}`}>
-                    UGX {balance.toLocaleString()}
-                  </span>
-                  {balance < calculatedPrice && (
+                {balance < calculatedPrice && (
+                  <div className="checkout-topup-callout">
+                    <div className="topup-callout-text">
+                      <span className="topup-callout-heading">Not enough balance</span>
+                      <span className="topup-callout-sub">Top up your Boosta balance to continue.</span>
+                    </div>
                     <button
                       type="button"
-                      className="topup-inline-action"
+                      className="topup-callout-btn"
                       onClick={() => setShowTopUpModal(true)}
                     >
                       + Top up
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <button
                   type="button"
@@ -871,6 +903,7 @@ function BoostSetupContent() {
                     setIsQuantityConfirmed(false);
                     setDestinationUrl('');
                     setIsLinkValid(false);
+                    setIsDestinationConfirmed(false);
                   }}
                 >
                   Boost Another
@@ -930,8 +963,8 @@ function BoostSetupSkeleton() {
         <div className="authenticated-appbar glass-pill" style={{ height: 48 }} />
       </div>
       <div style={{ marginTop: 20, padding: 16 }}>
-        <div className="balance-skeleton" style={{ width: '100%', height: 70, borderRadius: 20, marginBottom: 20 }} />
-        <div className="balance-skeleton" style={{ width: '100%', height: 110, borderRadius: 20 }} />
+        <div className="balance-skeleton" style={{ width: '100%', height: 50, borderRadius: 16, marginBottom: 16 }} />
+        <div className="balance-skeleton" style={{ width: '100%', height: 90, borderRadius: 18 }} />
       </div>
     </main>
   );
