@@ -26,7 +26,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     minQuantity: 100,
     maxQuantity: 250000,
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -42,7 +42,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     minQuantity: 100,
     maxQuantity: 250000,
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
@@ -55,7 +55,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     minQuantity: 1000,
     maxQuantity: 1000000,
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
         <circle cx="12" cy="12" r="3" />
       </svg>
@@ -69,7 +69,7 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     minQuantity: 10,
     maxQuantity: 10000,
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
       </svg>
     ),
@@ -98,7 +98,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|vm\.|vt\.)?tiktok\.com\/(@[\w.-]+(\/(video|photo)\/\d+)?|[\w.-]+)/i,
     exampleUrl: 'https://www.tiktok.com/@creator/video/1234567890',
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
       </svg>
     ),
@@ -112,7 +112,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?instagram\.com\/([a-zA-Z0-9_.]+(\/(p|reel|tv)\/[a-zA-Z0-9_-]+)?)/i,
     exampleUrl: 'https://www.instagram.com/creator',
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -128,7 +128,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/|@|c\/|channel\/)[\w.-]+|youtu\.be\/[\w.-]+)/i,
     exampleUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
       </svg>
     ),
@@ -142,7 +142,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|m\.)?(facebook\.com|fb\.watch)\/[\w.-]+/i,
     exampleUrl: 'https://www.facebook.com/creatorpage',
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     ),
@@ -156,14 +156,14 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(x\.com|twitter\.com)\/[\w.-]+/i,
     exampleUrl: 'https://x.com/creator/status/123456789',
     icon: (
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
 ];
 
-// Marquee platform icons (Ultra-compact height, non-clickable, slow continuous animation)
+// Marquee platform icons (Compact, decorative, non-clickable, slow continuous animation)
 const MARQUEE_PLATFORMS = [
   ...PLATFORMS_CONFIG,
   {
@@ -175,7 +175,7 @@ const MARQUEE_PLATFORMS = [
     urlPattern: /^(https?:\/\/)?t\.me\/[\w.-]+/i,
     exampleUrl: 'https://t.me/channel',
     icon: (
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
         <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
       </svg>
     ),
@@ -192,15 +192,6 @@ function formatQtyShort(qty: number): string {
   if (qty >= 1000000) return `${qty / 1000000}M`;
   if (qty >= 1000) return `${(qty / 1000).toLocaleString()}K`;
   return qty.toLocaleString();
-}
-
-// Ultra-compact vertical timeline connector
-function CompactFlowConnector() {
-  return (
-    <div className="flow-compact-connector" aria-hidden="true">
-      <div className="compact-connector-line" />
-    </div>
-  );
 }
 
 // Animated Price Component with smooth numeric interpolation (400ms ease-out)
@@ -595,7 +586,7 @@ function BoostSetupContent() {
           onNavigateService={(p) => handleSelectPlatform(p)} 
         />
 
-        {/* 2. PLATFORM MARQUEE (Ultra-compact height, non-clickable, slow continuous animation) */}
+        {/* 2. SUPPORTED PLATFORM MARQUEE (Compact, decorative, slow continuous animation) */}
         <section className="platform-marquee-strip" aria-hidden="true">
           <div className="platform-marquee-track">
             {[...MARQUEE_PLATFORMS, ...MARQUEE_PLATFORMS].map((item, idx) => (
@@ -621,293 +612,262 @@ function BoostSetupContent() {
           </div>
         )}
 
-        {/* 3. ULTRA-COMPACT VERTICAL TIMELINE FLOW */}
-        <div className="flow-journey" role="region" aria-label="Guided Boost Checkout">
+        {/* 3. CONNECTED BOOST FLOW CARD (Single unified iOS liquid-glass component) */}
+        <div className="connected-boost-flow-card" role="region" aria-label="Connected Boost Flow">
 
           {/* =========================================================
-              STEP 01: GOAL (Compact completed summary row from Home)
+              01 — GOAL
+              Starts resolved as compact summary row from Home
               ========================================================= */}
-          <div className="flow-step-compact-row flow-step-completed" aria-label="Step 1: Goal">
-            <div className="flow-step-left">
-              <span className="flow-node-badge badge-resolved">01</span>
-              <div className="flow-step-summary-text">
-                <span className="flow-step-cat">GOAL</span>
-                <span className="flow-step-value">
-                  {currentBoostConfig.label} <span className="val-check" aria-hidden="true">✓</span>
-                </span>
-              </div>
+          <div className="flow-step-item flow-step-resolved">
+            <div className="flow-step-marker-col" aria-hidden="true">
+              <span className="flow-step-dot dot-resolved">01</span>
+              <div className="flow-step-track-line" />
             </div>
-            <button
-              type="button"
-              className="flow-step-edit-btn"
-              onClick={() => setIsEditingType((prev) => !prev)}
-              aria-label="Change boost goal"
-            >
-              {isEditingType ? 'Done' : 'Change'}
-            </button>
-          </div>
-
-          {/* Step 1 Goal Switcher (Only if explicitly editing) */}
-          {isEditingType && (
-            <div className="inline-goal-grid step-entry-anim" role="radiogroup">
-              {(Object.keys(BOOST_TYPES) as BoostTypeId[]).map((typeKey) => {
-                const cfg = BOOST_TYPES[typeKey];
-                const isActive = selectedType === typeKey;
-                return (
-                  <button
-                    key={typeKey}
-                    type="button"
-                    role="radio"
-                    aria-checked={isActive}
-                    className={`inline-goal-tile ${isActive ? 'tile-active' : ''}`}
-                    onClick={() => handleSelectType(typeKey)}
-                  >
-                    <span className="goal-tile-icon">{cfg.icon}</span>
-                    <span className="goal-tile-name">{cfg.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          {/* VERTICAL CONNECTOR 1 -> 2 */}
-          <CompactFlowConnector />
-
-          {/* =========================================================
-              STEP 02: PLATFORM
-              Active expanded card OR Compact completed summary row
-              ========================================================= */}
-          {isPlatformConfirmed && currentPlatformConfig ? (
-            /* Compact Completed Summary Row */
-            <div className="flow-step-compact-row flow-step-completed step-entry-anim" aria-label="Step 2: Platform">
-              <div className="flow-step-left">
-                <span className="flow-node-badge badge-resolved">02</span>
-                <div className="flow-step-summary-text">
-                  <span className="flow-step-cat">PLATFORM</span>
-                  <span className="flow-step-value" style={{ color: currentPlatformConfig.brandColor }}>
-                    {currentPlatformConfig.name} <span className="val-check" aria-hidden="true">✓</span>
+            <div className="flow-step-body">
+              <div className="flow-step-summary-bar">
+                <div className="step-summary-info">
+                  <span className="step-micro-tag">GOAL</span>
+                  <span className="step-summary-val">
+                    {currentBoostConfig.label} <span className="check-pip" aria-hidden="true">✓</span>
                   </span>
                 </div>
-              </div>
-              <button
-                type="button"
-                className="flow-step-edit-btn"
-                onClick={handleEditPlatform}
-                aria-label="Change platform"
-              >
-                Change
-              </button>
-            </div>
-          ) : (
-            /* Active Expanded Card */
-            <div
-              ref={step2Ref}
-              className="flow-step-card flow-step-active step-entry-anim"
-              aria-label="Step 2: Which platform do you want to boost?"
-            >
-              <div className="flow-active-header">
-                <div className="flow-active-badge-row">
-                  <span className="flow-node-badge badge-active">02</span>
-                  <span className="flow-step-cat">PLATFORM</span>
-                </div>
-                <h2 className="flow-active-question">Which platform do you want to boost?</h2>
+                <button
+                  type="button"
+                  className="step-edit-link"
+                  onClick={() => setIsEditingType((prev) => !prev)}
+                  aria-label="Change boost goal"
+                >
+                  {isEditingType ? 'Done' : 'Change'}
+                </button>
               </div>
 
-              <div className="platform-pills-flow-grid" role="radiogroup" aria-label="Select platform">
-                {PLATFORMS_CONFIG.map((plat) => {
-                  const isSelected = selectedPlatform === plat.id;
-                  return (
-                    <button
-                      key={plat.id}
-                      type="button"
-                      role="radio"
-                      aria-checked={isSelected}
-                      className={`platform-flow-btn ${isSelected ? 'btn-selected' : ''}`}
-                      onClick={() => handleSelectPlatform(plat.id)}
-                      style={{ '--plat-theme': plat.brandColor } as React.CSSProperties}
-                    >
-                      <span className="plat-btn-icon" style={{ color: plat.brandColor }}>
-                        {plat.icon}
-                      </span>
-                      <span className="plat-btn-label">{plat.name}</span>
-                      {isSelected && <span className="plat-btn-check">✓</span>}
-                    </button>
-                  );
-                })}
-              </div>
+              {/* Step 1 Goal Switcher (Only if user taps Change) */}
+              {isEditingType && (
+                <div className="inline-goal-grid step-reveal-anim" role="radiogroup">
+                  {(Object.keys(BOOST_TYPES) as BoostTypeId[]).map((typeKey) => {
+                    const cfg = BOOST_TYPES[typeKey];
+                    const isActive = selectedType === typeKey;
+                    return (
+                      <button
+                        key={typeKey}
+                        type="button"
+                        role="radio"
+                        aria-checked={isActive}
+                        className={`inline-goal-tile ${isActive ? 'tile-active' : ''}`}
+                        onClick={() => handleSelectType(typeKey)}
+                      >
+                        <span className="goal-tile-icon">{cfg.icon}</span>
+                        <span className="goal-tile-name">{cfg.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-          )}
+          </div>
 
           {/* =========================================================
-              STEP 03: QUANTITY
-              Only rendered after Step 2 is confirmed!
-              Includes Presets + Custom Option with min/max bounds
+              02 — PLATFORM
+              Active Question OR Compact Summary Row
               ========================================================= */}
-          {isPlatformConfirmed && selectedPlatform && (
-            <>
-              {/* VERTICAL CONNECTOR 2 -> 3 */}
-              <CompactFlowConnector />
-
-              {isQuantityConfirmed && selectedQuantity ? (
-                /* Compact Completed Summary Row */
-                <div className="flow-step-compact-row flow-step-completed step-entry-anim" aria-label="Step 3: Quantity">
-                  <div className="flow-step-left">
-                    <span className="flow-node-badge badge-resolved">03</span>
-                    <div className="flow-step-summary-text">
-                      <span className="flow-step-cat">QUANTITY</span>
-                      <span className="flow-step-value">
-                        {selectedQuantity.toLocaleString()} {currentBoostConfig.label}{' '}
-                        <span className="val-check" aria-hidden="true">✓</span>
-                      </span>
-                    </div>
+          <div className={`flow-step-item ${isPlatformConfirmed ? 'flow-step-resolved' : 'flow-step-active'}`} ref={step2Ref}>
+            <div className="flow-step-marker-col" aria-hidden="true">
+              <span className={`flow-step-dot ${isPlatformConfirmed ? 'dot-resolved' : 'dot-active'}`}>02</span>
+              {(isPlatformConfirmed || isQuantityConfirmed) && <div className="flow-step-track-line" />}
+            </div>
+            <div className="flow-step-body">
+              {isPlatformConfirmed && currentPlatformConfig ? (
+                <div className="flow-step-summary-bar step-reveal-anim">
+                  <div className="step-summary-info">
+                    <span className="step-micro-tag">PLATFORM</span>
+                    <span className="step-summary-val" style={{ color: currentPlatformConfig.brandColor }}>
+                      {currentPlatformConfig.name} <span className="check-pip" aria-hidden="true">✓</span>
+                    </span>
                   </div>
                   <button
                     type="button"
-                    className="flow-step-edit-btn"
-                    onClick={handleEditQuantity}
-                    aria-label="Change quantity"
+                    className="step-edit-link"
+                    onClick={handleEditPlatform}
+                    aria-label="Change platform"
                   >
                     Change
                   </button>
                 </div>
               ) : (
-                /* Active Expanded Card */
-                <div
-                  ref={step3Ref}
-                  className="flow-step-card flow-step-active step-entry-anim"
-                  aria-label="Step 3: How many would you like?"
-                >
-                  <div className="flow-active-header">
-                    <div className="flow-active-badge-row">
-                      <span className="flow-node-badge badge-active">03</span>
-                      <span className="flow-step-cat">QUANTITY</span>
-                    </div>
-                    <h2 className="flow-active-question">How many would you like?</h2>
-                  </div>
-
-                  {/* Preset Pills + Custom Trigger */}
-                  <div className="quantity-packages-flow-grid" role="group" aria-label="Available quantity packages">
-                    {currentBoostConfig.presetQuantities.map((qty) => {
-                      const isSelected = !isCustomMode && selectedQuantity === qty;
+                <div className="flow-step-active-content step-reveal-anim">
+                  <span className="step-micro-tag">PLATFORM</span>
+                  <h2 className="step-active-heading">Which platform do you want to boost?</h2>
+                  <div className="platform-options-grid" role="radiogroup" aria-label="Select platform">
+                    {PLATFORMS_CONFIG.map((plat) => {
+                      const isSelected = selectedPlatform === plat.id;
                       return (
                         <button
-                          key={qty}
+                          key={plat.id}
                           type="button"
-                          className={`quantity-package-card ${isSelected ? 'package-selected' : ''}`}
-                          onClick={() => handleSelectPresetQuantity(qty)}
+                          role="radio"
+                          aria-checked={isSelected}
+                          className={`platform-flow-btn ${isSelected ? 'btn-selected' : ''}`}
+                          onClick={() => handleSelectPlatform(plat.id)}
+                          style={{ '--plat-theme': plat.brandColor } as React.CSSProperties}
                         >
-                          <span className="pkg-short-badge">{formatQtyShort(qty)}</span>
-                          <span className="pkg-full-amount">{qty.toLocaleString()}</span>
-                          {isSelected && <span className="pkg-check-pip">✓</span>}
+                          <span className="plat-btn-icon" style={{ color: plat.brandColor }}>
+                            {plat.icon}
+                          </span>
+                          <span className="plat-btn-label">{plat.name}</span>
+                          {isSelected && <span className="plat-btn-check">✓</span>}
                         </button>
                       );
                     })}
-
-                    {/* Custom Quantity Button */}
-                    <button
-                      type="button"
-                      className={`quantity-package-card custom-pkg-card ${isCustomMode ? 'package-selected' : ''}`}
-                      onClick={handleActivateCustomMode}
-                    >
-                      <span className="pkg-short-badge custom-badge">Custom</span>
-                      <span className="pkg-full-amount">Enter amount</span>
-                      {isCustomMode && <span className="pkg-check-pip">●</span>}
-                    </button>
                   </div>
-
-                  {/* Inline Custom Input Shell (Reveals when Custom is tapped) */}
-                  {isCustomMode && (
-                    <div className="custom-qty-shell step-entry-anim">
-                      <div className="custom-qty-input-row">
-                        <input
-                          ref={customInputRef}
-                          type="text"
-                          inputMode="numeric"
-                          pattern="[0-9]*"
-                          placeholder={`e.g. ${currentBoostConfig.presetQuantities[1] || 1000}`}
-                          value={customQtyInput}
-                          onChange={handleCustomQtyChange}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              handleConfirmCustomQuantity();
-                            }
-                          }}
-                          className={`custom-qty-field ${customQtyError ? 'field-error' : ''}`}
-                          aria-label="Custom quantity"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleConfirmCustomQuantity}
-                          className="custom-qty-confirm-btn"
-                        >
-                          Confirm
-                        </button>
-                      </div>
-                      <div className="custom-qty-limits">
-                        <span>Min: <strong>{currentBoostConfig.minQuantity.toLocaleString()}</strong></span>
-                        <span>•</span>
-                        <span>Max: <strong>{currentBoostConfig.maxQuantity.toLocaleString()}</strong></span>
-                      </div>
-                      {customQtyError && (
-                        <p className="custom-qty-error" role="alert">
-                          {customQtyError}
-                        </p>
-                      )}
-                    </div>
-                  )}
                 </div>
               )}
-            </>
+            </div>
+          </div>
+
+          {/* =========================================================
+              03 — QUANTITY
+              Only rendered after Step 2 is confirmed
+              ========================================================= */}
+          {isPlatformConfirmed && selectedPlatform && (
+            <div className={`flow-step-item step-reveal-anim ${isQuantityConfirmed ? 'flow-step-resolved' : 'flow-step-active'}`} ref={step3Ref}>
+              <div className="flow-step-marker-col" aria-hidden="true">
+                <span className={`flow-step-dot ${isQuantityConfirmed ? 'dot-resolved' : 'dot-active'}`}>03</span>
+                {(isQuantityConfirmed || isDestinationConfirmed) && <div className="flow-step-track-line" />}
+              </div>
+              <div className="flow-step-body">
+                {isQuantityConfirmed && selectedQuantity ? (
+                  <div className="flow-step-summary-bar step-reveal-anim">
+                    <div className="step-summary-info">
+                      <span className="step-micro-tag">QUANTITY</span>
+                      <span className="step-summary-val">
+                        {selectedQuantity.toLocaleString()} {currentBoostConfig.label}{' '}
+                        <span className="check-pip" aria-hidden="true">✓</span>
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className="step-edit-link"
+                      onClick={handleEditQuantity}
+                      aria-label="Change quantity"
+                    >
+                      Change
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flow-step-active-content step-reveal-anim">
+                    <span className="step-micro-tag">QUANTITY</span>
+                    <h2 className="step-active-heading">How many would you like?</h2>
+                    
+                    {/* Presets + Custom Button */}
+                    <div className="quantity-packages-grid" role="group" aria-label="Available quantities">
+                      {currentBoostConfig.presetQuantities.map((qty) => {
+                        const isSelected = !isCustomMode && selectedQuantity === qty;
+                        return (
+                          <button
+                            key={qty}
+                            type="button"
+                            className={`quantity-pkg-tile ${isSelected ? 'tile-selected' : ''}`}
+                            onClick={() => handleSelectPresetQuantity(qty)}
+                          >
+                            <span className="pkg-short-text">{formatQtyShort(qty)}</span>
+                            <span className="pkg-full-text">{qty.toLocaleString()}</span>
+                            {isSelected && <span className="pkg-check-pip">✓</span>}
+                          </button>
+                        );
+                      })}
+
+                      <button
+                        type="button"
+                        className={`quantity-pkg-tile custom-pkg-tile ${isCustomMode ? 'tile-selected' : ''}`}
+                        onClick={handleActivateCustomMode}
+                      >
+                        <span className="pkg-short-text custom-text">Custom</span>
+                        <span className="pkg-full-text">Enter amount</span>
+                        {isCustomMode && <span className="pkg-check-pip">●</span>}
+                      </button>
+                    </div>
+
+                    {/* Compact Custom Input Shell */}
+                    {isCustomMode && (
+                      <div className="custom-qty-shell step-reveal-anim">
+                        <div className="custom-qty-input-row">
+                          <input
+                            ref={customInputRef}
+                            type="text"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            placeholder={`e.g. ${currentBoostConfig.presetQuantities[1] || 1000}`}
+                            value={customQtyInput}
+                            onChange={handleCustomQtyChange}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleConfirmCustomQuantity();
+                              }
+                            }}
+                            className={`custom-qty-field ${customQtyError ? 'field-error' : ''}`}
+                            aria-label="Custom quantity"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleConfirmCustomQuantity}
+                            className="custom-qty-confirm-btn"
+                          >
+                            Confirm
+                          </button>
+                        </div>
+                        <div className="custom-qty-limits">
+                          <span>Min: <strong>{currentBoostConfig.minQuantity.toLocaleString()}</strong></span>
+                          <span>•</span>
+                          <span>Max: <strong>{currentBoostConfig.maxQuantity.toLocaleString()}</strong></span>
+                        </div>
+                        {customQtyError && (
+                          <p className="custom-qty-error" role="alert">
+                            {customQtyError}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           )}
 
           {/* =========================================================
-              STEP 04: DESTINATION
-              Only rendered after Step 3 is confirmed!
+              04 — DESTINATION
+              Only rendered after Step 3 is confirmed
               ========================================================= */}
           {isQuantityConfirmed && selectedQuantity && (
-            <>
-              {/* VERTICAL CONNECTOR 3 -> 4 */}
-              <CompactFlowConnector />
-
-              {isDestinationConfirmed && isLinkValid ? (
-                /* Compact Completed Summary Row */
-                <div className="flow-step-compact-row flow-step-completed step-entry-anim" aria-label="Step 4: Destination">
-                  <div className="flow-step-left">
-                    <span className="flow-node-badge badge-resolved">04</span>
-                    <div className="flow-step-summary-text">
-                      <span className="flow-step-cat">DESTINATION</span>
-                      <span className="flow-step-value flow-step-link-truncate">
+            <div className={`flow-step-item step-reveal-anim ${isDestinationConfirmed && isLinkValid ? 'flow-step-resolved' : 'flow-step-active'}`} ref={step4Ref}>
+              <div className="flow-step-marker-col" aria-hidden="true">
+                <span className={`flow-step-dot ${isDestinationConfirmed && isLinkValid ? 'dot-resolved' : 'dot-active'}`}>04</span>
+              </div>
+              <div className="flow-step-body">
+                {isDestinationConfirmed && isLinkValid ? (
+                  <div className="flow-step-summary-bar step-reveal-anim">
+                    <div className="step-summary-info">
+                      <span className="step-micro-tag">DESTINATION</span>
+                      <span className="step-summary-val truncate-url">
                         {destinationUrl.replace(/^https?:\/\/(www\.)?/, '')}{' '}
-                        <span className="val-check" aria-hidden="true">✓</span>
+                        <span className="check-pip" aria-hidden="true">✓</span>
                       </span>
                     </div>
+                    <button
+                      type="button"
+                      className="step-edit-link"
+                      onClick={handleEditDestination}
+                      aria-label="Change destination link"
+                    >
+                      Change
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    className="flow-step-edit-btn"
-                    onClick={handleEditDestination}
-                    aria-label="Change destination link"
-                  >
-                    Change
-                  </button>
-                </div>
-              ) : (
-                /* Active Expanded Card */
-                <div
-                  ref={step4Ref}
-                  className="flow-step-card flow-step-active step-entry-anim"
-                  aria-label="Step 4: Where should we send them?"
-                >
-                  <div className="flow-active-header">
-                    <div className="flow-active-badge-row">
-                      <span className="flow-node-badge badge-active">04</span>
-                      <span className="flow-step-cat">DESTINATION</span>
-                    </div>
-                    <h2 className="flow-active-question">Where should we send them?</h2>
-                  </div>
+                ) : (
+                  <div className="flow-step-active-content step-reveal-anim">
+                    <span className="step-micro-tag">DESTINATION</span>
+                    <h2 className="step-active-heading">Where should we send them?</h2>
 
-                  <div className="destination-input-container">
                     <div className="destination-input-shell">
                       <span className="destination-field-icon" aria-hidden="true">🔗</span>
                       <input
@@ -917,7 +877,7 @@ function BoostSetupContent() {
                         value={destinationUrl}
                         onChange={handleUrlChange}
                         className={`destination-field-input ${isLinkValid ? 'field-valid' : linkError ? 'field-error' : ''}`}
-                        aria-label="Target link or username"
+                        aria-label="Destination profile or video link"
                         aria-invalid={!isLinkValid && linkError !== null}
                       />
                       {isLinkValid && (
@@ -933,98 +893,87 @@ function BoostSetupContent() {
                       </p>
                     )}
                   </div>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* =========================================================
-              STEP 05: TOTAL & PAYMENT CHECKOUT SURFACE
-              Liquid-glass checkout with animated price
-              ========================================================= */}
-          {isQuantityConfirmed && selectedQuantity && isLinkValid && (
-            <>
-              {/* VERTICAL CONNECTOR 4 -> TOTAL */}
-              <CompactFlowConnector />
-
-              <div
-                ref={paymentRef}
-                className="flow-card flow-payment-checkout step-entry-anim"
-                aria-label="Order Total and Pay"
-              >
-                {/* Checkout Top: Service details */}
-                <div className="payment-checkout-top">
-                  <span className="payment-checkout-eyebrow">Your boost</span>
-                  <div className="payment-checkout-service">
-                    <span className="service-platform-goal">
-                      {selectedPlatform} {currentBoostConfig.label}
-                    </span>
-                    <span className="service-qty-chip">
-                      {activeQuantity.toLocaleString()}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="payment-checkout-divider" />
-
-                {/* Animated Dominant Total Price */}
-                <div className="payment-total-highlight">
-                  <span className="payment-total-tag">TOTAL</span>
-                  <div className="payment-total-sum">
-                    <AnimatedPrice value={calculatedPrice} />
-                  </div>
-                </div>
-
-                {/* User Balance & Status Indicator */}
-                <div className="payment-balance-row">
-                  <div className="balance-info">
-                    <span className="balance-label">Your balance:</span>
-                    <span className="balance-val">UGX {balance.toLocaleString()}</span>
-                  </div>
-                  <div className="balance-status-badge">
-                    {balance >= calculatedPrice ? (
-                      <span className="status-sufficient">✓ Balance sufficient</span>
-                    ) : (
-                      <span className="status-insufficient">Insufficient balance</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Insufficient Balance Callout */}
-                {balance < calculatedPrice && (
-                  <div className="checkout-topup-callout">
-                    <div className="topup-callout-text">
-                      <span className="topup-callout-heading">Not enough balance</span>
-                      <span className="topup-callout-sub">Top up your Boosta balance to continue.</span>
-                    </div>
-                    <button
-                      type="button"
-                      className="topup-callout-btn"
-                      onClick={() => setShowTopUpModal(true)}
-                    >
-                      + Top up
-                    </button>
-                  </div>
                 )}
-
-                {/* High-Touch Gradient Pay Action Button */}
-                <button
-                  type="button"
-                  disabled={isSubmittingOrder}
-                  onClick={handlePayOrder}
-                  className="flow-pay-action-btn"
-                  aria-label={`Pay UGX ${calculatedPrice.toLocaleString()}`}
-                >
-                  <span className="pay-btn-sheen" aria-hidden="true" />
-                  <span className="pay-btn-label">
-                    {isSubmittingOrder ? 'Processing...' : 'Pay →'}
-                  </span>
-                </button>
               </div>
-            </>
+            </div>
           )}
 
         </div>
+
+        {/* =========================================================
+            4. FINAL PAYMENT SUMMARY (Connected iOS Liquid-Glass Surface)
+            Appears seamlessly once destination is verified
+            ========================================================= */}
+        {isQuantityConfirmed && selectedQuantity && isLinkValid && (
+          <div className="connected-payment-surface step-reveal-anim" ref={paymentRef} aria-label="Payment Summary">
+            {/* Header: Service identification */}
+            <div className="payment-summary-header">
+              <span className="payment-tag-micro">YOUR BOOST</span>
+              <div className="payment-service-pill">
+                <span className="service-name-bold">{selectedPlatform} {currentBoostConfig.label}</span>
+                <span className="service-qty-dot">·</span>
+                <span className="service-qty-highlight">{activeQuantity.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div className="payment-soft-divider" />
+
+            {/* Dominant Total Price */}
+            <div className="payment-total-section">
+              <span className="payment-total-eyebrow">TOTAL AMOUNT</span>
+              <div className="payment-price-hero">
+                <AnimatedPrice value={calculatedPrice} />
+              </div>
+            </div>
+
+            {/* User Balance & Status Row */}
+            <div className="payment-balance-row">
+              <div className="balance-text-group">
+                <span className="balance-eyebrow">Your balance</span>
+                <span className="balance-amount-strong">UGX {balance.toLocaleString()}</span>
+              </div>
+              <div className="balance-status-chip">
+                {balance >= calculatedPrice ? (
+                  <span className="status-pill sufficient-pill">
+                    <span className="status-pulse-dot-green" aria-hidden="true" />
+                    Balance sufficient
+                  </span>
+                ) : (
+                  <span className="status-pill insufficient-pill">
+                    Insufficient balance
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Insufficient Balance Callout */}
+            {balance < calculatedPrice && (
+              <div className="payment-topup-alert">
+                <div className="alert-text">
+                  <strong>Not enough balance</strong>
+                  <span>Top up your balance to continue.</span>
+                </div>
+                <button type="button" className="topup-action-btn" onClick={() => setShowTopUpModal(true)}>
+                  + Top up
+                </button>
+              </div>
+            )}
+
+            {/* High-Touch Gradient Pay Action Button */}
+            <button
+              type="button"
+              disabled={isSubmittingOrder}
+              onClick={handlePayOrder}
+              className="boosta-pay-button"
+              aria-label={`Pay securely UGX ${calculatedPrice.toLocaleString()}`}
+            >
+              <span className="pay-sheen" aria-hidden="true" />
+              <span className="pay-text">
+                {isSubmittingOrder ? 'Processing...' : 'Pay securely →'}
+              </span>
+            </button>
+          </div>
+        )}
 
         {/* TOP UP MODAL */}
         {showTopUpModal && (
@@ -1109,7 +1058,7 @@ function BoostSetupContent() {
         <div className="ios-home-indicator" aria-hidden="true" />
       </main>
 
-      {/* 4. VIEWPORT-LEVEL GRADIENT WAVE (Preserved Boosta Signature, Safe-Area Positioned) */}
+      {/* 5. VIEWPORT-LEVEL GRADIENT WAVE (Preserved Boosta Signature, Decorative Background) */}
       <div className="auth-bottom-wave" aria-hidden="true">
         <svg
           viewBox="0 0 1000 120"
@@ -1154,9 +1103,8 @@ function BoostSetupSkeleton() {
       <div className="authenticated-appbar-wrapper">
         <div className="authenticated-appbar glass-pill" style={{ height: 48 }} />
       </div>
-      <div style={{ marginTop: 20, padding: 16 }}>
-        <div className="balance-skeleton" style={{ width: '100%', height: 40, borderRadius: 12, marginBottom: 12 }} />
-        <div className="balance-skeleton" style={{ width: '100%', height: 80, borderRadius: 16 }} />
+      <div style={{ marginTop: 16, padding: 12 }}>
+        <div className="balance-skeleton" style={{ width: '100%', height: 180, borderRadius: 20 }} />
       </div>
     </main>
   );
