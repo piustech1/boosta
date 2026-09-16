@@ -12,6 +12,8 @@ interface BoostTypeConfig {
   label: string;
   ratePerUnit: number; // in UGX
   presetQuantities: number[];
+  minQuantity: number;
+  maxQuantity: number;
   icon: React.ReactNode;
 }
 
@@ -21,8 +23,10 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     label: 'Followers',
     ratePerUnit: 8.5,
     presetQuantities: [500, 1000, 2500, 5000, 10000],
+    minQuantity: 100,
+    maxQuantity: 250000,
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -35,8 +39,10 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     label: 'Likes',
     ratePerUnit: 4.5,
     presetQuantities: [500, 1000, 2500, 5000, 10000],
+    minQuantity: 100,
+    maxQuantity: 250000,
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
       </svg>
     ),
@@ -46,8 +52,10 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     label: 'Views',
     ratePerUnit: 1.2,
     presetQuantities: [1000, 5000, 10000, 50000, 100000],
+    minQuantity: 1000,
+    maxQuantity: 1000000,
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
         <circle cx="12" cy="12" r="3" />
       </svg>
@@ -58,8 +66,10 @@ const BOOST_TYPES: Record<BoostTypeId, BoostTypeConfig> = {
     label: 'Comments',
     ratePerUnit: 45,
     presetQuantities: [50, 100, 250, 500, 1000],
+    minQuantity: 10,
+    maxQuantity: 10000,
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
       </svg>
     ),
@@ -88,7 +98,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|vm\.|vt\.)?tiktok\.com\/(@[\w.-]+(\/(video|photo)\/\d+)?|[\w.-]+)/i,
     exampleUrl: 'https://www.tiktok.com/@creator/video/1234567890',
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3-.002.6.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.34 6.34 0 0 0 6.34-6.32V8.75a8.28 8.28 0 0 0 4.84 1.56V6.87c-.31-.03-.62-.09-.92-.18z" />
       </svg>
     ),
@@ -102,7 +112,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?instagram\.com\/([a-zA-Z0-9_.]+(\/(p|reel|tv)\/[a-zA-Z0-9_-]+)?)/i,
     exampleUrl: 'https://www.instagram.com/creator',
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -118,7 +128,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|shorts\/|@|c\/|channel\/)[\w.-]+|youtu\.be\/[\w.-]+)/i,
     exampleUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
       </svg>
     ),
@@ -132,7 +142,7 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.|m\.)?(facebook\.com|fb\.watch)\/[\w.-]+/i,
     exampleUrl: 'https://www.facebook.com/creatorpage',
     icon: (
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
       </svg>
     ),
@@ -146,14 +156,14 @@ const PLATFORMS_CONFIG: PlatformConfig[] = [
     urlPattern: /^(https?:\/\/)?(www\.)?(x\.com|twitter\.com)\/[\w.-]+/i,
     exampleUrl: 'https://x.com/creator/status/123456789',
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
 ];
 
-// Marquee platform icons (Display-only, refined compact height, slow continuous glide)
+// Marquee platform icons (Ultra-compact height, non-clickable, slow continuous animation)
 const MARQUEE_PLATFORMS = [
   ...PLATFORMS_CONFIG,
   {
@@ -165,7 +175,7 @@ const MARQUEE_PLATFORMS = [
     urlPattern: /^(https?:\/\/)?t\.me\/[\w.-]+/i,
     exampleUrl: 'https://t.me/channel',
     icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
         <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
       </svg>
     ),
@@ -184,12 +194,52 @@ function formatQtyShort(qty: number): string {
   return qty.toLocaleString();
 }
 
-// Compact vertical timeline connector
+// Ultra-compact vertical timeline connector
 function CompactFlowConnector() {
   return (
     <div className="flow-compact-connector" aria-hidden="true">
       <div className="compact-connector-line" />
     </div>
+  );
+}
+
+// Animated Price Component with smooth numeric interpolation (400ms ease-out)
+function AnimatedPrice({ value }: { value: number }) {
+  const [displayValue, setDisplayValue] = useState(value);
+  const prevRef = useRef(value);
+
+  useEffect(() => {
+    const start = prevRef.current;
+    const end = value;
+    if (start === end) return;
+
+    const startTime = performance.now();
+    const duration = 400; // 400ms settling
+
+    let frameId: number;
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out quartic curve
+      const ease = 1 - Math.pow(1 - progress, 4);
+      const current = Math.round(start + (end - start) * ease);
+      setDisplayValue(current);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      } else {
+        prevRef.current = end;
+      }
+    };
+    frameId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(frameId);
+  }, [value]);
+
+  return (
+    <span className="figure-total-price-num">
+      UGX {displayValue.toLocaleString()}
+    </span>
   );
 }
 
@@ -215,9 +265,12 @@ function BoostSetupContent() {
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(initialPlatformParam);
   const [isPlatformConfirmed, setIsPlatformConfirmed] = useState<boolean>(Boolean(initialPlatformParam));
 
-  // Step 3: Quantity package selection (NO custom amount)
+  // Step 3: Quantity package selection (Presets + Custom Quantity)
   const [selectedQuantity, setSelectedQuantity] = useState<number | null>(null);
   const [isQuantityConfirmed, setIsQuantityConfirmed] = useState<boolean>(false);
+  const [isCustomMode, setIsCustomMode] = useState<boolean>(false);
+  const [customQtyInput, setCustomQtyInput] = useState<string>('');
+  const [customQtyError, setCustomQtyError] = useState<string | null>(null);
 
   // Step 4: Destination URL & validation
   const [destinationUrl, setDestinationUrl] = useState<string>('');
@@ -236,6 +289,7 @@ function BoostSetupContent() {
   const step3Ref = useRef<HTMLDivElement>(null);
   const step4Ref = useRef<HTMLDivElement>(null);
   const paymentRef = useRef<HTMLDivElement>(null);
+  const customInputRef = useRef<HTMLInputElement>(null);
 
   // Load user session and balance on mount
   useEffect(() => {
@@ -288,6 +342,9 @@ function BoostSetupContent() {
     setIsEditingType(false);
     setSelectedQuantity(null);
     setIsQuantityConfirmed(false);
+    setIsCustomMode(false);
+    setCustomQtyInput('');
+    setCustomQtyError(null);
     setDestinationUrl('');
     setIsLinkValid(false);
     setIsDestinationConfirmed(false);
@@ -304,8 +361,8 @@ function BoostSetupContent() {
       setIsPlatformConfirmed(true);
       setTimeout(() => {
         step3Ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 60);
-    }, 220);
+      }, 50);
+    }, 200);
   };
 
   const handleEditPlatform = () => {
@@ -313,24 +370,89 @@ function BoostSetupContent() {
     setIsPlatformConfirmed(false);
     setSelectedQuantity(null);
     setIsQuantityConfirmed(false);
+    setIsCustomMode(false);
+    setCustomQtyInput('');
+    setCustomQtyError(null);
     setDestinationUrl('');
     setIsLinkValid(false);
     setIsDestinationConfirmed(false);
     setLinkError(null);
   };
 
-  // Step 3: Select Quantity Package with tactile feedback & collapse
-  const handleSelectQuantity = (qty: number) => {
+  // Step 3: Select Preset Quantity Package
+  const handleSelectPresetQuantity = (qty: number) => {
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
     setSelectedQuantity(qty);
+    setIsCustomMode(false);
+    setCustomQtyError(null);
 
     // Smooth transition before collapsing into summary row
     setTimeout(() => {
       setIsQuantityConfirmed(true);
       setTimeout(() => {
         step4Ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 60);
-    }, 220);
+      }, 50);
+    }, 200);
+  };
+
+  // Step 3: Activate Custom Mode
+  const handleActivateCustomMode = () => {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
+    setIsCustomMode(true);
+    setSelectedQuantity(null);
+    setCustomQtyError(null);
+    setTimeout(() => {
+      customInputRef.current?.focus();
+    }, 80);
+  };
+
+  // Step 3: Handle Custom Quantity Change
+  const handleCustomQtyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawVal = e.target.value.replace(/\D/g, '');
+    setCustomQtyInput(rawVal);
+    if (!rawVal) {
+      setCustomQtyError(null);
+      setSelectedQuantity(null);
+      return;
+    }
+
+    const num = parseInt(rawVal, 10);
+    if (num < currentBoostConfig.minQuantity) {
+      setCustomQtyError(`Minimum is ${currentBoostConfig.minQuantity.toLocaleString()}`);
+    } else if (num > currentBoostConfig.maxQuantity) {
+      setCustomQtyError(`Maximum is ${currentBoostConfig.maxQuantity.toLocaleString()}`);
+    } else {
+      setCustomQtyError(null);
+      setSelectedQuantity(num);
+    }
+  };
+
+  // Step 3: Confirm Custom Quantity
+  const handleConfirmCustomQuantity = () => {
+    if (!customQtyInput) {
+      setCustomQtyError(`Please enter a quantity`);
+      return;
+    }
+    const num = parseInt(customQtyInput, 10);
+    if (num < currentBoostConfig.minQuantity) {
+      setCustomQtyError(`Minimum is ${currentBoostConfig.minQuantity.toLocaleString()}`);
+      return;
+    }
+    if (num > currentBoostConfig.maxQuantity) {
+      setCustomQtyError(`Maximum is ${currentBoostConfig.maxQuantity.toLocaleString()}`);
+      return;
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
+    setSelectedQuantity(num);
+    setCustomQtyError(null);
+
+    setTimeout(() => {
+      setIsQuantityConfirmed(true);
+      setTimeout(() => {
+        step4Ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 50);
+    }, 200);
   };
 
   const handleEditQuantity = () => {
@@ -368,13 +490,13 @@ function BoostSetupContent() {
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
         navigator.vibrate(15);
       }
-      // Collapse into summary row after verification and reveal payment checkout
+      // Smooth collapse into summary row after verification and reveal payment checkout
       setTimeout(() => {
         setIsDestinationConfirmed(true);
         setTimeout(() => {
           paymentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 80);
-      }, 360);
+        }, 60);
+      }, 320);
     } else {
       setIsLinkValid(false);
       setIsDestinationConfirmed(false);
@@ -430,7 +552,7 @@ function BoostSetupContent() {
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
         navigator.vibrate([20, 60, 20]);
       }
-    }, 1000);
+    }, 900);
   };
 
   const handleQuickTopUp = (amount: number) => {
@@ -473,7 +595,7 @@ function BoostSetupContent() {
           onNavigateService={(p) => handleSelectPlatform(p)} 
         />
 
-        {/* 2. PLATFORM MARQUEE (Refined compact height, non-clickable, slow continuous animation) */}
+        {/* 2. PLATFORM MARQUEE (Ultra-compact height, non-clickable, slow continuous animation) */}
         <section className="platform-marquee-strip" aria-hidden="true">
           <div className="platform-marquee-track">
             {[...MARQUEE_PLATFORMS, ...MARQUEE_PLATFORMS].map((item, idx) => (
@@ -499,7 +621,7 @@ function BoostSetupContent() {
           </div>
         )}
 
-        {/* 3. COMPACT VERTICAL TIMELINE FLOW */}
+        {/* 3. ULTRA-COMPACT VERTICAL TIMELINE FLOW */}
         <div className="flow-journey" role="region" aria-label="Guided Boost Checkout">
 
           {/* =========================================================
@@ -619,6 +741,7 @@ function BoostSetupContent() {
           {/* =========================================================
               STEP 03: QUANTITY
               Only rendered after Step 2 is confirmed!
+              Includes Presets + Custom Option with min/max bounds
               ========================================================= */}
           {isPlatformConfirmed && selectedPlatform && (
             <>
@@ -662,15 +785,16 @@ function BoostSetupContent() {
                     <h2 className="flow-active-question">How many would you like?</h2>
                   </div>
 
+                  {/* Preset Pills + Custom Trigger */}
                   <div className="quantity-packages-flow-grid" role="group" aria-label="Available quantity packages">
                     {currentBoostConfig.presetQuantities.map((qty) => {
-                      const isSelected = selectedQuantity === qty;
+                      const isSelected = !isCustomMode && selectedQuantity === qty;
                       return (
                         <button
                           key={qty}
                           type="button"
                           className={`quantity-package-card ${isSelected ? 'package-selected' : ''}`}
-                          onClick={() => handleSelectQuantity(qty)}
+                          onClick={() => handleSelectPresetQuantity(qty)}
                         >
                           <span className="pkg-short-badge">{formatQtyShort(qty)}</span>
                           <span className="pkg-full-amount">{qty.toLocaleString()}</span>
@@ -678,7 +802,60 @@ function BoostSetupContent() {
                         </button>
                       );
                     })}
+
+                    {/* Custom Quantity Button */}
+                    <button
+                      type="button"
+                      className={`quantity-package-card custom-pkg-card ${isCustomMode ? 'package-selected' : ''}`}
+                      onClick={handleActivateCustomMode}
+                    >
+                      <span className="pkg-short-badge custom-badge">Custom</span>
+                      <span className="pkg-full-amount">Enter amount</span>
+                      {isCustomMode && <span className="pkg-check-pip">●</span>}
+                    </button>
                   </div>
+
+                  {/* Inline Custom Input Shell (Reveals when Custom is tapped) */}
+                  {isCustomMode && (
+                    <div className="custom-qty-shell step-entry-anim">
+                      <div className="custom-qty-input-row">
+                        <input
+                          ref={customInputRef}
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          placeholder={`e.g. ${currentBoostConfig.presetQuantities[1] || 1000}`}
+                          value={customQtyInput}
+                          onChange={handleCustomQtyChange}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleConfirmCustomQuantity();
+                            }
+                          }}
+                          className={`custom-qty-field ${customQtyError ? 'field-error' : ''}`}
+                          aria-label="Custom quantity"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleConfirmCustomQuantity}
+                          className="custom-qty-confirm-btn"
+                        >
+                          Confirm
+                        </button>
+                      </div>
+                      <div className="custom-qty-limits">
+                        <span>Min: <strong>{currentBoostConfig.minQuantity.toLocaleString()}</strong></span>
+                        <span>•</span>
+                        <span>Max: <strong>{currentBoostConfig.maxQuantity.toLocaleString()}</strong></span>
+                      </div>
+                      {customQtyError && (
+                        <p className="custom-qty-error" role="alert">
+                          {customQtyError}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </>
@@ -763,7 +940,7 @@ function BoostSetupContent() {
 
           {/* =========================================================
               STEP 05: TOTAL & PAYMENT CHECKOUT SURFACE
-              The natural, space-efficient conclusion of the flow
+              Liquid-glass checkout with animated price
               ========================================================= */}
           {isQuantityConfirmed && selectedQuantity && isLinkValid && (
             <>
@@ -775,13 +952,14 @@ function BoostSetupContent() {
                 className="flow-card flow-payment-checkout step-entry-anim"
                 aria-label="Order Total and Pay"
               >
-                <div className="payment-checkout-header">
-                  <span className="payment-checkout-eyebrow">YOUR BOOST</span>
-                  <div className="payment-checkout-details">
-                    <span className="checkout-title">
+                {/* Checkout Top: Service details */}
+                <div className="payment-checkout-top">
+                  <span className="payment-checkout-eyebrow">Your boost</span>
+                  <div className="payment-checkout-service">
+                    <span className="service-platform-goal">
                       {selectedPlatform} {currentBoostConfig.label}
                     </span>
-                    <span className="checkout-qty-badge">
+                    <span className="service-qty-chip">
                       {activeQuantity.toLocaleString()}
                     </span>
                   </div>
@@ -789,19 +967,30 @@ function BoostSetupContent() {
 
                 <div className="payment-checkout-divider" />
 
-                <div className="payment-checkout-prices">
-                  <div className="checkout-price-row total-row">
-                    <span className="checkout-price-label">Total</span>
-                    <span className="checkout-price-amount">UGX {calculatedPrice.toLocaleString()}</span>
-                  </div>
-                  <div className="checkout-price-row balance-row">
-                    <span className="checkout-balance-label">Your balance</span>
-                    <span className={`checkout-balance-amount ${balance < calculatedPrice ? 'insufficient-balance' : ''}`}>
-                      UGX {balance.toLocaleString()}
-                    </span>
+                {/* Animated Dominant Total Price */}
+                <div className="payment-total-highlight">
+                  <span className="payment-total-tag">TOTAL</span>
+                  <div className="payment-total-sum">
+                    <AnimatedPrice value={calculatedPrice} />
                   </div>
                 </div>
 
+                {/* User Balance & Status Indicator */}
+                <div className="payment-balance-row">
+                  <div className="balance-info">
+                    <span className="balance-label">Your balance:</span>
+                    <span className="balance-val">UGX {balance.toLocaleString()}</span>
+                  </div>
+                  <div className="balance-status-badge">
+                    {balance >= calculatedPrice ? (
+                      <span className="status-sufficient">✓ Balance sufficient</span>
+                    ) : (
+                      <span className="status-insufficient">Insufficient balance</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Insufficient Balance Callout */}
                 {balance < calculatedPrice && (
                   <div className="checkout-topup-callout">
                     <div className="topup-callout-text">
@@ -818,6 +1007,7 @@ function BoostSetupContent() {
                   </div>
                 )}
 
+                {/* High-Touch Gradient Pay Action Button */}
                 <button
                   type="button"
                   disabled={isSubmittingOrder}
@@ -901,6 +1091,8 @@ function BoostSetupContent() {
                     setCreatedOrder(null);
                     setSelectedQuantity(null);
                     setIsQuantityConfirmed(false);
+                    setIsCustomMode(false);
+                    setCustomQtyInput('');
                     setDestinationUrl('');
                     setIsLinkValid(false);
                     setIsDestinationConfirmed(false);
@@ -963,8 +1155,8 @@ function BoostSetupSkeleton() {
         <div className="authenticated-appbar glass-pill" style={{ height: 48 }} />
       </div>
       <div style={{ marginTop: 20, padding: 16 }}>
-        <div className="balance-skeleton" style={{ width: '100%', height: 50, borderRadius: 16, marginBottom: 16 }} />
-        <div className="balance-skeleton" style={{ width: '100%', height: 90, borderRadius: 18 }} />
+        <div className="balance-skeleton" style={{ width: '100%', height: 40, borderRadius: 12, marginBottom: 12 }} />
+        <div className="balance-skeleton" style={{ width: '100%', height: 80, borderRadius: 16 }} />
       </div>
     </main>
   );
