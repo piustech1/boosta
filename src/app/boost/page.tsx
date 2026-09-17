@@ -963,145 +963,68 @@ function BoostSetupContent() {
           <section
             className="receipt-printer-assembly step-reveal-anim"
             ref={paymentRef}
-            aria-label="Order Receipt and Direct Payment"
+            aria-label="Order Receipt"
           >
-            {/* 1. Metallic Printer Slot Fixture */}
+            {/* 1. Compact Pearl-White Metallic Printer Slot */}
             <div className="printer-slot-fixture" aria-hidden="true">
-              <div className="printer-slot-lip">
-                <span className="printer-slot-screw left-screw" />
-                <div className="printer-slot-mouth">
-                  <div className="printer-mouth-slit" />
-                </div>
-                <span className="printer-slot-screw right-screw" />
-              </div>
-              <div className="printer-status-bar">
-                <span className="printer-live-light" />
-                <span className="printer-slot-brand">BOOSTA THERMAL DISPATCH • DIRECT ORDER PAYMENT</span>
+              <div className="printer-slot-mouth">
+                <div className="printer-mouth-slit" />
               </div>
             </div>
 
-            {/* 2. Physical Emerging Receipt Paper Surface */}
+            {/* 2. Compact Physical Receipt Paper Surface */}
             <div className="receipt-paper-surface">
-              {/* Paper Watermark / Header */}
-              <div className="receipt-paper-header">
-                <div className="receipt-header-branding">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/assets/boosta_icon.png"
-                    alt="Boosta Logo"
-                    className="receipt-header-icon"
-                  />
-                  <div className="receipt-header-titles">
-                    <span className="receipt-brand-title">BOOSTA OFFICIAL RECEIPT</span>
-                    <span className="receipt-order-type">INSTANT SMM DISPATCH</span>
-                  </div>
-                </div>
-                <div className="receipt-meta-stamp">
-                  <span className="receipt-badge-direct">DIRECT PAY</span>
-                </div>
+              {/* Order Service */}
+              <div className="receipt-row-item">
+                <span className="receipt-field-label">ORDER SERVICE</span>
+                <span className="receipt-service-val">
+                  {selectedPlatform} {currentBoostConfig.label}
+                </span>
               </div>
 
-              <div className="receipt-dashed-divider" />
-
-              {/* Order Specifications Table */}
-              <div className="receipt-line-items">
-                <div className="receipt-item-row">
-                  <span className="receipt-item-label">SERVICE</span>
-                  <span className="receipt-item-value highlight-brand">
-                    {selectedPlatform} {currentBoostConfig.label}
-                  </span>
-                </div>
-
-                <div className="receipt-item-row">
-                  <span className="receipt-item-label">DESTINATION</span>
-                  <span className="receipt-item-value receipt-url-truncate" title={destinationUrl}>
-                    {destinationUrl.replace(/^https?:\/\/(www\.)?/, '')}
-                  </span>
-                </div>
-
-                <div className="receipt-item-row">
-                  <span className="receipt-item-label">QUANTITY</span>
-                  <span className="receipt-item-value highlight-qty">
-                    {activeQuantity.toLocaleString()} units
-                  </span>
-                </div>
-
-                <div className="receipt-item-row">
-                  <span className="receipt-item-label">UNIT RATE</span>
-                  <span className="receipt-item-value">
-                    UGX {currentBoostConfig.ratePerUnit.toFixed(1)} / unit
-                  </span>
-                </div>
-
-                <div className="receipt-item-row">
-                  <span className="receipt-item-label">SPEED &amp; QUALITY</span>
-                  <span className="receipt-item-value highlight-speed">
-                    High Speed • Non-Drop Guarantee
-                  </span>
-                </div>
-
-                <div className="receipt-item-row">
-                  <span className="receipt-item-label">ESTIMATED START</span>
-                  <span className="receipt-item-value">
-                    0 – 15 Mins (Instant)
-                  </span>
-                </div>
+              {/* Quantity */}
+              <div className="receipt-row-item">
+                <span className="receipt-field-label">QUANTITY</span>
+                <span className="receipt-quantity-val">
+                  {activeQuantity.toLocaleString()}
+                </span>
               </div>
 
-              <div className="receipt-dashed-divider" />
-
-              {/* Total Price Section */}
-              <div className="receipt-total-block">
-                <div className="receipt-total-label-group">
-                  <span className="receipt-total-eyebrow">TOTAL AMOUNT DUE</span>
-                  <span className="receipt-total-caption">No deposit needed • Direct checkout</span>
-                </div>
-                <div className="receipt-price-hero">
+              {/* Total Amount — Strongest & Largest */}
+              <div className="receipt-total-group">
+                <span className="receipt-field-label">TOTAL AMOUNT</span>
+                <div className="receipt-hero-amount">
                   <AnimatedPrice value={calculatedPrice} />
                 </div>
               </div>
 
-              {/* Jagged / Perforated Serrated Bottom Edge */}
+              {/* Subtle Torn / Perforated Serrated Bottom Edge */}
               <div className="receipt-jagged-edge" aria-hidden="true">
                 <svg
-                  viewBox="0 0 400 12"
+                  viewBox="0 0 400 8"
                   preserveAspectRatio="none"
                   className="jagged-edge-svg"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M0,0 L10,12 L20,0 L30,12 L40,0 L50,12 L60,0 L70,12 L80,0 L90,12 L100,0 L110,12 L120,0 L130,12 L140,0 L150,12 L160,0 L170,12 L180,0 L190,12 L200,0 L210,12 L220,0 L230,12 L240,0 L250,12 L260,0 L270,12 L280,0 L290,12 L300,0 L310,12 L320,0 L330,12 L340,0 L350,12 L360,0 L370,12 L380,0 L390,12 L400,0 L400,12 L0,12 Z"
+                    d="M0,0 L10,8 L20,0 L30,8 L40,0 L50,8 L60,0 L70,8 L80,0 L90,8 L100,0 L110,8 L120,0 L130,8 L140,0 L150,8 L160,0 L170,8 L180,0 L190,8 L200,0 L210,8 L220,0 L230,8 L240,0 L250,8 L260,0 L270,8 L280,0 L290,8 L300,0 L310,8 L320,0 L330,8 L340,0 L350,8 L360,0 L370,8 L380,0 L390,8 L400,0 L400,8 L0,8 Z"
                     fill="currentColor"
                   />
                 </svg>
               </div>
             </div>
 
-            {/* Direct Pay Action Button */}
-            <div className="receipt-action-wrapper">
-              <button
-                type="button"
-                disabled={isSubmittingOrder}
-                onClick={handleOpenPaymentModal}
-                className="boosta-direct-pay-button"
-                aria-label={`Pay UGX ${calculatedPrice.toLocaleString()} directly`}
-              >
-                <span className="pay-sheen" aria-hidden="true" />
-                <span className="pay-btn-content">
-                  <span className="pay-btn-text">PAY NOW</span>
-                  <span className="pay-btn-dot">•</span>
-                  <span className="pay-btn-amount">UGX {calculatedPrice.toLocaleString()}</span>
-                  <span className="pay-btn-arrow">→</span>
-                </span>
-              </button>
-              <div className="receipt-security-note">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-                <span>Direct Mobile Money &amp; Card checkout. Verified &amp; Idempotent.</span>
-              </div>
-            </div>
+            {/* 3. Compact PAY NOW Button */}
+            <button
+              type="button"
+              disabled={isSubmittingOrder}
+              onClick={handleOpenPaymentModal}
+              className="boosta-direct-pay-button"
+              aria-label={`Pay UGX ${calculatedPrice.toLocaleString()}`}
+            >
+              <span className="pay-sheen" aria-hidden="true" />
+              <span className="pay-btn-text">PAY NOW →</span>
+            </button>
           </section>
         )}
 
