@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { AuthenticatedAppBar } from '@/components/AuthenticatedAppBar';
+import { PaymentMethod, DirectPaymentTransaction } from '@/lib/security/payment-verifier';
 
 // Growth Goal Definitions matching Home
 export type BoostTypeId = 'followers' | 'likes' | 'views' | 'comments';
@@ -240,7 +241,6 @@ function BoostSetupContent() {
 
   // User state
   const [user, setUser] = useState<UserSession | null>(null);
-  const [balance, setBalance] = useState<number>(48500);
 
   // Initial parameters
   const initialTypeParam = (searchParams.get('type') as BoostTypeId) || 'followers';
@@ -269,11 +269,26 @@ function BoostSetupContent() {
   const [linkError, setLinkError] = useState<string | null>(null);
   const [isDestinationConfirmed, setIsDestinationConfirmed] = useState<boolean>(false);
 
-  // Step 5: Payment & Order submission
+  // Step 5: Direct Payment & Order submission states
   const [isSubmittingOrder, setIsSubmittingOrder] = useState<boolean>(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState<boolean>(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>('mtn_momo');
+  const [paymentPhone, setPaymentPhone] = useState<string>('0771234567');
+  const [paymentPhoneError, setPaymentPhoneError] = useState<string | null>(null);
+  const [paymentStage, setPaymentStage] = useState<'method_select' | 'processing' | 'awaiting_approval' | 'failed' | 'success'>('method_select');
+  const [activeTransaction, setActiveTransaction] = useState<DirectPaymentTransaction | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [showTopUpModal, setShowTopUpModal] = useState<boolean>(false);
-  const [createdOrder, setCreatedOrder] = useState<{ id: string; amount: number; platform: string; type: string } | null>(null);
+  const [createdOrder, setCreatedOrder] = useState<{
+    id: string;
+    transactionId: string;
+    amount: number;
+    platform: string;
+    type: string;
+    quantity: number;
+    destinationUrl: string;
+    paymentMethod: string;
+  } | null>(null);
 
   // Section references for smooth auto-scroll
   const step2Ref = useRef<HTMLDivElement>(null);
@@ -282,7 +297,7 @@ function BoostSetupContent() {
   const paymentRef = useRef<HTMLDivElement>(null);
   const customInputRef = useRef<HTMLInputElement>(null);
 
-  // Load user session and balance on mount
+  // Load user session on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('boosta_user');
@@ -290,10 +305,6 @@ function BoostSetupContent() {
         try {
           const parsed = JSON.parse(stored);
           setUser(parsed);
-          if (parsed.balance !== undefined && parsed.balance !== null) {
-            const num = Number(parsed.balance);
-            if (!isNaN(num)) setBalance(num);
-          }
         } catch {
           setUser({ email: 'creator@boosta.app', name: 'Creator' });
         }
@@ -500,65 +511,103 @@ function BoostSetupContent() {
     setIsDestinationConfirmed(false);
   };
 
-  // Step 5: Pay Order execution
-  const handlePayOrder = () => {
+  // Step 5: Direct Payment Handlers
+  const handleOpenPaymentModal = () => {
     if (!isLinkValid || activeQuantity <= 0 || !selectedPlatform) return;
-
-    if (typeof navigator !== 'undefined' && navigator.vibrate) {
-      navigator.vibrate(18);
-    }
-
-    // Strict balance check against calculated price
-    if (balance < calculatedPrice) {
-      setToastMessage('Not enough balance. Top up your Boosta balance to continue.');
-      setShowTopUpModal(true);
-      return;
-    }
-
-    // Sufficient balance -> Proceed with order creation
-    setIsSubmittingOrder(true);
-    setToastMessage(null);
-
-    setTimeout(() => {
-      // Deduct balance locally & update storage atomically
-      const updatedBalance = balance - calculatedPrice;
-      setBalance(updatedBalance);
-
-      if (typeof window !== 'undefined') {
-        const stored = localStorage.getItem('boosta_user');
-        const parsed = stored ? JSON.parse(stored) : {};
-        parsed.balance = updatedBalance;
-        localStorage.setItem('boosta_user', JSON.stringify(parsed));
-      }
-
-      const orderId = `BST-${Math.floor(100000 + Math.random() * 900000)}`;
-      setCreatedOrder({
-        id: orderId,
-        amount: calculatedPrice,
-        platform: selectedPlatform,
-        type: currentBoostConfig.label,
-      });
-      setIsSubmittingOrder(false);
-
-      if (typeof navigator !== 'undefined' && navigator.vibrate) {
-        navigator.vibrate([20, 60, 20]);
-      }
-    }, 900);
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(14);
+    setPaymentError(null);
+    setPaymentPhoneError(null);
+    setPaymentStage('method_select');
+    setIsPaymentModalOpen(true);
   };
 
-  const handleQuickTopUp = (amount: number) => {
-    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(15);
-    const newBal = balance + amount;
-    setBalance(newBal);
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('boosta_user');
-      const parsed = stored ? JSON.parse(stored) : {};
-      parsed.balance = newBal;
-      localStorage.setItem('boosta_user', JSON.stringify(parsed));
+  const handleInitiateDirectPayment = async () => {
+    if (selectedPaymentMethod === 'mtn_momo' || selectedPaymentMethod === 'airtel_money') {
+      const cleaned = paymentPhone.replace(/\D/g, '');
+      if (cleaned.length < 9) {
+        setPaymentPhoneError('Please enter a valid Ugandan phone number (e.g. 0771234567)');
+        return;
+      }
+      setPaymentPhoneError(null);
     }
-    setShowTopUpModal(false);
-    setToastMessage(`Added UGX ${amount.toLocaleString()}! Balance updated to UGX ${newBal.toLocaleString()}.`);
-    setTimeout(() => setToastMessage(null), 3500);
+
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(18);
+    setIsSubmittingOrder(true);
+    setPaymentStage('processing');
+    setPaymentError(null);
+
+    try {
+      const res = await fetch('/api/payments/initiate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          boostType: selectedType,
+          platform: selectedPlatform,
+          quantity: activeQuantity,
+          destinationUrl,
+          amount: calculatedPrice,
+          paymentMethod: selectedPaymentMethod,
+          phoneNumber: paymentPhone,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setPaymentStage('failed');
+        setPaymentError(data.error || 'Failed to initiate payment. Please try again.');
+        setIsSubmittingOrder(false);
+        return;
+      }
+
+      setActiveTransaction(data.transaction);
+      setPaymentStage('awaiting_approval');
+      setIsSubmittingOrder(false);
+
+      // Verify payment confirmation via backend
+      setTimeout(async () => {
+        try {
+          const verifyRes = await fetch('/api/payments/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transactionId: data.transaction.transactionId }),
+          });
+
+          const verifyData = await verifyRes.json();
+          if (verifyRes.ok && verifyData.success && verifyData.order) {
+            setCreatedOrder({
+              id: verifyData.order.id,
+              transactionId: verifyData.order.transactionId,
+              amount: verifyData.order.amount,
+              platform: verifyData.order.platform,
+              type: currentBoostConfig.label,
+              quantity: verifyData.order.quantity,
+              destinationUrl: verifyData.order.destinationUrl,
+              paymentMethod:
+                selectedPaymentMethod === 'mtn_momo'
+                  ? 'MTN Mobile Money'
+                  : selectedPaymentMethod === 'airtel_money'
+                  ? 'Airtel Money'
+                  : 'Credit / Debit Card',
+            });
+            setPaymentStage('success');
+            setIsPaymentModalOpen(false);
+            if (typeof navigator !== 'undefined' && navigator.vibrate) {
+              navigator.vibrate([20, 60, 20]);
+            }
+          } else {
+            setPaymentStage('failed');
+            setPaymentError(verifyData.error || 'Payment was not confirmed. Please retry.');
+          }
+        } catch {
+          setPaymentStage('failed');
+          setPaymentError('Network error checking payment confirmation. Please retry.');
+        }
+      }, 2200);
+    } catch {
+      setIsSubmittingOrder(false);
+      setPaymentStage('failed');
+      setPaymentError('Network error. Unable to contact payment server.');
+    }
   };
 
   const handleLogout = () => {
@@ -906,134 +955,404 @@ function BoostSetupContent() {
         )}
 
         {/* =========================================================
-            CARD 5 — PAYMENT SUMMARY & ACTION
-            Appears once destination is verified
+            CARD 5 — BOOSTA RECEIPT-PRINTER DIRECT ORDER CHECKOUT
+            Appears once destination is verified.
+            Zero wallet balance. Direct order payment model.
             ========================================================= */}
         {isQuantityConfirmed && selectedQuantity && isLinkValid && (
-          <section className="boost-step-card payment-summary-card step-reveal-anim" ref={paymentRef} aria-label="Step 5: Review and Pay">
-            <div className="card-header-row">
-              <span className="card-step-badge">05</span>
-              <span className="card-micro-tag">REVIEW & PAY</span>
-            </div>
-
-            {/* Header: Service identification */}
-            <div className="payment-summary-header">
-              <span className="payment-tag-micro">YOUR BOOST</span>
-              <div className="payment-service-pill">
-                <span className="service-name-bold">{selectedPlatform} {currentBoostConfig.label}</span>
-                <span className="service-qty-highlight">{activeQuantity.toLocaleString()}</span>
-              </div>
-            </div>
-
-            <div className="payment-soft-divider" />
-
-            {/* Dominant Total Price */}
-            <div className="payment-total-section">
-              <span className="payment-total-eyebrow">TOTAL AMOUNT</span>
-              <div className="payment-price-hero">
-                <AnimatedPrice value={calculatedPrice} />
-              </div>
-            </div>
-
-            {/* User Balance & Status Row */}
-            <div className="payment-balance-row">
-              <div className="balance-text-group">
-                <span className="balance-eyebrow">Your balance</span>
-                <span className="balance-amount-strong">UGX {balance.toLocaleString()}</span>
-              </div>
-              <div className="balance-status-chip">
-                {balance >= calculatedPrice ? (
-                  <span className="status-pill sufficient-pill">
-                    <span className="status-pulse-dot-green" aria-hidden="true" />
-                    Balance sufficient
-                  </span>
-                ) : (
-                  <span className="status-pill insufficient-pill">
-                    Insufficient balance
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Insufficient Balance Callout */}
-            {balance < calculatedPrice && (
-              <div className="payment-topup-alert">
-                <div className="alert-text">
-                  <strong>Not enough balance</strong>
-                  <span>Top up your balance to continue.</span>
+          <section
+            className="receipt-printer-assembly step-reveal-anim"
+            ref={paymentRef}
+            aria-label="Order Receipt and Direct Payment"
+          >
+            {/* 1. Metallic Printer Slot Fixture */}
+            <div className="printer-slot-fixture" aria-hidden="true">
+              <div className="printer-slot-lip">
+                <span className="printer-slot-screw left-screw" />
+                <div className="printer-slot-mouth">
+                  <div className="printer-mouth-slit" />
                 </div>
-                <button type="button" className="topup-action-btn" onClick={() => setShowTopUpModal(true)}>
-                  + Top up
-                </button>
+                <span className="printer-slot-screw right-screw" />
               </div>
-            )}
+              <div className="printer-status-bar">
+                <span className="printer-live-light" />
+                <span className="printer-slot-brand">BOOSTA THERMAL DISPATCH • DIRECT ORDER PAYMENT</span>
+              </div>
+            </div>
 
-            {/* High-Touch Gradient Pay Action Button */}
-            <button
-              type="button"
-              disabled={isSubmittingOrder}
-              onClick={handlePayOrder}
-              className="boosta-pay-button"
-              aria-label={`Pay securely UGX ${calculatedPrice.toLocaleString()}`}
-            >
-              <span className="pay-sheen" aria-hidden="true" />
-              <span className="pay-text">
-                {isSubmittingOrder ? 'Processing...' : 'Pay securely →'}
-              </span>
-            </button>
+            {/* 2. Physical Emerging Receipt Paper Surface */}
+            <div className="receipt-paper-surface">
+              {/* Paper Watermark / Header */}
+              <div className="receipt-paper-header">
+                <div className="receipt-header-branding">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/assets/boosta_icon.png"
+                    alt="Boosta Logo"
+                    className="receipt-header-icon"
+                  />
+                  <div className="receipt-header-titles">
+                    <span className="receipt-brand-title">BOOSTA OFFICIAL RECEIPT</span>
+                    <span className="receipt-order-type">INSTANT SMM DISPATCH</span>
+                  </div>
+                </div>
+                <div className="receipt-meta-stamp">
+                  <span className="receipt-badge-direct">DIRECT PAY</span>
+                </div>
+              </div>
+
+              <div className="receipt-dashed-divider" />
+
+              {/* Order Specifications Table */}
+              <div className="receipt-line-items">
+                <div className="receipt-item-row">
+                  <span className="receipt-item-label">SERVICE</span>
+                  <span className="receipt-item-value highlight-brand">
+                    {selectedPlatform} {currentBoostConfig.label}
+                  </span>
+                </div>
+
+                <div className="receipt-item-row">
+                  <span className="receipt-item-label">DESTINATION</span>
+                  <span className="receipt-item-value receipt-url-truncate" title={destinationUrl}>
+                    {destinationUrl.replace(/^https?:\/\/(www\.)?/, '')}
+                  </span>
+                </div>
+
+                <div className="receipt-item-row">
+                  <span className="receipt-item-label">QUANTITY</span>
+                  <span className="receipt-item-value highlight-qty">
+                    {activeQuantity.toLocaleString()} units
+                  </span>
+                </div>
+
+                <div className="receipt-item-row">
+                  <span className="receipt-item-label">UNIT RATE</span>
+                  <span className="receipt-item-value">
+                    UGX {currentBoostConfig.ratePerUnit.toFixed(1)} / unit
+                  </span>
+                </div>
+
+                <div className="receipt-item-row">
+                  <span className="receipt-item-label">SPEED &amp; QUALITY</span>
+                  <span className="receipt-item-value highlight-speed">
+                    High Speed • Non-Drop Guarantee
+                  </span>
+                </div>
+
+                <div className="receipt-item-row">
+                  <span className="receipt-item-label">ESTIMATED START</span>
+                  <span className="receipt-item-value">
+                    0 – 15 Mins (Instant)
+                  </span>
+                </div>
+              </div>
+
+              <div className="receipt-dashed-divider" />
+
+              {/* Total Price Section */}
+              <div className="receipt-total-block">
+                <div className="receipt-total-label-group">
+                  <span className="receipt-total-eyebrow">TOTAL AMOUNT DUE</span>
+                  <span className="receipt-total-caption">No deposit needed • Direct checkout</span>
+                </div>
+                <div className="receipt-price-hero">
+                  <AnimatedPrice value={calculatedPrice} />
+                </div>
+              </div>
+
+              {/* Jagged / Perforated Serrated Bottom Edge */}
+              <div className="receipt-jagged-edge" aria-hidden="true">
+                <svg
+                  viewBox="0 0 400 12"
+                  preserveAspectRatio="none"
+                  className="jagged-edge-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0,0 L10,12 L20,0 L30,12 L40,0 L50,12 L60,0 L70,12 L80,0 L90,12 L100,0 L110,12 L120,0 L130,12 L140,0 L150,12 L160,0 L170,12 L180,0 L190,12 L200,0 L210,12 L220,0 L230,12 L240,0 L250,12 L260,0 L270,12 L280,0 L290,12 L300,0 L310,12 L320,0 L330,12 L340,0 L350,12 L360,0 L370,12 L380,0 L390,12 L400,0 L400,12 L0,12 Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            {/* Direct Pay Action Button */}
+            <div className="receipt-action-wrapper">
+              <button
+                type="button"
+                disabled={isSubmittingOrder}
+                onClick={handleOpenPaymentModal}
+                className="boosta-direct-pay-button"
+                aria-label={`Pay UGX ${calculatedPrice.toLocaleString()} directly`}
+              >
+                <span className="pay-sheen" aria-hidden="true" />
+                <span className="pay-btn-content">
+                  <span className="pay-btn-text">PAY NOW</span>
+                  <span className="pay-btn-dot">•</span>
+                  <span className="pay-btn-amount">UGX {calculatedPrice.toLocaleString()}</span>
+                  <span className="pay-btn-arrow">→</span>
+                </span>
+              </button>
+              <div className="receipt-security-note">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <span>Direct Mobile Money &amp; Card checkout. Verified &amp; Idempotent.</span>
+              </div>
+            </div>
           </section>
         )}
 
-        {/* TOP UP MODAL */}
-        {showTopUpModal && (
-          <div className="topup-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="topup-title">
-            <div className="topup-modal-card">
-              <div className="topup-header">
-                <h3 id="topup-title" className="topup-title">Top up Boosta Balance</h3>
-                <button
-                  type="button"
-                  className="topup-close-btn"
-                  onClick={() => setShowTopUpModal(false)}
-                  aria-label="Close deposit modal"
-                >
-                  ✕
-                </button>
-              </div>
-              <p className="topup-subtitle">
-                Current balance: <strong>UGX {balance.toLocaleString()}</strong>. Order requires <strong>UGX {calculatedPrice.toLocaleString()}</strong>.
-              </p>
-              <div className="topup-quick-grid">
-                {[10000, 25000, 50000, 100000].map((amount) => (
+        {/* =========================================================
+            LIQUID-GLASS DIRECT PAYMENT MODAL (MTN / Airtel / Card)
+            ========================================================= */}
+        {isPaymentModalOpen && (
+          <div
+            className="payment-modal-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="payment-modal-title"
+          >
+            <div className="payment-modal-card">
+              {/* Modal Header */}
+              <div className="payment-modal-header">
+                <div className="modal-header-meta">
+                  <h3 id="payment-modal-title" className="modal-title">
+                    {paymentStage === 'awaiting_approval'
+                      ? 'Approve on Phone'
+                      : paymentStage === 'processing'
+                      ? 'Connecting Gateway'
+                      : paymentStage === 'failed'
+                      ? 'Payment Failed'
+                      : 'Direct Payment'}
+                  </h3>
+                  <p className="modal-subtitle">
+                    {paymentStage === 'awaiting_approval'
+                      ? `Prompt sent to ${paymentPhone}`
+                      : `Amount: UGX ${calculatedPrice.toLocaleString()}`}
+                  </p>
+                </div>
+                {paymentStage !== 'processing' && paymentStage !== 'awaiting_approval' && (
                   <button
-                    key={amount}
                     type="button"
-                    className="topup-amount-btn"
-                    onClick={() => handleQuickTopUp(amount)}
+                    className="modal-close-btn"
+                    onClick={() => setIsPaymentModalOpen(false)}
+                    aria-label="Close payment modal"
                   >
-                    + UGX {amount.toLocaleString()}
+                    ✕
                   </button>
-                ))}
+                )}
               </div>
+
+              {/* Stage: Method Select */}
+              {paymentStage === 'method_select' && (
+                <div className="payment-method-select-stage">
+                  <div className="payment-methods-grid" role="radiogroup" aria-label="Payment method options">
+                    {/* MTN Mobile Money */}
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={selectedPaymentMethod === 'mtn_momo'}
+                      className={`payment-method-tile mtn-tile ${
+                        selectedPaymentMethod === 'mtn_momo' ? 'method-tile-active' : ''
+                      }`}
+                      onClick={() => setSelectedPaymentMethod('mtn_momo')}
+                    >
+                      <div className="method-tile-header">
+                        <span className="momo-badge mtn-badge">MTN MoMo</span>
+                        <span className="method-radio-indicator" />
+                      </div>
+                      <span className="method-tile-name">MTN Mobile Money</span>
+                      <span className="method-tile-sub">Instant USSD PIN Prompt (*165#)</span>
+                    </button>
+
+                    {/* Airtel Money */}
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={selectedPaymentMethod === 'airtel_money'}
+                      className={`payment-method-tile airtel-tile ${
+                        selectedPaymentMethod === 'airtel_money' ? 'method-tile-active' : ''
+                      }`}
+                      onClick={() => setSelectedPaymentMethod('airtel_money')}
+                    >
+                      <div className="method-tile-header">
+                        <span className="momo-badge airtel-badge">Airtel</span>
+                        <span className="method-radio-indicator" />
+                      </div>
+                      <span className="method-tile-name">Airtel Money</span>
+                      <span className="method-tile-sub">Instant USSD PIN Prompt (*185#)</span>
+                    </button>
+
+                    {/* Debit / Credit Card */}
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={selectedPaymentMethod === 'card'}
+                      className={`payment-method-tile card-tile ${
+                        selectedPaymentMethod === 'card' ? 'method-tile-active' : ''
+                      }`}
+                      onClick={() => setSelectedPaymentMethod('card')}
+                    >
+                      <div className="method-tile-header">
+                        <span className="momo-badge card-badge">Card</span>
+                        <span className="method-radio-indicator" />
+                      </div>
+                      <span className="method-tile-name">Debit / Credit Card</span>
+                      <span className="method-tile-sub">Visa, Mastercard, &amp; AMEX</span>
+                    </button>
+                  </div>
+
+                  {/* Phone Input for Mobile Money */}
+                  {(selectedPaymentMethod === 'mtn_momo' || selectedPaymentMethod === 'airtel_money') && (
+                    <div className="payment-phone-section">
+                      <label htmlFor="momo-phone-input" className="payment-phone-label">
+                        Uganda Phone Number
+                      </label>
+                      <div className="payment-phone-input-row">
+                        <span className="phone-country-pill">🇺🇬 +256</span>
+                        <input
+                          id="momo-phone-input"
+                          type="tel"
+                          value={paymentPhone}
+                          onChange={(e) => {
+                            setPaymentPhone(e.target.value);
+                            setPaymentPhoneError(null);
+                          }}
+                          placeholder="0770000000"
+                          className={`payment-phone-field ${paymentPhoneError ? 'phone-field-error' : ''}`}
+                          aria-invalid={Boolean(paymentPhoneError)}
+                        />
+                      </div>
+                      {paymentPhoneError && (
+                        <span className="payment-field-error-text" role="alert">
+                          {paymentPhoneError}
+                        </span>
+                      )}
+                      <p className="payment-phone-instruction">
+                        You will receive an instant push notification on this phone to authorize payment.
+                      </p>
+                    </div>
+                  )}
+
+                  {selectedPaymentMethod === 'card' && (
+                    <div className="payment-card-notice">
+                      <p>
+                        You will be redirected to the secure PCI-DSS card payment gateway to complete authorization.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Submit Action */}
+                  <button
+                    type="button"
+                    disabled={isSubmittingOrder}
+                    onClick={handleInitiateDirectPayment}
+                    className="payment-authorize-btn"
+                  >
+                    <span>Authorize UGX {calculatedPrice.toLocaleString()}</span>
+                    <span className="btn-arrow">→</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Stage: Processing */}
+              {paymentStage === 'processing' && (
+                <div className="payment-status-stage">
+                  <div className="payment-spinner" aria-hidden="true" />
+                  <h4 className="payment-status-title">Initiating Payment Gateway</h4>
+                  <p className="payment-status-desc">
+                    Establishing a secure connection with {selectedPaymentMethod === 'mtn_momo' ? 'MTN MoMo' : selectedPaymentMethod === 'airtel_money' ? 'Airtel Money' : 'Card Processor'}...
+                  </p>
+                </div>
+              )}
+
+              {/* Stage: Awaiting Approval (USSD Prompt) */}
+              {paymentStage === 'awaiting_approval' && (
+                <div className="payment-status-stage awaiting-stage">
+                  <div className="ussd-phone-graphic" aria-hidden="true">
+                    <div className="ussd-pulse-ring" />
+                    <div className="ussd-phone-inner">
+                      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                        <line x1="12" y1="18" x2="12.01" y2="18" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <h4 className="payment-status-title">USSD Prompt Sent!</h4>
+                  <p className="payment-status-desc">
+                    Please check your phone <strong>{paymentPhone}</strong> and enter your Mobile Money PIN on the popup screen to authorize <strong>UGX {calculatedPrice.toLocaleString()}</strong>.
+                  </p>
+
+                  <div className="awaiting-loader-strip">
+                    <div className="awaiting-bar-indeterminate" />
+                  </div>
+                  <span className="awaiting-caption">Waiting for network payment confirmation...</span>
+                </div>
+              )}
+
+              {/* Stage: Failed */}
+              {paymentStage === 'failed' && (
+                <div className="payment-status-stage failed-stage">
+                  <div className="payment-failed-icon" aria-hidden="true">✕</div>
+                  <h4 className="payment-status-title">Payment Unsuccessful</h4>
+                  <p className="payment-status-desc">{paymentError || 'The transaction was declined or timed out. Please try again.'}</p>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentStage('method_select')}
+                    className="payment-retry-btn"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
 
-        {/* ORDER SUCCESS MODAL */}
+        {/* =========================================================
+            ORDER SUCCESS MODAL (Confirmed Receipt & Delivery Active)
+            ========================================================= */}
         {createdOrder && (
           <div className="order-success-overlay" role="dialog" aria-modal="true" aria-labelledby="success-heading">
             <div className="order-success-card">
               <div className="success-icon-badge" aria-hidden="true">
                 ✓
               </div>
-              <h2 id="success-heading" className="success-title">Boost Launched!</h2>
+              <h2 id="success-heading" className="success-title">Payment Verified &amp; Boost Active!</h2>
               <p className="success-meta">
-                Order <strong>#{createdOrder.id}</strong> has been successfully dispatched for delivery.
+                Order <strong>#{createdOrder.id}</strong> has been confirmed and queued for immediate delivery.
               </p>
-              <div className="success-details-pill">
-                <span>{createdOrder.type} on {createdOrder.platform}</span>
-                <span>•</span>
-                <span>UGX {createdOrder.amount.toLocaleString()}</span>
+
+              <div className="success-order-receipt-box">
+                <div className="success-receipt-row">
+                  <span className="receipt-meta-label">Transaction ID</span>
+                  <strong className="receipt-code-txt">{createdOrder.transactionId}</strong>
+                </div>
+                <div className="success-receipt-row">
+                  <span className="receipt-meta-label">Boost Service</span>
+                  <strong>{createdOrder.quantity.toLocaleString()} {createdOrder.platform} {createdOrder.type}</strong>
+                </div>
+                <div className="success-receipt-row">
+                  <span className="receipt-meta-label">Amount Paid</span>
+                  <strong className="receipt-amount-txt">UGX {createdOrder.amount.toLocaleString()}</strong>
+                </div>
+                <div className="success-receipt-row">
+                  <span className="receipt-meta-label">Payment Channel</span>
+                  <strong>{createdOrder.paymentMethod}</strong>
+                </div>
+                <div className="success-receipt-row">
+                  <span className="receipt-meta-label">Status</span>
+                  <span className="success-live-tag">
+                    <span className="status-pulse-dot-green" />
+                    Active Dispatch
+                  </span>
+                </div>
               </div>
+
               <div className="success-actions-row">
                 <button
                   type="button"
@@ -1113,7 +1432,7 @@ function BoostSetupSkeleton() {
         <div className="authenticated-appbar glass-pill" style={{ height: 48 }} />
       </div>
       <div style={{ marginTop: 16, padding: 12 }}>
-        <div className="balance-skeleton" style={{ width: '100%', height: 180, borderRadius: 20 }} />
+        <div className="setup-card-skeleton" style={{ width: '100%', height: 180, borderRadius: 20 }} />
       </div>
     </main>
   );
