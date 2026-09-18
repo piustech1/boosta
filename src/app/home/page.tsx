@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthenticatedAppBar } from '@/components/AuthenticatedAppBar';
 import { HeroCarousel } from '@/components/HeroCarousel';
+import { CollapsibleFabNavigation } from '@/components/CollapsibleFabNavigation';
 
 interface UserSession {
   email: string;
   name?: string;
-  balance?: string | number;
 }
 
 export type GrowthGoalId = 'followers' | 'likes' | 'views' | 'comments';
@@ -137,8 +137,8 @@ const PLATFORMS: PlatformOption[] = [
 export default function AuthenticatedHomePage() {
   const router = useRouter();
   const [user, setUser] = useState<UserSession | null>(null);
-  const [balance, setBalance] = useState<number>(48500);
-  const [isBalanceLoading, setIsBalanceLoading] = useState<boolean>(true);
+  const [totalSpent, setTotalSpent] = useState<number>(0);
+  const [isUsageLoading, setIsUsageLoading] = useState<boolean>(true);
   const [activeFeedback, setActiveFeedback] = useState<string | null>(null);
 
   // Core Experience state: What do you want to boost?
@@ -162,17 +162,7 @@ export default function AuthenticatedHomePage() {
     router.push(`/boost?type=${selectedGoal || 'followers'}&platform=${platformId}`);
   };
 
-  const handleAddFunds = () => {
-    if (typeof navigator !== 'undefined' && navigator.vibrate) {
-      navigator.vibrate(12);
-    }
-    setActiveFeedback('Opening quick deposit options...');
-    setTimeout(() => {
-      setActiveFeedback(null);
-    }, 2200);
-  };
-
-  // Retrieve authenticated session on mount
+  // Retrieve authenticated session and calculate actual confirmed lifetime spending
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('boosta_user');
@@ -180,20 +170,63 @@ export default function AuthenticatedHomePage() {
         try {
           const parsed = JSON.parse(stored);
           setUser(parsed);
-          if (parsed.balance !== undefined && parsed.balance !== null) {
-            const num = Number(parsed.balance);
-            if (!isNaN(num)) {
-              setBalance(num);
-            }
-          }
         } catch {
           setUser({ email: 'creator@boosta.app', name: 'Creator' });
         }
       } else {
-        // Fallback demo user session so the screen is directly viewable if opened
         setUser({ email: 'creator@boosta.app', name: 'Boosta Creator' });
       }
-      setIsBalanceLoading(false);
+
+      // Calculate actual confirmed spending from server + localStorage records
+      const calculateUsage = async () => {
+        let allConfirmed: { amount: number; status: string }[] = [];
+
+        // 1. Fetch server records
+        try {
+          const res = await fetch('/api/orders');
+          if (res.ok) {
+            const data = await res.json();
+            if (data.orders && Array.isArray(data.orders)) {
+              allConfirmed = data.orders.filter((o: { status: string }) => o.status === 'COMPLETED');
+            }
+          }
+        } catch (err) {
+          console.warn('Could not fetch server orders', err);
+        }
+
+        // 2. Fetch local client cache
+        try {
+          const localStored = localStorage.getItem('boosta_orders');
+          if (localStored) {
+            const localOrders = JSON.parse(localStored);
+            if (Array.isArray(localOrders)) {
+              localOrders.forEach((lo: { amount: number; status: string; transactionId?: string; id?: string }) => {
+                if (lo.status === 'COMPLETED') {
+                  allConfirmed.push(lo);
+                }
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('Could not parse local orders', err);
+        }
+
+        // De-duplicate confirmed orders by transactionId or id
+        const uniqueTxIds = new Set<string>();
+        let sum = 0;
+        allConfirmed.forEach((order: any) => {
+          const key = order.transactionId || order.id || `${order.amount}-${order.createdAt}`;
+          if (!uniqueTxIds.has(key)) {
+            uniqueTxIds.add(key);
+            sum += Number(order.amount) || 0;
+          }
+        });
+
+        setTotalSpent(sum);
+        setIsUsageLoading(false);
+      };
+
+      calculateUsage();
     }
   }, []);
 
@@ -249,27 +282,27 @@ export default function AuthenticatedHomePage() {
           <HeroCarousel onBoost={handleBoost} />
         </section>
 
-        {/* 3. Account Balance Surface: Compact, confident, non-intrusive */}
-        <section className="account-balance-surface" aria-label="Boosta account balance">
-          <div className="balance-info-col">
-            <span className="balance-eyebrow">Your Boosta balance</span>
-            <div className="balance-amount-row">
-              {isBalanceLoading ? (
-                <span className="balance-skeleton" aria-label="Loading balance..." />
+        {/* 3. Account Usage Surface: Real confirmed lifetime spending */}
+        <section className="account-usage-surface" aria-label="Your Boosta usage">
+          <div className="usage-info-col">
+            <span className="usage-eyebrow">Your Boosta usage</span>
+            <div className="usage-amount-row">
+              {isUsageLoading ? (
+                <span className="usage-skeleton" aria-label="Loading usage..." />
               ) : (
-                <span className="balance-amount">UGX {balance.toLocaleString()}</span>
+                <span className="usage-amount">UGX {totalSpent.toLocaleString()}</span>
               )}
             </div>
-            <span className="balance-caption">Available to boost</span>
+            <span className="usage-caption">Total spent on boosts</span>
           </div>
           <button 
             type="button" 
-            className="balance-add-funds-btn"
-            onClick={handleAddFunds}
-            aria-label="Add funds to Boosta balance"
+            className="usage-activity-btn"
+            onClick={() => router.push('/orders')}
+            aria-label="View activity and order history"
           >
-            <span className="add-funds-plus" aria-hidden="true">+</span>
-            <span>Add funds</span>
+            <span>VIEW ACTIVITY</span>
+            <span className="activity-btn-arrow" aria-hidden="true">→</span>
           </button>
         </section>
 
@@ -336,6 +369,32 @@ export default function AuthenticatedHomePage() {
             </div>
           )}
         </section>
+
+        {/* 5. Talk to Us Support Strip */}
+        <section className="talk-to-us-surface" aria-label="Boosta Customer Support">
+          <div className="talk-to-us-content">
+            <div className="talk-to-us-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+              </svg>
+            </div>
+            <div className="talk-to-us-text-col">
+              <span className="talk-to-us-title">Talk to us</span>
+              <span className="talk-to-us-prompt">Need help with an order or payment?</span>
+            </div>
+          </div>
+          <a
+            href="mailto:support@boosta.app?subject=Help%20with%20Boosta%20Order"
+            className="talk-to-us-link"
+            aria-label="Contact Boosta support via email"
+          >
+            <span>Support</span>
+            <span className="talk-arrow" aria-hidden="true">→</span>
+          </a>
+        </section>
+
+        {/* 6. Collapsible Horizontal FAB Navigation */}
+        <CollapsibleFabNavigation />
 
         {/* Subtle iOS Home Indicator */}
         <div className="ios-home-indicator" aria-hidden="true" />

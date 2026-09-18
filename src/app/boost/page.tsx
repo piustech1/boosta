@@ -588,7 +588,7 @@ function BoostSetupContent() {
 
           const verifyData = await verifyRes.json();
           if (verifyRes.ok && verifyData.success && verifyData.order) {
-            setCreatedOrder({
+            const orderPayload = {
               id: verifyData.order.id,
               transactionId: verifyData.order.transactionId,
               amount: verifyData.order.amount,
@@ -602,7 +602,19 @@ function BoostSetupContent() {
                   : selectedPaymentMethod === 'airtel_money'
                   ? 'Airtel Money'
                   : 'Credit / Debit Card',
-            });
+              status: 'COMPLETED',
+              createdAt: Date.now(),
+            };
+            setCreatedOrder(orderPayload);
+            if (typeof window !== 'undefined') {
+              try {
+                const existing = JSON.parse(localStorage.getItem('boosta_orders') || '[]');
+                existing.unshift(orderPayload);
+                localStorage.setItem('boosta_orders', JSON.stringify(existing));
+              } catch (e) {
+                console.error('Failed to cache order to localStorage', e);
+              }
+            }
             setPaymentStage('success');
             setIsPaymentModalOpen(false);
             if (typeof navigator !== 'undefined' && navigator.vibrate) {

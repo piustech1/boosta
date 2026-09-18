@@ -190,4 +190,13 @@ export class PaymentSecurityEngine {
   public static recordTransaction(txId: string): void {
     processedTransactionIds.add(txId);
   }
+
+  /**
+   * Returns all stored transactions
+   */
+  public static getAllTransactions(): DirectPaymentTransaction[] {
+    return Array.from(activeTransactions.values()).sort(
+      (a, b) => b.createdAt - a.createdAt
+    );
+  }
 }
