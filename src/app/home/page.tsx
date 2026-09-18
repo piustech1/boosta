@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthenticatedAppBar } from '@/components/AuthenticatedAppBar';
 import { HeroCarousel } from '@/components/HeroCarousel';
-import { CollapsibleFabNavigation } from '@/components/CollapsibleFabNavigation';
 
 interface UserSession {
   email: string;
@@ -393,8 +392,8 @@ export default function AuthenticatedHomePage() {
           </a>
         </section>
 
-        {/* 6. Collapsible Horizontal FAB Navigation */}
-        <CollapsibleFabNavigation />
+        {/* 6. Navigation Mount Point directly below Talk to Us */}
+        <div id="home-fab-slot" className="home-fab-dock-slot" />
 
         {/* Subtle iOS Home Indicator */}
         <div className="ios-home-indicator" aria-hidden="true" />

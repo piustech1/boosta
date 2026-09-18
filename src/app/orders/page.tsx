@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthenticatedAppBar } from '@/components/AuthenticatedAppBar';
-import { CollapsibleFabNavigation } from '@/components/CollapsibleFabNavigation';
 
 interface UserOrder {
   id: string;
@@ -370,9 +369,6 @@ export default function OrdersActivityPage() {
             </div>
           )}
         </section>
-
-        {/* Collapsible Horizontal FAB Navigation */}
-        <CollapsibleFabNavigation />
       </main>
     </>
   );

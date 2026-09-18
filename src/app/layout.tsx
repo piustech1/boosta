@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { AuthenticatedNavigationShell } from '@/components/AuthenticatedNavigationShell';
 
 export const metadata: Metadata = {
   title: 'Boosta — Premium Social Growth Engine',
@@ -35,7 +36,10 @@ export default function RootLayout({
           rel="stylesheet" 
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <AuthenticatedNavigationShell />
+      </body>
     </html>
   );
 }

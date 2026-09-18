@@ -35,16 +35,6 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
   {
-    id: 'boost',
-    label: 'Boost',
-    href: '/boost',
-    icon: (
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-      </svg>
-    ),
-  },
-  {
     id: 'home',
     label: 'Home',
     href: '/home',
@@ -57,7 +47,13 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-export const CollapsibleFabNavigation: React.FC = () => {
+export interface CollapsibleFabNavigationProps {
+  variant?: 'in-flow' | 'persistent';
+}
+
+export const CollapsibleFabNavigation: React.FC<CollapsibleFabNavigationProps> = ({
+  variant = 'persistent',
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -106,7 +102,11 @@ export const CollapsibleFabNavigation: React.FC = () => {
   };
 
   return (
-    <div className="fab-nav-anchor" ref={navRef} aria-label="Boosta Quick Navigation">
+    <div 
+      className={variant === 'in-flow' ? 'fab-nav-in-flow-anchor' : 'fab-nav-anchor'} 
+      ref={navRef} 
+      aria-label="Boosta Quick Navigation"
+    >
       <div className={`fab-nav-cluster ${isOpen ? 'cluster-expanded' : 'cluster-collapsed'}`}>
         {/* Child action dock (expands horizontally RIGHT-TO-LEFT) */}
         <div className="fab-action-dock" role="menu" aria-hidden={!isOpen}>
