@@ -325,6 +325,20 @@ function BoostSetupContent() {
       setSelectedPlatform(platParam);
       setIsPlatformConfirmed(true);
     }
+    const qtyParam = searchParams.get('qty');
+    if (qtyParam) {
+      const parsedQty = parseInt(qtyParam, 10);
+      if (!isNaN(parsedQty) && parsedQty > 0) {
+        setSelectedQuantity(parsedQty);
+        setIsQuantityConfirmed(true);
+      }
+    }
+    const linkParam = searchParams.get('link');
+    if (linkParam) {
+      setDestinationUrl(linkParam);
+      setIsLinkValid(true);
+      setIsDestinationConfirmed(true);
+    }
   }, [searchParams]);
 
   // Current configurations

@@ -4608,7 +4608,7 @@ html, body {
   padding-bottom: clamp(75px, 9vh, 95px) !important;
   padding-left: 16px;
   padding-right: 16px;
-  max-width: 460px;
+  max-width: 420px;
   margin: 0 auto;
   box-sizing: border-box;
   position: relative;
@@ -4794,34 +4794,39 @@ html, body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  overflow: hidden;
 }
 
 .card-summary-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 
 .card-summary-value {
   font-family: var(--font-syne), var(--font-jakarta), sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 800;
   color: #003152;
   letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 130px;
 }
 
 .summary-check-pip {
   color: #10B981;
   font-size: 0.85rem;
   font-weight: 900;
+  flex-shrink: 0;
 }
 
 .truncate-url {
-  max-width: 180px;
+  max-width: 110px;
 }
 
 .card-change-action {
@@ -5227,6 +5232,7 @@ html, body {
     inset 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   padding: 14px 14px 0 14px;
   box-sizing: border-box;
+  overflow: hidden;
   animation: receiptExtrude 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transform-origin: top center;
 }
