@@ -190,6 +190,18 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
     goToIndex(prevIdx);
   }, [trackIndex, totalTrackItems, goToIndex]);
 
+  const goToSlide = useCallback((targetSlideIndex: number) => {
+    const currentSlideIdx = trackIndex % totalSlides;
+    if (targetSlideIndex === currentSlideIdx) return;
+    const forwardSteps = (targetSlideIndex - currentSlideIdx + totalSlides) % totalSlides;
+    const backwardSteps = (currentSlideIdx - targetSlideIndex + totalSlides) % totalSlides;
+    if (forwardSteps <= backwardSteps) {
+      goToIndex((trackIndex + forwardSteps) % totalTrackItems);
+    } else {
+      goToIndex((trackIndex - backwardSteps + totalTrackItems) % totalTrackItems);
+    }
+  }, [trackIndex, totalSlides, totalTrackItems, goToIndex]);
+
   // Autoplay every 3500ms
   useEffect(() => {
     if (isPaused) return;
@@ -284,6 +296,18 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
           Contains circular CONCAVE cut-out on right edge via radial mask
           ========================================================= */}
       <div className="vertical-carousel-panel" aria-label="Platform Slider">
+        {/* Top Contextual Utility: compact horizontal micro-panel in upper empty space */}
+        <div className="carousel-top-utility" aria-label="Featured platform category">
+          <span 
+            className="carousel-top-dot" 
+            style={{ backgroundColor: currentSlide.accentColor }} 
+            aria-hidden="true" 
+          />
+          <span className="carousel-top-badge">POPULAR BOOSTS</span>
+          <span className="carousel-top-divider" aria-hidden="true">•</span>
+          <span className="carousel-top-context">DISCOVER</span>
+        </div>
+
         <div className="vertical-carousel-track">
           {TRACK_ITEMS.map((item, index) => {
             const cardInfo = getCardInfo(index);
@@ -348,6 +372,47 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onBoost }) => {
               </div>
             );
           })}
+        </div>
+
+        {/* Bottom Functional Utility: subtle position indicator dots + swipe hint in lower empty space */}
+        <div className="carousel-bottom-utility" aria-label="Carousel navigation">
+          <div className="carousel-dots-track" role="tablist" aria-label="Platform position dots">
+            {SLIDES.map((slide, i) => (
+              <button
+                key={slide.id}
+                type="button"
+                className={`carousel-nav-dot ${i === currentSlideIndex ? 'dot-active' : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToSlide(i);
+                }}
+                onTouchStart={(e) => e.stopPropagation()}
+                aria-label={`Jump to ${slide.platform}`}
+                aria-selected={i === currentSlideIndex}
+                style={{
+                  ['--dot-accent' as string]: slide.accentColor,
+                }}
+              />
+            ))}
+          </div>
+          <span className="carousel-bottom-divider" aria-hidden="true" />
+          <button
+            type="button"
+            className="carousel-swipe-hint"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }}
+            onTouchStart={(e) => e.stopPropagation()}
+            aria-label="Advance to next platform"
+          >
+            <span>Swipe to explore</span>
+            <span className="swipe-hint-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 3v10M4 6l4-3 4 3M4 10l4 3 4-3" />
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
 

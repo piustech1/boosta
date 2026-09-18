@@ -2233,6 +2233,154 @@ html, body {
   );
 }
 
+/* =========================================================
+   CAROUSEL CONTEXTUAL TOP & BOTTOM UTILITIES
+   Upper & lower contextual micro-panels within left panel
+   ========================================================= */
+.carousel-top-utility {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 12;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px) saturate(145%);
+  -webkit-backdrop-filter: blur(14px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 14px rgba(60, 50, 90, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  max-width: fit-content;
+}
+
+.carousel-top-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background-color 0.4s ease;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-top-badge {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #003152;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.carousel-top-divider {
+  color: rgba(0, 49, 82, 0.3);
+  font-size: 0.68rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.carousel-top-context {
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #5A6E85;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carousel-bottom-utility {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 12;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px) saturate(145%);
+  -webkit-backdrop-filter: blur(14px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 14px rgba(60, 50, 90, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  pointer-events: auto;
+}
+
+.carousel-dots-track {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.carousel-nav-dot {
+  padding: 0;
+  border: none;
+  background: rgba(0, 49, 82, 0.18);
+  height: 6px;
+  width: 6px;
+  border-radius: 999px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-nav-dot:hover {
+  background: rgba(0, 49, 82, 0.35);
+  transform: scale(1.15);
+}
+
+.carousel-nav-dot.dot-active {
+  width: 16px;
+  background: var(--dot-accent, #7928CA);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.carousel-bottom-divider {
+  width: 1px;
+  height: 10px;
+  background: rgba(0, 49, 82, 0.15);
+  flex-shrink: 0;
+}
+
+.carousel-swipe-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-jakarta), sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #5A6E85;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  transition: color 0.2s ease;
+}
+
+.carousel-swipe-hint:hover {
+  color: #003152;
+}
+
+.swipe-hint-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #003152;
+  animation: subtleBob 2s ease-in-out infinite;
+}
+
+@keyframes subtleBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
 .vertical-carousel-track {
   position: relative;
   width: 100%;
@@ -2861,6 +3009,56 @@ html, body {
     max-height: var(--hero-height);
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+  }
+
+  .carousel-top-utility {
+    top: 8px;
+    left: 8px;
+    padding: 3px 8px;
+    gap: 5px;
+    max-width: fit-content;
+  }
+
+  .carousel-top-dot {
+    width: 5px;
+    height: 5px;
+  }
+
+  .carousel-top-badge {
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+  }
+
+  .carousel-top-divider {
+    font-size: 0.58rem;
+  }
+
+  .carousel-top-context {
+    font-size: 0.56rem;
+  }
+
+  .carousel-bottom-utility {
+    bottom: 8px;
+    left: 8px;
+    padding: 3px 8px;
+    gap: 7px;
+  }
+
+  .carousel-dots-track {
+    gap: 4px;
+  }
+
+  .carousel-nav-dot {
+    height: 5px;
+    width: 5px;
+  }
+
+  .carousel-nav-dot.dot-active {
+    width: 13px;
+  }
+
+  .carousel-swipe-hint {
+    font-size: 0.56rem;
   }
 
   .vertical-carousel-card,
